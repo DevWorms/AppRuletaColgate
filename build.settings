@@ -1,0 +1,16 @@
+settings =
+{
+    orientation = {
+	default = "portrait",
+	supported = { "portrait", }
+    },
+
+    android = {
+        usesPermissions =  {
+            "android.permission.INTERNET",
+            "android.permission.WRITE_EXTERNAL_STORAGE",
+            "android.permission.RECORD_AUDIO",
+        },
+    },
+    
+}
