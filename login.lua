@@ -136,7 +136,10 @@ end
 local function handleButtonEvent( event )
 
     if ( "ended" == event.phase ) then
-        composer.gotoScene( "registro", "crossFade", 100 )
+        frmUsername:removeSelf()
+        frmPassword:removeSelf()
+        composer.gotoScene( "registro", "crossFade", 10 )
+
     end
 end
 local function onRelease(event)    
@@ -234,7 +237,7 @@ end
 -- Called prior to the removal of scene's "view" (display group)
 function scene:destroyScene( event )
     local group = self.view
-
+ 
     -----------------------------------------------------------------------------
 
     --  INSERT code here (e.g. remove listeners, widgets, save state, etc.)
