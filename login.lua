@@ -1,49 +1,61 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require( "widget" )
-----------------------------------------------------------------------------------
--- 
---  NOTE:
---  
---  Code outside of listener functions (below) will only be executed once,
---  unless storyboard.removeScene() is called.
--- 
 ---------------------------------------------------------------------------------
+-- BEGINNING OF YOUR IMPLEMENTATION
+---------------------------------------------------------------------------------
+
+local image, text1, text2, text3, memTimer
+
+-- Touch event listener for background image
+
+
+
+-- Called when the scene's view does not exist:
+function scene:create( event )
+	 local group = self.view
+    
     local background = display.newRect(0, 0, _W, _H)
     background.x = display.contentWidth / 2
     background.y = display.contentHeight / 2
-    background:setFillColor( 0.5 )
-    background:setStrokeColor( 1, 0, 0 )
-    local loginScreen = display.newGroup()
-    loginScreen:insert(background)
-    local labelUsername = display.newText(loginScreen, "Email", 0, 0, font, 20)
+    background:setFillColor( 255 )
+    background:setStrokeColor( 255, 255, 255 )
+    group:insert(background)
 
-labelUsername:setTextColor(180, 180, 180)
-labelUsername.anchorX=1
-labelUsername.anchorX=0
-labelUsername.x = _W * 0.5 - 140
-labelUsername.y = (_H/2)-220
-loginScreen:insert(labelUsername)
+    local labelUsername = display.newText(group, "Correo Electrónico", 0, 0, font, 25)
+    labelUsername:setTextColor(0, 0, 0)
+    labelUsername.anchorX=1
+    labelUsername.anchorX=0
+    labelUsername.x = _W * 0.5 - (labelUsername.width/2)
+    labelUsername.y = (_H/2)-220
+    group:insert(labelUsername)
 
-local labelPassword = display.newText(loginScreen, "Contraseña", 0, 0, font, 20)
+    local labelPassword = display.newText(group, "Contraseña", 0, 0, font, 25)
 
-labelPassword.anchorX=1
-labelPassword.anchorX=0
-labelPassword:setTextColor(180, 180, 180)
-labelPassword.x = _W * 0.5 - 140
+    labelPassword.anchorX=1
+    labelPassword.anchorX=0
+    labelPassword:setTextColor(0, 0, 0)
+    labelPassword.x = _W * 0.5 - (labelPassword.width/2)
 
-labelPassword.y = (_H/2)-145
-loginScreen:insert(labelPassword)
+    labelPassword.y = (_H/2)-140
+    group:insert(labelPassword)
 
-local labelReturnStatus = display.newText(loginScreen, "", 0, 0, font, 18)
+    local labelReturnStatus = display.newText(group, "", 0, 0, font, 18)
 
-labelReturnStatus.anchorX=1
-labelReturnStatus.anchorX=0
-labelReturnStatus.x = _W * 0.5 - 140
-labelReturnStatus.y = (_H/2)-40
-loginScreen:insert(labelReturnStatus)
+    labelReturnStatus.anchorX=1
+    labelReturnStatus.anchorX=0
+    labelReturnStatus:setTextColor(0, 0, 0)
+    labelReturnStatus.x = _W * 0.5 - 140
+    labelReturnStatus.y = (_H/2)-40
+    group:insert(labelReturnStatus)
 
-local frmUsername = native.newTextField(0, 0, _W/2, 40)
+    local imageLogo= display.newImage("Image/logoColgate.png")
+    imageLogo.x=display.contentCenterX
+    imageLogo.y=_H -100
+    imageLogo:scale( .5, 0.5 )
+    group:insert(imageLogo)
+
+    local frmUsername = native.newTextField(0, 0, _W/2, 40)
     frmUsername.inputType = "default"
     frmUsername.font = native.newFont(font, 18)
   
@@ -58,211 +70,112 @@ local frmUsername = native.newTextField(0, 0, _W/2, 40)
     frmUsername.text = ''
 
 -- add login form field to login screen
-loginScreen:insert(frmUsername)
+    group:insert(frmUsername)
 
 -- handle field events
-function frmUsername:userInput(event)
-    if(event.phase == "began") then
-        -- you could implement tweening of object to get out of the way of the keyboard here
-        print("Began frmUsername" .. ' ' .. event.target.text)
-        event.target.text = ''
-    elseif(event.phase == "editing") then
-        -- fired with each new character
-        print("Editing frmUsername" .. ' ' .. event.target.text)
-    elseif(event.phase == "ended") then
-        -- fired when the field looses focus as a result of some other object being interacted with
-        print("Ended frmUsername" .. ' ' .. event.target.text)
-    elseif(event.phase == "submitted") then
-        -- you could implement tweening of objects to their original postion here
-        print("Submitted frmUsername" .. ' ' .. event.target.text)        
-    end
-end
-frmUsername:addEventListener("userInput",frmUsername)
+   
 
--- ----------------------------------------------------------------------------
--- CREATE PASSWORD TEXT FIELD - ADD TO LOGIN FORM
--- ----------------------------------------------------------------------------
-local frmPassword = native.newTextField(0, 0, _W /2, 40)
-    frmPassword.inputType = "default"
-    frmPassword.font = native.newFont(font, 18)
 
-    frmPassword.isEditable = true
-    frmPassword.isSecure = true
-    frmPassword.align = "center"
-    frmPassword.anchorX=1
-    frmPassword.anchorX=0
-    frmPassword.x = _W * 0.5 - 140
-    frmPassword.y = (_H/2)-100
-    frmPassword.text = ''
+    local frmPassword = native.newTextField(0, 0, _W /2, 40)
+        frmPassword.inputType = "default"
+        frmPassword.font = native.newFont(font, 18)
 
--- add login form field to login screen
-loginScreen:insert(frmPassword)
+        frmPassword.isEditable = true
+        frmPassword.isSecure = true
+        frmPassword.align = "center"
+        frmPassword.anchorX=1
+        frmPassword.anchorX=0
+        frmPassword.x = _W * 0.5 - 140
+        frmPassword.y = (_H/2)-100
+        frmPassword.text = ''
 
--- handle field events
-function frmPassword:userInput(event)
-    if(event.phase == "began") then
-        -- you could implement tweening of object to get out of the way of the keyboard here
-        print("Began Password" .. ' ' .. event.target.text)
-        event.target.text = ''
-    elseif(event.phase == "editing") then
-        -- fired with each new character
-        print("Editing Password" .. ' ' .. event.target.text)
-    elseif(event.phase == "ended") then
-        -- fired when the field looses focus as a result of some other object being interacted with
-        print("Ended Password" .. ' ' .. event.target.text)
-    elseif(event.phase == "submitted") then
-        -- you could implement tweening of objects to their original postion here
-        print("Submitted Password" .. ' ' .. event.target.text)        
-    end
-end
-frmPassword:addEventListener("userInput",frmPassword)
-local btnPresslog = function( event )
-    local userid = frmUsername.text
-    local password = frmPassword.text 
+    -- add login form field to login screen
+    group:insert(frmPassword)
 
-    print(userid)
-    print(password)
-    
-    -- stop if fields are blank
-    if(userid == '' or password == '') then
-        labelReturnStatus.text = 'A username or password is required.'
-        return
-    else
-       
 
-    end   
+    frmPassword:addEventListener("userInput",frmPassword)
+    local btnPresslog = function( event )
+        local userid = frmUsername.text
+        local password = frmPassword.text 
 
-end
-local function handleButtonEvent( event )
+        print(userid)
+        print(password)
+        
+        -- stop if fields are blank
+        if(userid == '' or password == '') then
+            labelReturnStatus.text = 'A username or password is required.'
+            return
+        else
+           
 
-    if ( "ended" == event.phase ) then
-        frmUsername:removeSelf()
-        frmPassword:removeSelf()
-        composer.gotoScene( "registro", "crossFade", 10 )
+        end   
 
     end
-end
-local function onRelease(event)    
-    
-end
--- handle onDrag
-local function btnOnDragHandler(event)
-    -- do something
-end
+    local function handleButtonEvent( event )
 
--- handle onRelease
-local function btnOnReleaseHandler(event)
-    -- do something
-end
+        if ( "ended" == event.phase ) then
+            frmUsername:removeSelf()
+            frmPassword:removeSelf()
+            composer.gotoScene( "registro", "crossFade", 10 )
+
+        end
+    end
+
 
 -- create button
-local btnLogin = widget.newButton({
-        id = "Login Button",
-        label = "Comenzar a jugar",
-        emboss = false,
-        -- Properties for a rounded rectangle button
-        shape = "roundedRect",
-        width = 200,
-        height = 40,
-        cornerRadius = 2,
-        fillColor = { default={1,1,1,1}, over={1,0.1,0.7,0.4} },
-        strokeColor = { default={2,1,4,1}, over={0.8,0.8,1,1} },
-        strokeWidth = 4,
-        onPress = btnPresslog     
-        })
-    btnLogin.x = display.contentCenterX
-    btnLogin.y = display.contentCenterY
--- add button to login screen
-loginScreen:insert(btnLogin)
+    local btnLogin = widget.newButton({
+            width = 200,
+            height = 200,
+            defaultFile = "Image/btnComenzar.png",
+            overFile = "Image/btnComenzar.png",
+            onPress = btnPresslog     
+            })
+        btnLogin.x = display.contentCenterX 
+        btnLogin.y = display.contentCenterY + 100
+    -- add button to login screen
+    group:insert(btnLogin)
 
-local btnRegistro = widget.newButton({
-        id = "Login Registro",
-        label = "Si aun no estas registrado, registrate AQUI",
-        onEvent = handleButtonEvent,
-        emboss = false,
-        -- Properties for a rounded rectangle button
-        onEvent = handleButtonEvent
+    local btnRegistro = widget.newButton({
+            id = "Login Registro",
+            label = "Si aun no estas registrado, registrate AQUI",
+            onEvent = handleButtonEvent,
+            emboss = false,
+            labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
+            -- Properties for a rounded rectangle button
+            onEvent = handleButtonEvent
 
-        })
-    btnRegistro.x = display.contentCenterX
-    btnRegistro.y = display.contentCenterY+100
--- add button to login screen
-loginScreen:insert(btnRegistro)
----------------------------------------------------------------------------------
--- BEGINNING OF YOUR IMPLEMENTATION
----------------------------------------------------------------------------------
-
--- Called when the scene's view does not exist:
-function scene:createScene( event )
-    local group = self.view
-
-    -----------------------------------------------------------------------------
-
-    --  CREATE display objects and add them to 'group' here.
-    --  Example use-case: Restore 'group' from previously saved state.
-
-    -----------------------------------------------------------------------------
-
+            })
+        btnRegistro.x = display.contentCenterX
+        btnRegistro.y = display.contentCenterY+240
+    -- add button to login screen
+    group:insert(btnRegistro)
+    ---------------------------------------
+	
 end
 
-
--- Called immediately after scene has moved onscreen:
-function scene:enterScene( event )
-    local group = self.view
-
-    print("entered")
-
-    -----------------------------------------------------------------------------
-
-    --  INSERT code here (e.g. start timers, load audio, start listeners, etc.)
-
-    -----------------------------------------------------------------------------
-
+function scene:show( event )
+	
+	
+	
 end
 
-
--- Called when scene is about to move offscreen:
-function scene:exitScene( event )
-    local group = self.view
-
-    -----------------------------------------------------------------------------
-
-    --  INSERT code here (e.g. stop timers, remove listeners, unload sounds, etc.)
-
-    -----------------------------------------------------------------------------
-
+function scene:hide( event )
+	
+	
+	
 end
 
-
--- Called prior to the removal of scene's "view" (display group)
-function scene:destroyScene( event )
-    local group = self.view
- 
-    -----------------------------------------------------------------------------
-
-    --  INSERT code here (e.g. remove listeners, widgets, save state, etc.)
-
-    -----------------------------------------------------------------------------
-
+function scene:destroy( event )
+	print( "((destroying scene 1's view))" )
 end
 
 ---------------------------------------------------------------------------------
--- END OF YOUR IMPLEMENTATION
----------------------------------------------------------------------------------
 
--- "createScene" event is dispatched if scene's view does not exist
-scene:addEventListener( "createScene", scene )
-
--- "enterScene" event is dispatched whenever scene transition has finished
-scene:addEventListener( "enterScene", scene )
-
--- "exitScene" event is dispatched before next scene's transition begins
-scene:addEventListener( "exitScene", scene )
-
--- "destroyScene" event is dispatched before view is unloaded, which can be
--- automatically unloaded in low memory situations, or explicitly via a call to
--- storyboard.purgeScene() or storyboard.removeScene().
-scene:addEventListener( "destroyScene", scene )
+-- Listener setup
+scene:addEventListener( "create", scene )
+scene:addEventListener( "show", scene )
+scene:addEventListener( "hide", scene )
+scene:addEventListener( "destroy", scene )
 
 ---------------------------------------------------------------------------------
 

@@ -1,37 +1,42 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require( "widget" )
-----------------------------------------------------------------------------------
--- 
---  NOTE:
---  
---  Code outside of listener functions (below) will only be executed once,
---  unless storyboard.removeScene() is called.
--- 
 ---------------------------------------------------------------------------------
-local background = display.newRect(0, 0, _W, _H)
+-- BEGINNING OF YOUR IMPLEMENTATION
+---------------------------------------------------------------------------------
+
+local image, text1, text2, text3, memTimer
+
+-- Touch event listener for background image
+
+
+
+-- Called when the scene's view does not exist:
+function scene:create( event )
+	local sceneGroup = self.view
+	local background = display.newRect(0, 0, _W, _H)
     background.x = display.contentWidth / 2
     background.y = display.contentHeight / 2
-    background:setFillColor( 0.2 )
-    background:setStrokeColor( 4, 3, 9 )
-    local RegistroScreen = display.newGroup()
-    RegistroScreen:insert(background)
+    background:setFillColor( 255 )
+    background:setStrokeColor( 255, 255, 255 )
+    
+    sceneGroup:insert(background)
 
-    local labelTitulo = display.newText(RegistroScreen, "REGISTRO", 0, 0, font, 25)
-    labelTitulo:setTextColor(180, 180, 180)
+    local labelTitulo = display.newText(sceneGroup, "REGISTRO", 0, 0, font, 25)
+    labelTitulo:setTextColor(0, 0, 0)
     labelTitulo.anchorX=1
     labelTitulo.anchorX=0
     labelTitulo.x = _W/2 - (labelTitulo.width /2)
     labelTitulo.y = 50
-    RegistroScreen:insert(labelTitulo)
+    sceneGroup:insert(labelTitulo)
 
-    local labelNombre = display.newText(RegistroScreen, "Nombre", 0, 0, font, 25)
-    labelNombre:setTextColor(180, 180, 180)
+    local labelNombre = display.newText(sceneGroup, "Nombre", 0, 0, font, 25)
+    labelNombre:setTextColor(0, 0, 0)
     labelNombre.anchorX=1
     labelNombre.anchorX=0
     labelNombre.x = _W/2 - (labelNombre.width /2)
     labelNombre.y = (_H/8)-50
-    RegistroScreen:insert(labelNombre)
+    sceneGroup:insert(labelNombre)
 
     local frmNombre = native.newTextField(0, 0, _W /2, 40)
     frmNombre.inputType = "default"
@@ -43,15 +48,15 @@ local background = display.newRect(0, 0, _W, _H)
     frmNombre.x = _W * 0.5 - (frmNombre.width/2)
     frmNombre.y = (_H/8)
     frmNombre.text = ''
-    RegistroScreen:insert(frmNombre)
+    sceneGroup:insert(frmNombre)
 
-    local labelApellido = display.newText(RegistroScreen, "Apellido", 0, 0, font, 25)
-    labelApellido:setTextColor(180, 180, 180)
+    local labelApellido = display.newText(sceneGroup, "Apellido", 0, 0, font, 25)
+    labelApellido:setTextColor(0, 0, 0)
     labelApellido.anchorX=1
     labelApellido.anchorX=0
     labelApellido.x = _W/2 - (labelApellido.width /2)
     labelApellido.y = (_H/8)*2-50
-    RegistroScreen:insert(labelApellido)
+    sceneGroup:insert(labelApellido)
 
     local frmApellido = native.newTextField(0, 0, _W /2, 40)
     frmApellido.inputType = "default"
@@ -63,15 +68,81 @@ local background = display.newRect(0, 0, _W, _H)
     frmApellido.x = _W * 0.5 - (frmApellido.width/2)
     frmApellido.y = (_H/8)*2
     frmApellido.text = ''
-    RegistroScreen:insert(frmApellido)
+    sceneGroup:insert(frmApellido)
+-----------------------------------------------------
+	-- Create two tables to hold data for days and years      
+	local days = {}
+	local years = {}
 
-    local labelCorreo = display.newText(RegistroScreen, "Email", 0, 0, font, 25)
-    labelCorreo:setTextColor(180, 180, 180)
+	-- Populate the "days" table
+	for d = 1, 31 do
+	    days[d] = d
+	end
+
+	-- Populate the "years" table
+	for y = 1, 48 do
+	    years[y] = 1969 + y
+	end
+
+	-- Configure the picker wheel columns
+	local columnData = 
+	{
+	    -- Months
+	    { 
+	        align = "left",
+	        width = 140,
+	        startIndex = 11,
+	       -- labels = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
+	        labels = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }
+	    },
+	    -- Days
+	    {
+	        align = "center",
+	        width = 60,
+	        startIndex = 18,
+	        labels = days
+	    },
+	    -- Years
+	    {
+	        align = "center",
+	        width = 80,
+	        startIndex = 20,
+	        labels = years
+	    }
+	}
+
+	-- Create the widget
+	local pickerWheel = widget.newPickerWheel(
+	    {
+
+	        top = display.contentHeight - 222,
+	        columns = columnData
+	    }
+	)
+
+	pickerWheel.x= _W/2
+	pickerWheel.y=(_H/8)*3-50
+
+	sceneGroup:insert(pickerWheel)
+	-- Get the table of current values for all columns
+	-- This can be performed on a button tap, timer execution, or other event
+	local values = pickerWheel:getValues()
+
+	-- Get the value for each column in the wheel (by column index)
+	local currentMonth = values[1].value
+	local currentDay = values[2].value
+	local currentYear = values[3].value
+
+	print( currentMonth, currentDay, currentYear )
+
+-------------------------------------------
+    local labelCorreo = display.newText(sceneGroup, "Email", 0, 0, font, 25)
+    labelCorreo:setTextColor(0, 0, 0)
     labelCorreo.anchorX=1
     labelCorreo.anchorX=0
     labelCorreo.x = _W/2 - (labelCorreo.width /2)
     labelCorreo.y = (_H/8)*4-50
-    RegistroScreen:insert(labelCorreo)
+    sceneGroup:insert(labelCorreo)
 
     local frmCorreo = native.newTextField(0, 0, _W /2, 40)
     frmCorreo.inputType = "default"
@@ -83,15 +154,15 @@ local background = display.newRect(0, 0, _W, _H)
     frmCorreo.x = _W * 0.5 - (frmCorreo.width/2)
     frmCorreo.y = (_H/8)*4
     frmCorreo.text = ''
-    RegistroScreen:insert(frmCorreo)
+    sceneGroup:insert(frmCorreo)
 
-    local labelContrasena = display.newText(RegistroScreen, "Contraseña", 0, 0, font, 25)
-    labelContrasena:setTextColor(180, 180, 180)
+    local labelContrasena = display.newText(sceneGroup, "Contraseña", 0, 0, font, 25)
+    labelContrasena:setTextColor(0, 0, 0)
     labelContrasena.anchorX=1
     labelContrasena.anchorX=0
     labelContrasena.x = _W/2 - (labelContrasena.width /2)
     labelContrasena.y = (_H/8)*5-50
-    RegistroScreen:insert(labelContrasena)
+    sceneGroup:insert(labelContrasena)
 
     local frmContrasena = native.newTextField(0, 0, _W /2, 40)
     frmContrasena.inputType = "default"
@@ -103,15 +174,15 @@ local background = display.newRect(0, 0, _W, _H)
     frmContrasena.x = _W * 0.5 - (frmContrasena.width/2)
     frmContrasena.y = (_H/8)*5
     frmContrasena.text = ''
-    RegistroScreen:insert(frmContrasena)
+    sceneGroup:insert(frmContrasena)
 
-    local labelContrasenaN = display.newText(RegistroScreen, "Confirma Contraseña", 0, 0, font, 25)
-    labelContrasenaN:setTextColor(180, 180, 180)
+    local labelContrasenaN = display.newText(sceneGroup, "Confirma Contraseña", 0, 0, font, 25)
+    labelContrasenaN:setTextColor(0, 0, 0)
     labelContrasenaN.anchorX=1
     labelContrasenaN.anchorX=0
     labelContrasenaN.x = _W/2 - (labelContrasenaN.width /2)
     labelContrasenaN.y = (_H/8)*6-50
-    RegistroScreen:insert(labelContrasenaN)
+    sceneGroup:insert(labelContrasenaN)
 
     local frmContrasenaN = native.newTextField(0, 0, _W /2, 40)
     frmContrasenaN.inputType = "default"
@@ -123,28 +194,23 @@ local background = display.newRect(0, 0, _W, _H)
     frmContrasenaN.x = _W * 0.5 - (frmContrasenaN.width/2)
     frmContrasenaN.y = (_H/8)*6
     frmContrasenaN.text = ''
-    RegistroScreen:insert(frmContrasenaN)
+    sceneGroup:insert(frmContrasenaN)
 
 local btnPresslog = function( event )
      print("press")
-  
-    local currScene = composer.getSceneName( "current" )
+     frmContrasena:removeSelf()
+     frmCorreo:removeSelf()
+     frmNombre:removeSelf()
+     frmApellido:removeSelf()
+     frmContrasenaN:removeSelf()   
+  composer.gotoScene( "graciasRegistro", "crossFade", 100 )
 
-    composer.removeScene( currScene )
- if ( "ended" == event.phase ) then
-
-        frmNombre:removeSelf()
-        frmApellido:removeSelf()
-        frmCorreo:removeSelf()
-        frmContrasena:removeSelf()
-        frmContrasenaN:removeSelf()
-        
-       
-    end
+   
+ 
 
 end
 
-    local btnLogin = widget.newButton({
+    local btnComenzar = widget.newButton({
         id = "registrar button",
         label = "REGISTRAR",
         emboss = false,
@@ -158,85 +224,36 @@ end
         strokeWidth = 4,
         onPress = btnPresslog     
         })
-    btnLogin.x = display.contentCenterX
-    btnLogin.y = (_H/8)*7
+    btnComenzar.x = display.contentCenterX
+    btnComenzar.y = (_H/8)*7
 -- add button to login screen
-RegistroScreen:insert(btnLogin)
----------------------------------------------------------------------------------
--- BEGINNING OF YOUR IMPLEMENTATION
----------------------------------------------------------------------------------
-
--- Called when the scene's view does not exist:
-function scene:createScene( event )
-    local group = self.view
-
-    -----------------------------------------------------------------------------
-
-    --  CREATE display objects and add them to 'group' here.
-    --  Example use-case: Restore 'group' from previously saved state.
-
-    -----------------------------------------------------------------------------
-
+sceneGroup:insert(btnComenzar)
+	
 end
 
-
--- Called immediately after scene has moved onscreen:
-function scene:enterScene( event )
-    local group = self.view
-
-    print("entered")
-
-    -----------------------------------------------------------------------------
-
-    --  INSERT code here (e.g. start timers, load audio, start listeners, etc.)
-
-    -----------------------------------------------------------------------------
-
+function scene:show( event )
+	
+	
+	
 end
 
-
--- Called when scene is about to move offscreen:
-function scene:exitScene( event )
-    local group = self.view
-
-    -----------------------------------------------------------------------------
-
-    --  INSERT code here (e.g. stop timers, remove listeners, unload sounds, etc.)
-
-    -----------------------------------------------------------------------------
-
+function scene:hide( event )
+	
+	
+	
 end
 
-
--- Called prior to the removal of scene's "view" (display group)
-function scene:destroyScene( event )
-    local group = self.view
-
-    -----------------------------------------------------------------------------
-
-    --  INSERT code here (e.g. remove listeners, widgets, save state, etc.)
-
-    -----------------------------------------------------------------------------
-
+function scene:destroy( event )
+	print( "((destroying scene 1's view))" )
 end
 
 ---------------------------------------------------------------------------------
--- END OF YOUR IMPLEMENTATION
----------------------------------------------------------------------------------
 
--- "createScene" event is dispatched if scene's view does not exist
-scene:addEventListener( "createScene", scene )
-
--- "enterScene" event is dispatched whenever scene transition has finished
-scene:addEventListener( "enterScene", scene )
-
--- "exitScene" event is dispatched before next scene's transition begins
-scene:addEventListener( "exitScene", scene )
-
--- "destroyScene" event is dispatched before view is unloaded, which can be
--- automatically unloaded in low memory situations, or explicitly via a call to
--- storyboard.purgeScene() or storyboard.removeScene().
-scene:addEventListener( "destroyScene", scene )
+-- Listener setup
+scene:addEventListener( "create", scene )
+scene:addEventListener( "show", scene )
+scene:addEventListener( "hide", scene )
+scene:addEventListener( "destroy", scene )
 
 ---------------------------------------------------------------------------------
 
