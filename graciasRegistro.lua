@@ -30,7 +30,7 @@ function scene:create( event )
 	imageDiente:scale( .5, 0.5 )
 	sceneGroup:insert( imageDiente )
 	local btnPresslog = function( event )
-	 -- composer.gotoScene( "login", "crossFade", 10 )  
+	  composer.gotoScene( "ruletaColgate", "crossFade", 10 )  
 
 	end
 	local btnLogin = widget.newButton({
