@@ -15,25 +15,48 @@ local scene = composer.newScene()
     local objetosSalidos={}
     local numeroDeGiros=0
     local ruleta
+    local btnJugar
     local bandera=false
+    local luzAma
+    local luzAzu
+    local luzRosa
+    local luzMora
+    local luzVer
     
 local function btnTapJugar(event)
     --esto es para quitar el bloqueo 
-    if introIsPlaying == true then
-      local audioChannel = audio.stop() 
-      introIsPlaying = false
-    end
+    
    composer.showOverlay( "bloqueo" ,{ isModal = true } )
    pres=true
-    aleatorio=math.random(1, 5)--Escoge el objeto aleatorio que caera en la ruleta
-   contadordevueltas=0
-   velocidad=5
-   posanterior= ruleta.rotation
-   para=0
-   paravelo=0
+  --  aleatorio=math.random(1, 5)--Escoge el objeto aleatorio que caera en la ruleta
+   --contadordevueltas=0
+   --velocidad=5
+   --posanterior= ruleta.rotation
+   --para=0
+   --paravelo=0
    
    
     
+end
+
+local function btnTapIntruc( event )
+  composer.showOverlay( "instrucciones" ,{ isModal = true } )
+ 
+end
+function enciende( ... )
+  -- body
+
+  if pres==true then
+    for i= 0,4 do -- Resta la posicion anterior del objeto que cayo para que estos concuerden
+            if i==0 then
+
+            luzAma:filename("Image/btnAma.png")
+            --delay(500)
+                
+            end
+            
+        end
+  end
 end
 
 function gira()
@@ -82,6 +105,8 @@ function gira()
 
         if pres==false then
           composer.removeScene( "bloqueo" )
+          --composer.gotoScene( "preguntas", "Fade" )  
+          composer.showOverlay( "preguntas" ,{ isModal = true } )
         end
        
            
@@ -100,17 +125,7 @@ function gira()
     end
 end
 
-local function btnTap(event)
-    --esto es para quitar el bloqueo 
-    if introIsPlaying == true then
-    local audioChannel = audio.stop() 
-   introIsPlaying = false
-    end
-   
-   composer.gotoScene ( "ruletaColgate", { effect = "fade"} )
-   print(event.target.destination)
-   return true
-end
+
 
 
 function scene:successful() 
@@ -136,8 +151,8 @@ function scene:create( event )
      local background = display.newRect(0, 0, _W, _H)
       background.x = display.contentWidth / 2
       background.y = display.contentHeight / 2
-      background:setFillColor( 0 )
-      background:setStrokeColor( 1, 1, 1 )
+      background:setFillColor( .24)
+
       group:insert(background)
     local labelNombre = display.newText(group, "Hola Luna", (centerX/6)*2, centerY/13, font, 30)
     labelNombre:setTextColor(255, 255, 255)
@@ -163,27 +178,44 @@ function scene:create( event )
     corazon3:translate( (_W/6)*5.5, centerY/6)
     corazon3:scale(.5,.5)
 
-    ruleta=display.newImage(group,"Image/ruleta.png")
-    ruleta:translate( centerX, centerY-(centerY/6) )
-    ruleta.rotation=0
-    ruleta:scale(.6,.6)
-    ruleta: addEventListener("tap", btnTapJugar)
-    
-    
-    local imageDiente=  display.newImage(group,"Image/diente.png")
-    imageDiente:translate( centerX, centerY+((centerY/5)*3.7) )
-   
-    imageDiente:scale( .4, .4 )
+    luzAma= display.newImage(group,"Image/btnGris.png")
+    luzAma:translate( (_W/4)*1.2, (_H/9)*3 )
+    luzAma:scale(.35,.35)
 
-    local btnInfo=  display.newImage(group,"Image/infoBoton.png")
-    btnInfo:translate( centerX/6, centerY+((centerY/5)*4.5) )
-   -- btnJugar:addEventListener("tap", btnTapJugar)
-    btnInfo:scale( .5, .5 )
+    luzVer= display.newImage(group,"Image/btnGris.png")
+    luzVer:translate( (_W/4)*2.8, (_H/9)*3 )
+    luzVer:scale(.35,.35)
+
+    luzAzu= display.newImage(group,"Image/btnGris.png")
+    luzAzu:translate( (_W/4)*1.2, (_H/9)*5 )
+    luzAzu:scale(.35,.35)
+
+    luzMora= display.newImage(group,"Image/btnGris.png")
+    luzMora:translate( (_W/4)*2.8, (_H/9)*5 )
+    luzMora:scale(.35,.35)
+
+    luzRosa= display.newImage(group,"Image/btnGris.png")
+    luzRosa:translate( (_W/4)*1.2, (_H/9)*7 )
+    luzRosa:scale(.35,.35)
+
+    btnJugar=display.newImage(group,"Image/btnJugar.png")
+    btnJugar:translate( (_W/4)*2.8, (_H/9)*7 )
+    btnJugar.rotation=0
+    btnJugar:scale(.5,.5)
+    btnJugar: addEventListener("tap", btnTapJugar)
+    
+    
+   -- local imageDiente=  display.newImage(group,"Image/diente.png")
+    --imageDiente:translate( centerX, centerY+((centerY/5)*3.7) )
+   
+   -- imageDiente:scale( .4, .4 )
+
+
     
      composer.removeScene( "bloqueo" )
     introIsPlaying=true
     
-     Runtime:addEventListener("enterFrame", gira )
+     Runtime:addEventListener("enterFrame", enciende )
 end
 
 

@@ -106,7 +106,9 @@ function scene:create( event )
             labelReturnStatus.text = 'A username or password is required.'
             return
         else
-           
+            frmUsername:removeSelf()
+            frmPassword:removeSelf()
+           composer.gotoScene( "ruletaColgate", "crossFade", 10 )
 
         end   
 

@@ -212,16 +212,19 @@ end
 
     local btnComenzar = widget.newButton({
         id = "registrar button",
-        label = "REGISTRAR",
+        --label = "REGISTRAR",
         emboss = false,
+        defaultFile = "Image/btnRegistro.png",
+        overFile = "Image/btnRegistro.png",
+
         -- Properties for a rounded rectangle button
-        shape = "roundedRect",
-        width = 200,
-        height = 40,
-        cornerRadius = 2,
-        fillColor = { default={1,1,1,1}, over={1,0.1,0.7,0.4} },
-        strokeColor = { default={2,1,4,1}, over={0.8,0.8,1,1} },
-        strokeWidth = 4,
+        --shape = "roundedRect",
+        --width = 200,
+        --height = 40,
+        --cornerRadius = 2,
+        --fillColor = { default={1,1,1,1}, over={1,0.1,0.7,0.4} },
+        --strokeColor = { default={2,1,4,1}, over={0.8,0.8,1,1} },
+        --strokeWidth = 4,
         onPress = btnPresslog     
         })
     btnComenzar.x = display.contentCenterX

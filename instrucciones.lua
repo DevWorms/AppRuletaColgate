@@ -6,56 +6,53 @@ local widget = require( "widget" )
 ---------------------------------------------------------------------------------
 
 local image, text1, text2, text3, memTimer
-
+  local centerX= _W/2
+  local centerY= _H/2
 -- Touch event listener for background image
 
 
 
 -- Called when the scene's view does not exist:
 function scene:create( event )
-	local sceneGroup = self.view
+	local group = self.view
 	
 	local background = display.newRect(0, 0, _W, _H)
     background.x = display.contentWidth / 2
     background.y = display.contentHeight / 2
-	background:setFillColor( .24)
-    
+    background:setFillColor( .24)
+	group:insert( background )
 	
-	sceneGroup:insert( background )
 
-	local imageDiente= display.newImage("Image/diente.png")
-	imageDiente.x= display.contentWidth / 2
-	imageDiente.y=display.contentWidth/4
-	imageDiente:scale( .5, 0.5 )
-	sceneGroup:insert( imageDiente )
+    local labelRespuesta = display.newText(group, "Instrucciones", (centerX),(_H/6)*2, font, 50)
+    labelRespuesta:setTextColor(236, 124, 38) 
+    group:insert(labelRespuesta)
 
-	local imageTexto= display.newImage("Image/textGracias.png")
-	imageTexto.x= display.contentWidth / 2
-	imageTexto.y= display.contentCenterY/2 +100
-	imageTexto:scale( .7, 0.7 )
-	sceneGroup:insert( imageTexto )
+    local labelTexto = display.newText(group, "Aqui va el texto de las instrucciones", (centerX),(_H/6)*2.8, font, 30)
+    labelTexto:setTextColor(255, 255, 255) 
+    group:insert(labelTexto)
 
-	local btnPresslog = function( event )
+	
+
+
+    local btnPresslog = function( event )
 	  composer.gotoScene( "ruletaColgate", "crossFade", 10 )  
 
 	end
-	local btnLogin = widget.newButton({
+	
+
+	local btnConti = widget.newButton({
         width = 200,
         height = 200,
-        defaultFile = "Image/btnComenzar.png",
-        overFile = "Image/btnComenzar.png",
+        defaultFile = "Image/btnConti.png",
+        overFile = "Image/btnConti.png",
         onPress = btnPresslog     
         })
-    btnLogin.x = display.contentCenterX 
-    btnLogin.y = display.contentCenterY + 100
+    btnConti.x = display.contentCenterX 
+    btnConti.y = (_H/6)*5
 
-    sceneGroup:insert( btnLogin )
+    group:insert( btnConti )
 
-	local imageLogo= display.newImage("Image/logoColgate.png")
-	imageLogo.x=display.contentCenterX
-	imageLogo.y=_H -100
-	imageLogo:scale( .5, 0.5 )
-	sceneGroup:insert( imageLogo )
+	
 
 
 	
