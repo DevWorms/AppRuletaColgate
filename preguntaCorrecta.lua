@@ -22,14 +22,23 @@ function scene:create( event )
     background:setFillColor( .24)
 	group:insert( background )
 
-	local labelNombre = display.newText(group, "Hola Luna", (centerX/6)*2, centerY/13, font, 30)
+    local lineaRoja= display.newImage(group,"Image/lineaR.png")
+    lineaRoja:translate( centerX,centerY/15 )
+    group:insert(lineaRoja)
+    local labelNombre = display.newText(group, "Hola Luna", (centerX/6)*2, centerY/15, font, 30)
     labelNombre:setTextColor(255, 255, 255)
     group:insert(labelNombre)
+
+    
+    local lineaNegra= display.newImage(group,"Image/lineaN.png")
+    lineaNegra:translate( centerX, centerY/6)
+    lineaNegra:scale(1,.6)
+    group:insert(lineaNegra)
 
     local moneda= display.newImage(group,"Image/moneda.png")
     moneda:translate( centerX/6, centerY/6)
     moneda:scale(.5,.5)
-	group:insert(moneda)
+    group:insert(moneda)
 
     local labelmoneda = display.newText(group, "$0", (centerX/6)*1.8, centerY/6, font, 22)
     labelmoneda:setTextColor(255, 255, 255)
@@ -76,7 +85,7 @@ function scene:create( event )
 
 
     local btnPresslog = function( event )
-	  composer.gotoScene( "puntosPregunta", "crossFade", 10 )  
+	  composer.gotoScene( "puntosPregunta", "slideLeft", 500 )  
 
 	end
 	

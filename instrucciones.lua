@@ -35,7 +35,7 @@ function scene:create( event )
 
 
     local btnPresslog = function( event )
-	  composer.gotoScene( "ruletaColgate", "crossFade", 10 )  
+	  composer.gotoScene( "ruletaColgate", "crossFade", 500 )  
 
 	end
 	

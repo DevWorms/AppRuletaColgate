@@ -22,6 +22,12 @@ function scene:create( event )
     
     sceneGroup:insert(background)
 
+     local fondoPunteado= display.newImage("Image/fondoCel.png")
+    fondoPunteado.x= display.contentWidth / 2
+    fondoPunteado.y=display.contentHeight/2
+  
+    sceneGroup:insert( fondoPunteado )
+
     local labelTitulo = display.newText(sceneGroup, "REGISTRO", 0, 0, font, 25)
     labelTitulo:setTextColor(0, 0, 0)
     labelTitulo.anchorX=1
@@ -203,7 +209,7 @@ local btnPresslog = function( event )
      frmNombre:removeSelf()
      frmApellido:removeSelf()
      frmContrasenaN:removeSelf()   
-  composer.gotoScene( "graciasRegistro", "crossFade", 100 )
+  composer.gotoScene( "graciasRegistro", "slideUp", 500 )
 
    
  

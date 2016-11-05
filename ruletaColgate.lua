@@ -22,13 +22,21 @@ local scene = composer.newScene()
     local luzRosa
     local luzMora
     local luzVer
+    local luzPrendidaAma
+    local luzPrendidaVer
+    local luzPrendidaAzu
+    local luzPrendidaMora
+    local luzPrendidaRosa
+
     
 local function btnTapJugar(event)
     --esto es para quitar el bloqueo 
     
    composer.showOverlay( "bloqueo" ,{ isModal = true } )
    pres=true
-  --  aleatorio=math.random(1, 5)--Escoge el objeto aleatorio que caera en la ruleta
+    aleatorio=math.random(1, 5) --Escoge el objeto aleatorio que caera en la ruleta
+   enciende()
+  
    --contadordevueltas=0
    --velocidad=5
    --posanterior= ruleta.rotation
@@ -39,6 +47,7 @@ local function btnTapJugar(event)
     
 end
 
+
 local function btnTapIntruc( event )
   composer.showOverlay( "instrucciones" ,{ isModal = true } )
  
@@ -47,82 +56,76 @@ function enciende( ... )
   -- body
 
   if pres==true then
-    for i= 0,4 do -- Resta la posicion anterior del objeto que cayo para que estos concuerden
-            if i==0 then
-
-            luzAma:filename("Image/btnAma.png")
-            --delay(500)
-                
-            end
-            
-        end
-  end
-end
-
-function gira()
-    
-    if pres== true then
-        ruleta.rotation=ruleta.rotation +velocidad
-        contadordevueltas=contadordevueltas+velocidad
-       
-        if aleatorio==1 then -- Pone el objeto que cayo asi como su grados de rotacion y su velocidad de parada
-            objeto= "clean" -- revisar estas palabras por que son las que estan en la imagen pero no en el word
-            para=10
-            paravelo=2
-        elseif aleatorio==2 then
-             objeto= "cookie"
-              para=85
-              paravelo=2
-        elseif aleatorio==3 then
-            objeto= "fresbee"
-             para=157
-             paravelo=2
-        elseif aleatorio==4 then
-            objeto= "park"
-             para=230
-             paravelo=2.5
-        elseif aleatorio==5 then
-            objeto= "plate"
-             para=320
-             paravelo=2.5
-        
-            
-        end
-        for i= 0,posanterior do -- Resta la posicion anterior del objeto que cayo para que estos concuerden
-            if para<=0 then
-                para=360
-            end
-            para=para-1
-        end
-        print("Objeto que cayo "..objeto)
-        --print("Valor Para "..para)
-        --print("Valor Pos anterior"..posanterior)
-    end
-    if contadordevueltas>=360 and contadordevueltas<360*2 then--a lenta la ruleta
-         velocidad= paravelo
-    elseif contadordevueltas>=360*2 + para  then-- Detiene la ruleta
-        pres=false
-
-        if pres==false then
-          composer.removeScene( "bloqueo" )
-          --composer.gotoScene( "preguntas", "Fade" )  
-          composer.showOverlay( "preguntas" ,{ isModal = true } )
-        end
-       
-           
-           
       
-       if bandera==true then
-           bandera=false
-          
+      for i= 0,2 do -- Resta la posicion anterior del objeto que cayo para que estos concuerden
+            luzPrendidaAma.isVisible=true
+            timer.performWithDelay( 200, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
             
-       else
-           numeroDeGiros=numeroDeGiros+1
-           
-       end
-       
-        contadordevueltas=0
-    end
+            timer.performWithDelay( 400, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
+            
+            timer.performWithDelay( 600, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true end )
+
+            timer.performWithDelay( 800, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true end )
+
+            timer.performWithDelay( 1000, function() luzPrendidaRosa.isVisible=false luzPrendidaAma.isVisible=true end )
+            
+            if i==1 then
+              print("entro")
+            if aleatorio == 1 then
+                timer.performWithDelay( 1500, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
+                
+                timer.performWithDelay( 2000, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
+                
+                timer.performWithDelay( 2500, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true end )
+
+                timer.performWithDelay( 3000, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true end )
+
+                timer.performWithDelay( 3500, function() luzPrendidaRosa.isVisible=false luzPrendidaAma.isVisible=true end )
+            else
+                timer.performWithDelay( 1300, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
+                
+                timer.performWithDelay( 1600, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
+                
+                timer.performWithDelay( 1900, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true end )
+
+                timer.performWithDelay( 2200, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true end )
+
+                timer.performWithDelay( 2500, function() luzPrendidaRosa.isVisible=false luzPrendidaAma.isVisible=true end )
+            end
+            elseif i==2 then
+                  print(aleatorio)
+                if aleatorio==1 then
+                  timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) composer.gotoScene( "preguntas", "slideDown", 500 )   end )
+                elseif aleatorio == 2 then
+                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
+                  timer.performWithDelay( 3500, function() composer.removeScene( "bloqueo" ) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                elseif aleatorio == 3 then
+                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
+                  timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
+                  timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                elseif aleatorio == 4 then
+                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
+                  timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
+                  timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true end )
+                  timer.performWithDelay( 4500, function() composer.removeScene( "bloqueo" ) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                elseif aleatorio == 5 then
+                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
+                  timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
+                  timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true end )
+                  timer.performWithDelay( 4500, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true end )
+                  timer.performWithDelay( 5000, function() composer.removeScene( "bloqueo" )  composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                end
+              print("para")
+            end
+        end
+    
+            
+            
+                
+            
+            
+  end
+  
 end
 
 
@@ -154,56 +157,111 @@ function scene:create( event )
       background:setFillColor( .24)
 
       group:insert(background)
-    local labelNombre = display.newText(group, "Hola Luna", (centerX/6)*2, centerY/13, font, 30)
+
+    local lineaRoja= display.newImage(group,"Image/lineaR.png")
+    lineaRoja:translate( centerX,centerY/15 )
+    group:insert(lineaRoja)
+    local labelNombre = display.newText(group, "Hola Luna", (centerX/6)*2, centerY/15, font, 30)
     labelNombre:setTextColor(255, 255, 255)
+    group:insert(labelNombre)
+
+    
+    local lineaNegra= display.newImage(group,"Image/lineaN.png")
+    lineaNegra:translate( centerX, centerY/6)
+    lineaNegra:scale(1,.6)
+    group:insert(lineaNegra)
 
     local moneda= display.newImage(group,"Image/moneda.png")
     moneda:translate( centerX/6, centerY/6)
     moneda:scale(.5,.5)
+    group:insert(moneda)
+
     local labelmoneda = display.newText(group, "$0", (centerX/6)*1.8, centerY/6, font, 22)
     labelmoneda:setTextColor(255, 255, 255)
+    group:insert(labelNombre)
+    
 
     local corazon1= display.newImage(group,"Image/corazon.png")
-
     corazon1:translate( (_W/6)*4.5, centerY/6)
     corazon1:scale(.5,.5)
+    group:insert(corazon1)
 
     local corazon2= display.newImage(group,"Image/corazon.png")
-
     corazon2:translate( (_W/6)*5, centerY/6)
     corazon2:scale(.5,.5)
-
+    group:insert(corazon2)
+    
     local corazon3= display.newImage(group,"Image/corazon.png")
-
     corazon3:translate( (_W/6)*5.5, centerY/6)
     corazon3:scale(.5,.5)
+    group:insert(corazon3)
 
     luzAma= display.newImage(group,"Image/btnGris.png")
-    luzAma:translate( (_W/4)*1.2, (_H/9)*3 )
-    luzAma:scale(.35,.35)
+    luzAma:translate( (_W/4)*1.2, (_H/9)*2 )
+    luzAma:scale(1.3,1.3)
+    group:insert(luzAma)
+
+    luzPrendidaAma= display.newImage("Image/btnAma.png")
+    luzPrendidaAma:translate( (_W/4)*1.2, (_H/9)*2 )
+    luzPrendidaAma:scale(1.3,1.3)
+    luzPrendidaAma.isVisible=false
+    group:insert(luzPrendidaAma)
 
     luzVer= display.newImage(group,"Image/btnGris.png")
-    luzVer:translate( (_W/4)*2.8, (_H/9)*3 )
-    luzVer:scale(.35,.35)
+    luzVer:translate( (_W/4)*2.8, (_H/9)*2 )
+    luzVer:scale(1.3,1.3)
+    group:insert(luzVer)
+
+    luzPrendidaVer= display.newImage(group,"Image/btnVer.png")
+    luzPrendidaVer:translate( (_W/4)*2.8, (_H/9)*2 )
+    luzPrendidaVer:scale(1.3,1.3)
+    luzPrendidaVer.isVisible=false
+    group:insert(luzPrendidaVer)
 
     luzAzu= display.newImage(group,"Image/btnGris.png")
-    luzAzu:translate( (_W/4)*1.2, (_H/9)*5 )
-    luzAzu:scale(.35,.35)
+    luzAzu:translate( (_W/4)*1.2, (_H/9)*4 )
+    luzAzu:scale(1.3,1.3)
+    group:insert(luzAzu)
+
+    luzPrendidaAzu= display.newImage(group,"Image/btnAzu.png")
+    luzPrendidaAzu:translate( (_W/4)*1.2, (_H/9)*4 )
+    luzPrendidaAzu.isVisible=false
+    luzPrendidaAzu:scale(1.3,1.3)
+    group:insert(luzPrendidaAzu)
 
     luzMora= display.newImage(group,"Image/btnGris.png")
-    luzMora:translate( (_W/4)*2.8, (_H/9)*5 )
-    luzMora:scale(.35,.35)
+    luzMora:translate( (_W/4)*2.8, (_H/9)*4 )
+    luzMora:scale(1.3,1.3)
+    group:insert(luzMora)
+
+    luzPrendidaMora= display.newImage(group,"Image/btnMora.png")
+    luzPrendidaMora:translate( (_W/4)*2.8, (_H/9)*4 )
+    luzPrendidaMora.isVisible=false
+    luzPrendidaMora:scale(1.3,1.3)
+    group:insert(luzPrendidaMora)
 
     luzRosa= display.newImage(group,"Image/btnGris.png")
-    luzRosa:translate( (_W/4)*1.2, (_H/9)*7 )
-    luzRosa:scale(.35,.35)
+    luzRosa:translate( (_W/4)*1.2, (_H/9)*6 )
+    luzRosa:scale(1.3,1.3)
+    group:insert(luzRosa)
+
+    luzPrendidaRosa= display.newImage(group,"Image/btnRosa.png")
+    luzPrendidaRosa:translate( (_W/4)*1.2, (_H/9)*6 )
+    luzPrendidaRosa.isVisible=false
+    luzPrendidaRosa:scale(1.3,1.3)
+    group:insert(luzPrendidaRosa)
 
     btnJugar=display.newImage(group,"Image/btnJugar.png")
-    btnJugar:translate( (_W/4)*2.8, (_H/9)*7 )
+    btnJugar:translate( (_W/4)*2.8, (_H/9)*6 )
     btnJugar.rotation=0
-    btnJugar:scale(.5,.5)
     btnJugar: addEventListener("tap", btnTapJugar)
-    
+    btnJugar:scale(1.3,1.3)
+    group:insert(btnJugar)
+
+    cepillo= display.newImage(group,"Image/cepillo.png")
+    cepillo:translate( (_W/4)*3.5, (_H/9)*7.8 )
+    cepillo:scale(.4,.4)
+    group:insert(cepillo)
     
    -- local imageDiente=  display.newImage(group,"Image/diente.png")
     --imageDiente:translate( centerX, centerY+((centerY/5)*3.7) )
@@ -215,7 +273,7 @@ function scene:create( event )
      composer.removeScene( "bloqueo" )
     introIsPlaying=true
     
-     Runtime:addEventListener("enterFrame", enciende )
+     --Runtime:addEventListener("enterFrame", enciende )
 end
 
 

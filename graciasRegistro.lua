@@ -36,7 +36,7 @@ function scene:create( event )
 	sceneGroup:insert( imageTexto )
 
 	local btnPresslog = function( event )
-	  composer.gotoScene( "ruletaColgate", "crossFade", 10 )  
+	  composer.gotoScene( "ruletaColgate", "slideLeft", 500 )  
 
 	end
 	local btnLogin = widget.newButton({

@@ -22,6 +22,14 @@ function scene:create( event )
     background:setStrokeColor( 255, 255, 255 )
     group:insert(background)
 
+    local fondoPunteado= display.newImage("Image/fondoCel.png")
+    fondoPunteado.x= display.contentWidth / 2
+    fondoPunteado.y=display.contentHeight/2
+  
+    group:insert( fondoPunteado )
+
+
+
     local labelUsername = display.newText(group, "Correo Electrónico", 0, 0, font, 25)
     labelUsername:setTextColor(0, 0, 0)
     labelUsername.anchorX=1
@@ -108,19 +116,19 @@ function scene:create( event )
         else
             frmUsername:removeSelf()
             frmPassword:removeSelf()
-           composer.gotoScene( "ruletaColgate", "crossFade", 10 )
+           composer.gotoScene( "ruletaColgate", "crossFade", 500 )
 
         end   
 
     end
-    local function handleButtonEvent( event )
+    local function btnRegistrar( event )
 
-        if ( "ended" == event.phase ) then
+        
             frmUsername:removeSelf()
             frmPassword:removeSelf()
-            composer.gotoScene( "registro", "crossFade", 10 )
+            composer.gotoScene( "registro", "slideRight", 500 )
 
-        end
+        
     end
 
 
@@ -137,22 +145,19 @@ function scene:create( event )
     -- add button to login screen
     group:insert(btnLogin)
 
-    local btnRegistro = widget.newButton({
-            id = "Login Registro",
-            label = "Si aun no estas registrado, registrate AQUI",
-            onEvent = handleButtonEvent,
-            emboss = false,
-            labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
-            -- Properties for a rounded rectangle button
-            onEvent = handleButtonEvent
+    
 
-            })
-        btnRegistro.x = display.contentCenterX
-        btnRegistro.y = display.contentCenterY+240
-    -- add button to login screen
+     local btnRegistro = display.newText(group, "Si aun no estas registrado, registrate AQUI", display.contentCenterX, display.contentCenterY+ 240, font, 18)
+
+    btnRegistro.anchorX=1
+    btnRegistro.anchorX=0
+    btnRegistro:setTextColor(0, 0, 0)
+    btnRegistro.x=display.contentCenterX- btnRegistro.width/2
+    btnRegistro:addEventListener("tap", btnRegistrar)
+    
     group:insert(btnRegistro)
-    ---------------------------------------
-	
+   
+	 --Runtime:addEventListener("enterFrame", function() end)
 end
 
 function scene:show( event )
