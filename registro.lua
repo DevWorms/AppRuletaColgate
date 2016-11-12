@@ -202,19 +202,61 @@ function scene:create( event )
     frmContrasenaN.text = ''
     sceneGroup:insert(frmContrasenaN)
 
+
 local btnPresslog = function( event )
-     print("press")
-     frmContrasena:removeSelf()
-     frmCorreo:removeSelf()
-     frmNombre:removeSelf()
-     frmApellido:removeSelf()
-     frmContrasenaN:removeSelf()   
-  composer.gotoScene( "graciasRegistro", "slideUp", 500 )
+    
+    --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
+    local json = require( "json" )
+    local function handleResponse( event )
+        if not event.isError then
+            local response = json.decode( event.response )
+            print( event.response )
+        else
+            print( "Error" )
+        end
+        return
+    end
 
+    --  OBTENER DATOS DEL FORMULARIO
+    local nombre = frmNombre.text
+    local apellido = frmApellido.text
+    local correo = frmCorreo.text
+    local contrasena = frmContrasena.text
+
+    --  VALIDAR LLENADO DE CAMPOS
+    if nombre == "" then
+        local alert = native.showAlert( "Atención", "Ingresa tu nombre", {"OK"})
+    elseif apellido == "" then
+        local alert = native.showAlert( "Atención", "Ingresa tu apellido", {"OK"})
+    elseif correo == "" then
+        local alert = native.showAlert( "Atención", "Ingresa tu correo", {"OK"})
+    elseif contrasena == "" then
+        local alert = native.showAlert( "Atención", "Ingresa tu contrasena", {"OK"})
+    elseif contrasena == "" then
+        local alert = native.showAlert( "Atención", "Ingresa tu contrasena", {"OK"})
+    elseif contrasena ~= frmContrasenaN.text then
+        local alert = native.showAlert( "Atención", "Las contraseñas no coinciden", {"OK"})
+
+    --  SI TODO ESTÁ BIEN, ENVIAR PARÁMETROS AL SERVIDOR Y CONTINUAR      
+    else
+        url_Consulta =  "https://colgate.herokuapp.com/api/v1/users/"
+        local params = {
+            body = "email=" .. correo .. "&first_name=" .. nombre .. "&last_name=" .. apellido .. "&password=" .. contrasena
+        };
+
+        network.request( url_Consulta, "POST", handleResponse, params )
+
+        
+         frmContrasena:removeSelf()
+         frmCorreo:removeSelf()
+         frmNombre:removeSelf()
+         frmApellido:removeSelf()
+         frmContrasenaN:removeSelf()   
+         composer.gotoScene( "graciasRegistro", "slideUp", 500 )        
+    end
    
- 
+ end
 
-end
 
     local btnComenzar = widget.newButton({
         id = "registrar button",

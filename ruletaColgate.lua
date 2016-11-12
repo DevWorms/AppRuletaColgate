@@ -1,7 +1,7 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
+local myData = require( "mydata" )
 --local introIsPlaying
- 
  
   local centerX= _W/2
   local centerY= _H/2
@@ -36,6 +36,7 @@ local function btnTapJugar(event)
    pres=true
     aleatorio=math.random(1, 5) --Escoge el objeto aleatorio que caera en la ruleta
    enciende()
+   myData.myVariable = aleatorio
   
    --contadordevueltas=0
    --velocidad=5
@@ -52,70 +53,70 @@ local function btnTapIntruc( event )
   composer.showOverlay( "instrucciones" ,{ isModal = true } )
  
 end
+
+
 function enciende( ... )
-  -- body
+
+  -- body1
 
   if pres==true then
       
       for i= 0,2 do -- Resta la posicion anterior del objeto que cayo para que estos concuerden
             luzPrendidaAma.isVisible=true
-            timer.performWithDelay( 200, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
-            
-            timer.performWithDelay( 400, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
-            
-            timer.performWithDelay( 600, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true end )
+            timer.performWithDelay( 200, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
 
-            timer.performWithDelay( 800, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true end )
+            timer.performWithDelay( 400, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
+            
+            timer.performWithDelay( 600, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
 
-            timer.performWithDelay( 1000, function() luzPrendidaRosa.isVisible=false luzPrendidaAma.isVisible=true end )
+            timer.performWithDelay( 800, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true sound(1) end )
+
+            timer.performWithDelay( 1000, function() luzPrendidaRosa.isVisible=false luzPrendidaAma.isVisible=true sound(1) end )
             
             if i==1 then
-              print("entro")
             if aleatorio == 1 then
-                timer.performWithDelay( 1500, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
+                timer.performWithDelay( 1500, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                 
-                timer.performWithDelay( 2000, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
+                timer.performWithDelay( 2000, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                 
-                timer.performWithDelay( 2500, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true end )
+                timer.performWithDelay( 2500, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
 
-                timer.performWithDelay( 3000, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true end )
+                timer.performWithDelay( 3000, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true sound(1) end )
 
-                timer.performWithDelay( 3500, function() luzPrendidaRosa.isVisible=false luzPrendidaAma.isVisible=true end )
+                timer.performWithDelay( 3500, function() luzPrendidaRosa.isVisible=false luzPrendidaAma.isVisible=true sound(1) end )
             else
-                timer.performWithDelay( 1300, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
+                timer.performWithDelay( 1300, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                 
-                timer.performWithDelay( 1600, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
+                timer.performWithDelay( 1600, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                 
-                timer.performWithDelay( 1900, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true end )
+                timer.performWithDelay( 1900, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
 
-                timer.performWithDelay( 2200, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true end )
+                timer.performWithDelay( 2200, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true sound(1) end )
 
-                timer.performWithDelay( 2500, function() luzPrendidaRosa.isVisible=false luzPrendidaAma.isVisible=true end )
+                timer.performWithDelay( 2500, function() luzPrendidaRosa.isVisible=false luzPrendidaAma.isVisible=true sound(1) end )
             end
             elseif i==2 then
-                  print(aleatorio)
                 if aleatorio==1 then
-                  timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) composer.gotoScene( "preguntas", "slideDown", 500 )   end )
+                  timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 )   end )
                 elseif aleatorio == 2 then
-                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
-                  timer.performWithDelay( 3500, function() composer.removeScene( "bloqueo" ) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
+                  timer.performWithDelay( 3500, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
                 elseif aleatorio == 3 then
-                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
-                  timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
-                  timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
+                  timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
+                  timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
                 elseif aleatorio == 4 then
-                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
-                  timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
-                  timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true end )
-                  timer.performWithDelay( 4500, function() composer.removeScene( "bloqueo" ) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
+                  timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
+                  timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
+                  timer.performWithDelay( 4500, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
                 elseif aleatorio == 5 then
-                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true end )
-                  timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true end )
-                  timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true end )
-                  timer.performWithDelay( 4500, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true end )
-                  timer.performWithDelay( 5000, function() composer.removeScene( "bloqueo" )  composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
+                  timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
+                  timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
+                  timer.performWithDelay( 4500, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true sound(1) end )
+                  timer.performWithDelay( 5000, function() composer.removeScene( "bloqueo" ) sound(2)  composer.gotoScene( "preguntas", "slideDown", 500 ) end )
                 end
-              print("para")
             end
         end
     
@@ -129,6 +130,21 @@ function enciende( ... )
 end
 
 
+function sound(chosen)
+  -- body
+
+  --  SELECCIONAR SONIDO DE LA RULETA
+  local ruleta_Sound = audio.loadSound( "Sound/Tablero.mp3" )
+  local select_Sound = audio.loadSound( "Sound/Tablero2.mp3" )
+  --local laserChannel = audio.play( ruleta_Sound )
+  
+  if (chosen == 1) then
+    audio.play( ruleta_Sound )
+  elseif (chosen == 2) then
+      audio.play( select_Sound )
+  end
+
+end
 
 
 function scene:successful() 

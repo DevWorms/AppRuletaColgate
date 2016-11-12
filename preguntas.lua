@@ -1,6 +1,7 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require( "widget" )
+local myData = require( "mydata" )
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -62,7 +63,7 @@ function scene:create( event )
     corazon3:scale(.5,.5)
     group:insert(corazon3)
 
-	local labelCategoria = display.newText(group, "Categoria 1", (centerX/6)*2, (centerY/6)*2 , font, 30)
+	local labelCategoria = display.newText(group, "Categoria " .. myData.myVariable, (centerX/6)*2, (centerY/6)*2 , font, 30)
     labelCategoria:setTextColor(255, 255, 255)
     group:insert(labelCategoria)
 
@@ -126,7 +127,6 @@ function scene:create( event )
 end
 
 function scene:show( event )
-	
 	
 	
 end

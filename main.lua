@@ -9,7 +9,6 @@
 -- require controller module
 local composer = require "composer"
 
-
 local widget = require "widget"
 --local loginScreen = require "login"
 -- load first scene
