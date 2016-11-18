@@ -37,7 +37,7 @@ local myData = require( "mydata" )
       if not event.isError then
           local response = json.decode( event.response )
           variableRegistro = response
-          print (event.response)
+          print (variableRegistro["email"])
       else
           print( "Error" )
       end
@@ -198,16 +198,12 @@ function scene:create( event )
 
       local headers = {}
       headers["authorization"] = "Bearer " .. myData.token
-      
-      print(headers["authorization"])
-
       params.headers = headers
 
       url = "https://colgate.herokuapp.com/api/v1/users/me/"
 
       network.request( url, "GET", handleResponse, params )
-
-
+      
      local group = self.view
      local background = display.newRect(0, 0, _W, _H)
       background.x = display.contentWidth / 2
@@ -219,7 +215,7 @@ function scene:create( event )
     local lineaRoja= display.newImage(group,"Image/lineaR.png")
     lineaRoja:translate( centerX,centerY/15 )
     group:insert(lineaRoja)
-    local labelNombre = display.newText(group, "Hola " .. myData.nombre, centerX, centerY/15, font, 30)
+    local labelNombre = display.newText(group, "Hola ", centerX, centerY/15, font, 30)
     labelNombre:setTextColor(255, 255, 255)
     group:insert(labelNombre)
 
