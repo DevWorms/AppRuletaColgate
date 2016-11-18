@@ -61,7 +61,7 @@ function scene:create( event )
     labelApellido.anchorX=1
     labelApellido.anchorX=0
     labelApellido.x = _W/2 - (labelApellido.width /2)
-    labelApellido.y = (_H/8)*2-50
+    labelApellido.y = (_H/8)*1.4
     sceneGroup:insert(labelApellido)
 
     local frmApellido = native.newTextField(0, 0, _W /2, 40)
@@ -72,82 +72,16 @@ function scene:create( event )
     frmApellido.anchorX=1
     frmApellido.anchorX=0
     frmApellido.x = _W * 0.5 - (frmApellido.width/2)
-    frmApellido.y = (_H/8)*2
+    frmApellido.y = (_H/8)*1.8
     frmApellido.text = ''
     sceneGroup:insert(frmApellido)
------------------------------------------------------
-	-- Create two tables to hold data for days and years      
-	local days = {}
-	local years = {}
 
-	-- Populate the "days" table
-	for d = 1, 31 do
-	    days[d] = d
-	end
-
-	-- Populate the "years" table
-	for y = 1, 48 do
-	    years[y] = 1969 + y
-	end
-
-	-- Configure the picker wheel columns
-	local columnData = 
-	{
-	    -- Months
-	    { 
-	        align = "left",
-	        width = 140,
-	        startIndex = 11,
-	       -- labels = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
-	        labels = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }
-	    },
-	    -- Days
-	    {
-	        align = "center",
-	        width = 60,
-	        startIndex = 18,
-	        labels = days
-	    },
-	    -- Years
-	    {
-	        align = "center",
-	        width = 80,
-	        startIndex = 20,
-	        labels = years
-	    }
-	}
-
-	-- Create the widget
-	local pickerWheel = widget.newPickerWheel(
-	    {
-
-	        top = display.contentHeight - 222,
-	        columns = columnData
-	    }
-	)
-
-	pickerWheel.x= _W/2
-	pickerWheel.y=(_H/8)*3-50
-
-	sceneGroup:insert(pickerWheel)
-	-- Get the table of current values for all columns
-	-- This can be performed on a button tap, timer execution, or other event
-	local values = pickerWheel:getValues()
-
-	-- Get the value for each column in the wheel (by column index)
-	local currentMonth = values[1].value
-	local currentDay = values[2].value
-	local currentYear = values[3].value
-
-	print( currentMonth, currentDay, currentYear )
-
--------------------------------------------
     local labelCorreo = display.newText(sceneGroup, "Email", 0, 0, font, 25)
     labelCorreo:setTextColor(0, 0, 0)
     labelCorreo.anchorX=1
     labelCorreo.anchorX=0
     labelCorreo.x = _W/2 - (labelCorreo.width /2)
-    labelCorreo.y = (_H/8)*4-50
+    labelCorreo.y = (_H/8)*2.2
     sceneGroup:insert(labelCorreo)
 
     local frmCorreo = native.newTextField(0, 0, _W /2, 40)
@@ -158,7 +92,7 @@ function scene:create( event )
     frmCorreo.anchorX=1
     frmCorreo.anchorX=0
     frmCorreo.x = _W * 0.5 - (frmCorreo.width/2)
-    frmCorreo.y = (_H/8)*4
+    frmCorreo.y = (_H/8)*2.6
     frmCorreo.text = ''
     sceneGroup:insert(frmCorreo)
 
@@ -167,7 +101,7 @@ function scene:create( event )
     labelContrasena.anchorX=1
     labelContrasena.anchorX=0
     labelContrasena.x = _W/2 - (labelContrasena.width /2)
-    labelContrasena.y = (_H/8)*5-50
+    labelContrasena.y = (_H/8)*3
     sceneGroup:insert(labelContrasena)
 
     local frmContrasena = native.newTextField(0, 0, _W /2, 40)
@@ -178,7 +112,7 @@ function scene:create( event )
     frmContrasena.anchorX=1
     frmContrasena.anchorX=0
     frmContrasena.x = _W * 0.5 - (frmContrasena.width/2)
-    frmContrasena.y = (_H/8)*5
+    frmContrasena.y = (_H/8)*3.4
     frmContrasena.text = ''
     sceneGroup:insert(frmContrasena)
 
@@ -187,7 +121,7 @@ function scene:create( event )
     labelContrasenaN.anchorX=1
     labelContrasenaN.anchorX=0
     labelContrasenaN.x = _W/2 - (labelContrasenaN.width /2)
-    labelContrasenaN.y = (_H/8)*6-50
+    labelContrasenaN.y = (_H/8)*3.8
     sceneGroup:insert(labelContrasenaN)
 
     local frmContrasenaN = native.newTextField(0, 0, _W /2, 40)
@@ -198,9 +132,111 @@ function scene:create( event )
     frmContrasenaN.anchorX=1
     frmContrasenaN.anchorX=0
     frmContrasenaN.x = _W * 0.5 - (frmContrasenaN.width/2)
-    frmContrasenaN.y = (_H/8)*6
+    frmContrasenaN.y = (_H/8)*4.2
     frmContrasenaN.text = ''
     sceneGroup:insert(frmContrasenaN)
+
+    local labelFechaNac = display.newText(sceneGroup, "Fecha de Nacimiento", 0, 0, font, 25)
+    labelFechaNac:setTextColor(0, 0, 0)
+    labelFechaNac.anchorX=1
+    labelFechaNac.anchorX=0
+    labelFechaNac.x = _W/2 - (labelFechaNac.width /2)
+    labelFechaNac.y = (_H/8)*4.6
+    sceneGroup:insert(labelFechaNac)
+
+
+    -----------------------------------------------------
+    -- Create two tables to hold data for days and years      
+    local days = {}
+    local years = {}
+
+    -- Populate the "days" table
+    for d = 1, 31 do
+        days[d] = d
+    end
+
+    -- Populate the "years" table
+    for y = 1, 48 do
+        years[y] = 1969 + y
+    end
+
+    -- Configure the picker wheel columns
+    local columnData = 
+    {
+        -- Months
+        { 
+            align = "left",
+            width = 140,
+            startIndex = 11,
+           -- labels = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
+            labels = { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }
+        },
+        -- Days
+        {
+            align = "center",
+            width = 60,
+            startIndex = 18,
+            labels = days
+        },
+        -- Years
+        {
+            align = "center",
+            width = 80,
+            startIndex = 20,
+            labels = years
+        }
+    }
+
+    -- Create the widget
+    local pickerWheel = widget.newPickerWheel(
+        {
+
+            top = display.contentHeight - 222,
+            columns = columnData
+        }
+    )
+
+    pickerWheel.x= _W/2
+    pickerWheel.y=(_H/8)*5.6
+
+    sceneGroup:insert(pickerWheel)
+    -- Get the table of current values for all columns
+    -- This can be performed on a button tap, timer execution, or other event
+    local values = pickerWheel:getValues()
+
+    -- Get the value for each column in the wheel (by column index)
+    local currentMonth = values[1].value
+    local currentDay = values[2].value
+    local currentYear = values[3].value
+
+
+    local labelTerminos = display.newText(sceneGroup, "Acepto Términos y Condiciones", 0, 0, font, 25)
+    labelTerminos:setTextColor(0, 0, 0)
+    labelTerminos.anchorX=1
+    labelTerminos.anchorX=0
+    labelTerminos.x = (_W/2) - 150
+    labelTerminos.y = (_H/8)*6.6
+    sceneGroup:insert(labelTerminos)
+
+    -- El switch de Términos y Condiciones
+    local function onSwitchPress( event )
+        local switch = event.target
+        print( "Switch with ID '"..switch.id.."' is on: "..tostring(switch.isOn) )
+    end
+
+    -- Create the widget
+    local checkboxButton = widget.newSwitch(
+        {
+            style = "checkbox",
+            id = "Checkbox",
+            onPress = onSwitchPress
+        }
+    )
+
+    checkboxButton.x= 120
+    checkboxButton.y=(_H/8)*6.6
+
+-------------------------------------------
 
 
 local btnPresslog = function( event )
@@ -223,6 +259,9 @@ local btnPresslog = function( event )
     local correo = frmCorreo.text
     local contrasena = frmContrasena.text
 
+
+    birth = currentYear .. "-" .. currentMonth .. "-" .. currentDay
+
     --  VALIDAR LLENADO DE CAMPOS
     if nombre == "" then
         local alert = native.showAlert( "Atención", "Ingresa tu nombre", {"OK"})
@@ -241,7 +280,7 @@ local btnPresslog = function( event )
     else
         url_Consulta =  "https://colgate.herokuapp.com/api/v1/users/"
         local params = {
-            body = "email=" .. correo .. "&first_name=" .. nombre .. "&last_name=" .. apellido .. "&password=" .. contrasena
+            body = "email=" .. correo .. "&first_name=" .. nombre .. "&last_name=" .. apellido .. "&password=" .. contrasena .. "&birthdate=" .. birth
         };
 
         network.request( url_Consulta, "POST", handleResponse, params )
@@ -276,7 +315,7 @@ local btnPresslog = function( event )
         onPress = btnPresslog     
         })
     btnComenzar.x = display.contentCenterX
-    btnComenzar.y = (_H/8)*7
+    btnComenzar.y = (_H/8)*7.3
 -- add button to login screen
 sceneGroup:insert(btnComenzar)
 	

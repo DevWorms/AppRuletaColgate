@@ -27,6 +27,23 @@ local myData = require( "mydata" )
     local luzPrendidaAzu
     local luzPrendidaMora
     local luzPrendidaRosa
+    local variableRegistro
+
+
+  --  LLAMADA A WEB SERVICE
+
+  local json = require( "json" )
+  local function handleResponse( event )
+      if not event.isError then
+          local response = json.decode( event.response )
+          variableRegistro = response
+          print (event.response)
+      else
+          print( "Error" )
+      end
+      return
+  end
+
 
     
 local function btnTapJugar(event)
@@ -36,7 +53,6 @@ local function btnTapJugar(event)
    pres=true
     aleatorio=math.random(1, 5) --Escoge el objeto aleatorio que caera en la ruleta
    enciende()
-   myData.myVariable = aleatorio
   
    --contadordevueltas=0
    --velocidad=5
@@ -59,6 +75,7 @@ function enciende( ... )
 
   -- body1
 
+   myData.categoria = aleatorio
   if pres==true then
       
       for i= 0,2 do -- Resta la posicion anterior del objeto que cayo para que estos concuerden
@@ -98,24 +115,34 @@ function enciende( ... )
             elseif i==2 then
                 if aleatorio==1 then
                   timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 )   end )
+                  myData.id_categoria = "fe0c2d2b-6dfc-41f8-b818-c39400594921"
+                  myData.categoria = 1
                 elseif aleatorio == 2 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  myData.id_categoria = "a5b200ba-8fa5-4898-beef-aee568045917"
+                  myData.categoria = 2
                 elseif aleatorio == 3 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                   timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  myData.id_categoria = "be18cd66-c8a6-4820-81ff-c6a824af7552"
+                  myData.categoria = 3
                 elseif aleatorio == 4 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                   timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
                   timer.performWithDelay( 4500, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  myData.id_categoria = "7d37e404-e472-4bc1-a598-871ba0fcff96"
+                  myData.categoria = 4
                 elseif aleatorio == 5 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                   timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
                   timer.performWithDelay( 4500, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true sound(1) end )
                   timer.performWithDelay( 5000, function() composer.removeScene( "bloqueo" ) sound(2)  composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  myData.id_categoria = "fb153f89-2ab8-4cbd-b3ec-041ce397f639"
+                  myData.categoria = 5
                 end
             end
         end
@@ -166,6 +193,21 @@ function scene:successful()
 end
 
 function scene:create( event )
+    
+      local params = {}
+
+      local headers = {}
+      headers["authorization"] = "Bearer " .. myData.token
+      
+      print(headers["authorization"])
+
+      params.headers = headers
+
+      url = "https://colgate.herokuapp.com/api/v1/users/me/"
+
+      network.request( url, "GET", handleResponse, params )
+
+
      local group = self.view
      local background = display.newRect(0, 0, _W, _H)
       background.x = display.contentWidth / 2
@@ -177,7 +219,7 @@ function scene:create( event )
     local lineaRoja= display.newImage(group,"Image/lineaR.png")
     lineaRoja:translate( centerX,centerY/15 )
     group:insert(lineaRoja)
-    local labelNombre = display.newText(group, "Hola Luna", (centerX/6)*2, centerY/15, font, 30)
+    local labelNombre = display.newText(group, "Hola " .. myData.nombre, centerX, centerY/15, font, 30)
     labelNombre:setTextColor(255, 255, 255)
     group:insert(labelNombre)
 
@@ -192,25 +234,48 @@ function scene:create( event )
     moneda:scale(.5,.5)
     group:insert(moneda)
 
-    local labelmoneda = display.newText(group, "$0", (centerX/6)*1.8, centerY/6, font, 22)
+    local labelmoneda = display.newText(group, myData.puntos, (centerX/6)*1.8, centerY/6, font, 22)
     labelmoneda:setTextColor(255, 255, 255)
     group:insert(labelNombre)
     
-
-    local corazon1= display.newImage(group,"Image/corazon.png")
-    corazon1:translate( (_W/6)*4.5, centerY/6)
-    corazon1:scale(.5,.5)
-    group:insert(corazon1)
-
-    local corazon2= display.newImage(group,"Image/corazon.png")
-    corazon2:translate( (_W/6)*5, centerY/6)
-    corazon2:scale(.5,.5)
-    group:insert(corazon2)
     
-    local corazon3= display.newImage(group,"Image/corazon.png")
-    corazon3:translate( (_W/6)*5.5, centerY/6)
-    corazon3:scale(.5,.5)
-    group:insert(corazon3)
+    if myData.corazones == 3 then
+      local corazon1= display.newImage(group,"Image/corazon.png")
+      corazon1:translate( (_W/6)*4.5, centerY/6)
+      corazon1:scale(.5,.5)
+      group:insert(corazon1)
+
+      local corazon2= display.newImage(group,"Image/corazon.png")
+      corazon2:translate( (_W/6)*5, centerY/6)
+      corazon2:scale(.5,.5)
+      group:insert(corazon2)
+
+      local corazon3= display.newImage(group,"Image/corazon.png")
+      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:scale(.5,.5)
+      group:insert(corazon3)
+
+    elseif myData.corazones == 2 then
+
+      local corazon2= display.newImage(group,"Image/corazon.png")
+      corazon2:translate( (_W/6)*5, centerY/6)
+      corazon2:scale(.5,.5)
+      group:insert(corazon2)
+
+      local corazon3= display.newImage(group,"Image/corazon.png")
+      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:scale(.5,.5)
+      group:insert(corazon3)
+
+    elseif myData.corazones == 1 then
+
+      local corazon3= display.newImage(group,"Image/corazon.png")
+      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:scale(.5,.5)
+      group:insert(corazon3)
+
+
+    end
 
     luzAma= display.newImage(group,"Image/btnGris.png")
     luzAma:translate( (_W/4)*1.2, (_H/9)*2 )
@@ -283,7 +348,6 @@ function scene:create( event )
     --imageDiente:translate( centerX, centerY+((centerY/5)*3.7) )
    
    -- imageDiente:scale( .4, .4 )
-
 
     
      composer.removeScene( "bloqueo" )

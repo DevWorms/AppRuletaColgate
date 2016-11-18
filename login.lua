@@ -1,20 +1,53 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require( "widget" )
+local myData = require( "mydata" )
+--local introIsPlaying
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
 
-local image, text1, text2, text3, memTimer
+local image, text1, text2, text3, memTimer, variableRegistro
 
 -- Touch event listener for background image
 
+   --  LLAMADA A WEB SERVICE
+
+    local json = require( "json" )
+    local function handleResponse( event )
+        if not event.isError then
+            local response = json.decode( event.response )
+            variableRegistro = response
+        else
+            print( "Error" )
+        end
+        return
+    end
 
 
 -- Called when the scene's view does not exist:
 function scene:create( event )
 	 local group = self.view
+
     
+    ------------  SE DEBEN INICIAR LOS VALORES PARA CREAR LA VARIABLE "REGISTRO"  --------------------------------------      
+    
+    local params = {}
+
+    local headers = {}
+    headers["authorization"] = "Basic QU1Cc2JHMko4MGZONlMxYVVaaExjYW1PUzdxOUFEdFdsMW5Yemt3bjplSVFxcjNGRUVKS0VHa09TWkJVQkJWaElqZFB2OFZyYlFQQjlEVlloWXFXS1djSHVxNTBPZWVuYVh4YmZNUTQ3MFZFZXR6WlJhMXZpZTZNVnNxRDFuZVBFQlpiOTZWYVZnWmpLVXhibnNka0EwaFJvc1RHbGNMMXB5Q0xnWjZPcg=="
+    local body = "grant_type=password&username=0&password=0"
+
+    params.headers = headers
+    params.body = body
+
+    url = "https://colgate.herokuapp.com/o/token/"
+
+    network.request( url, "POST", handleResponse, params )
+
+    --------------------------------------------------------------------------
+
+
     local background = display.newRect(0, 0, _W, _H)
     background.x = display.contentWidth / 2
     background.y = display.contentHeight / 2
@@ -102,27 +135,53 @@ function scene:create( event )
 
 
     frmPassword:addEventListener("userInput",frmPassword)
+
     local btnPresslog = function( event )
+
         local userid = frmUsername.text
         local password = frmPassword.text 
 
-        print(userid)
-        print(password)
-        
+         
         -- stop if fields are blank
         if(userid == '' or password == '') then
-            labelReturnStatus.text = 'A username or password is required.'
+            labelReturnStatus.text = 'Favor de llenar los campos.'
             return
-        else
-            frmUsername:removeSelf()
-            frmPassword:removeSelf()
-           composer.gotoScene( "ruletaColgate", "crossFade", 500 )
 
-        end   
+
+        else
+
+
+             --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
+
+            local params = {}
+            
+            local headers = {}
+            headers["authorization"] = "Basic QU1Cc2JHMko4MGZONlMxYVVaaExjYW1PUzdxOUFEdFdsMW5Yemt3bjplSVFxcjNGRUVKS0VHa09TWkJVQkJWaElqZFB2OFZyYlFQQjlEVlloWXFXS1djSHVxNTBPZWVuYVh4YmZNUTQ3MFZFZXR6WlJhMXZpZTZNVnNxRDFuZVBFQlpiOTZWYVZnWmpLVXhibnNka0EwaFJvc1RHbGNMMXB5Q0xnWjZPcg=="
+            local body = "grant_type=password&username=" .. userid .. "&password=" .. password
+
+            params.headers = headers
+            params.body = body
+
+            url = "https://colgate.herokuapp.com/o/token/"
+
+            network.request( url, "POST", handleResponse, params )
+
+            print(variableRegistro["access_token"]) 
+            if variableRegistro["access_token"] == nil then
+
+
+            else
+                 myData.token = variableRegistro["access_token"]
+
+                 frmUsername:removeSelf()
+                 frmPassword:removeSelf()
+                 composer.gotoScene( "ruletaColgate", "crossFade", 500 )         
+            end
+        end  
+       
 
     end
     local function btnRegistrar( event )
-
         
             frmUsername:removeSelf()
             frmPassword:removeSelf()

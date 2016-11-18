@@ -1,6 +1,7 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require( "widget" )
+local myData = require( "mydata" )
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -25,7 +26,7 @@ function scene:create( event )
     local lineaRoja= display.newImage(group,"Image/lineaR.png")
     lineaRoja:translate( centerX,centerY/15 )
     group:insert(lineaRoja)
-    local labelNombre = display.newText(group, "Hola Luna", (centerX/6)*2, centerY/15, font, 30)
+    local labelNombre = display.newText(group, "Hola " .. myData.nombre, centerX, centerY/15, font, 30)
     labelNombre:setTextColor(255, 255, 255)
     group:insert(labelNombre)
 
@@ -40,27 +41,48 @@ function scene:create( event )
     moneda:scale(.5,.5)
     group:insert(moneda)
 
-    local labelmoneda = display.newText(group, "$0", (centerX/6)*1.8, centerY/6, font, 22)
+    local labelmoneda = display.newText(group, myData.puntos, (centerX/6)*1.8, centerY/6, font, 22)
     labelmoneda:setTextColor(255, 255, 255)
-    group:insert(labelmoneda)
+    group:insert(labelNombre)
+    
+    
+    if myData.corazones == 3 then
+      local corazon1= display.newImage(group,"Image/corazon.png")
+      corazon1:translate( (_W/6)*4.5, centerY/6)
+      corazon1:scale(.5,.5)
+      group:insert(corazon1)
 
-    local corazon1= display.newImage(group,"Image/corazon.png")
+      local corazon2= display.newImage(group,"Image/corazon.png")
+      corazon2:translate( (_W/6)*5, centerY/6)
+      corazon2:scale(.5,.5)
+      group:insert(corazon2)
 
-    corazon1:translate( (_W/6)*4.5, centerY/6)
-    corazon1:scale(.5,.5)
-    group:insert(corazon1)
+      local corazon3= display.newImage(group,"Image/corazon.png")
+      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:scale(.5,.5)
+      group:insert(corazon3)
 
-    local corazon2= display.newImage(group,"Image/corazon.png")
+    elseif myData.corazones == 2 then
 
-    corazon2:translate( (_W/6)*5, centerY/6)
-    corazon2:scale(.5,.5)
-    group:insert(corazon2)
+      local corazon2= display.newImage(group,"Image/corazon.png")
+      corazon2:translate( (_W/6)*5, centerY/6)
+      corazon2:scale(.5,.5)
+      group:insert(corazon2)
 
-    local corazon3= display.newImage(group,"Image/corazon.png")
+      local corazon3= display.newImage(group,"Image/corazon.png")
+      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:scale(.5,.5)
+      group:insert(corazon3)
 
-    corazon3:translate( (_W/6)*5.5, centerY/6)
-    corazon3:scale(.5,.5)
-    group:insert(corazon3)
+    elseif myData.corazones == 1 then
+
+      local corazon3= display.newImage(group,"Image/corazon.png")
+      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:scale(.5,.5)
+      group:insert(corazon3)
+
+
+    end
 
 
 	local imageDiente= display.newImage("Image/dienteBien.png")

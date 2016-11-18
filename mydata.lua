@@ -1,3 +1,13 @@
 --my global space
-local myVariable = {}
-return myVariable
+local myVariable = {
+	
+	nombre = 0,
+	corazones = 0,
+	puntos = 0,
+	token = 0,
+	pregunta = 0,
+	categoria = 0,
+	id_categoria = 0
+}
+
+return myVariable;

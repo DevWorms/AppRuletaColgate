@@ -6,10 +6,26 @@ settings =
     },
 
     android = {
+        facebookAppId = "1210208022395704",
+
         usesPermissions =  {
             "android.permission.INTERNET",
             "android.permission.WRITE_EXTERNAL_STORAGE",
             "android.permission.RECORD_AUDIO",
+        },
+    },
+
+    plugins = {
+
+        ["plugin.facebook.v4"] =
+        {
+            publisherId = "com.coronalabs",
+            supportedPlatforms = { iphone=true, android=true, ["android-kindle"]=true }
+        },
+
+         -- @schroederapps' Twitter plugin:
+        ["plugin.twitter"] = {
+            publisherId = "com.jasonschroeder",
         },
     },
     
