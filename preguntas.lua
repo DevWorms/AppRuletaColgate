@@ -21,6 +21,9 @@ local myData = require( "mydata" )
    local correcta1
    local correcta2
    local correcta3
+   local tablaResponse
+   local idpregunta
+   local idrespuesta
 -- Touch event listener for background image
 
 
@@ -35,6 +38,7 @@ function scene:create( event )
             if not event.isError then
                 local response = json.encode( event.response ,{ indent = true })
                 local decoded = json.decode( event.response )
+                tablaResponse = decoded
                  --arrayrespuesta = decoded
                for k,v in pairs (decoded) do
                    if k== "question" then
@@ -54,15 +58,15 @@ function scene:create( event )
                               if contrespuesta==1 then
                                 respuesta1=m
                                 contrespuesta=2
-                                print("Valor de respuesta " .. respuesta1)
+                                print("Valor de la respuesta 1: " .. respuesta1)
                               elseif contrespuesta==2 then
                                 respuesta2=m
                                 contrespuesta=3                                
-                                print("Valor de respuesta " .. respuesta2)
+                                print("Valor de la respuesta 2: " .. respuesta2)
                               elseif contrespuesta==3 then
                                 respuesta3=m
                                 contrespuesta=1
-                                print("Valor de respuesta " .. respuesta3)
+                                print("Valor de la respuesta 3: " .. respuesta3)
                               end
                             end
 
@@ -134,9 +138,12 @@ function scene:create( event )
         params.headers = headers
 
 
-	local group = self.view
-	
-	local background = display.newRect(0, 0, _W, _H)
+  local group = self.view
+  
+
+      print("Toda esta mierda comienza a crearse aquí")
+
+  local background = display.newRect(0, 0, _W, _H)
       background.x = display.contentWidth / 2
       background.y = display.contentHeight / 2
       background:setFillColor( .24)
@@ -203,7 +210,7 @@ function scene:create( event )
 
     end
 
-	local labelCategoria = display.newText(group, "Categoria " .. myData.categoria, (centerX/6)*2, (centerY/6)*2 , font, 35)
+  local labelCategoria = display.newText(group, "Categoria " .. myData.categoria, (centerX/6)*2, (centerY/6)*2 , font, 35)
     labelCategoria:setTextColor(255, 255, 255)
     group:insert(labelCategoria)
 
@@ -211,22 +218,36 @@ function scene:create( event )
     labelPreguntas:setTextColor(255, 255, 255)
     group:insert(labelPreguntas)
 
-	local btnPresslog1 = function( event )
-    if correcta1 =="t" then
-  		print("correcto")
+  local btnPresslog1 = function( event )
 
-  	  composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+      --  OBTENER EL VALOR DE LA RESPUESTA DEL USUARIO Y ASIGNAR A VARIABLE GLOBAL
+      print ("Id Respuesta = " .. tablaResponse["answer_set"][1]["id"] )
+      print ("Id Pregunta = " .. tablaResponse["answer_set"][1]["question"])
+      idrespuesta = tablaResponse["answer_set"][1]["id"]
+      idpregunta = tablaResponse["answer_set"][1]["question"]
+
+
+      if correcta1 =="t" then
+        print("correcto")
+        composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
       else
        print("error")
        composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
     end
-	end
+  end
 
   local btnPresslog2 = function( event )
-       if correcta2 =="t" then
-      print("correcto")
 
-      composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+      --  OBTENER EL VALOR DE LA RESPUESTA DEL USUARIO Y ASIGNAR A VARIABLE GLOBAL
+      print ("Id Respuesta = " .. tablaResponse["answer_set"][2]["id"] )
+      print ("Id Pregunta = " .. tablaResponse["answer_set"][2]["question"])
+      idrespuesta = tablaResponse["answer_set"][2]["id"]
+      idpregunta = tablaResponse["answer_set"][2]["question"]
+
+
+      if correcta2 =="t" then
+        print("correcto")
+        composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
       else
        print("error")
        composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
@@ -234,31 +255,48 @@ function scene:create( event )
 
   end
   local btnPresslog3 = function( event )
-       if correcta3 =="t" then
-      print("correcto")
 
-      composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+      --  OBTENER EL VALOR DE LA RESPUESTA DEL USUARIO Y ASIGNAR A VARIABLE GLOBAL
+      print ("Id Respuesta = " .. tablaResponse["answer_set"][3]["id"] )
+      print ("Id Pregunta = " .. tablaResponse["answer_set"][3]["question"])
+      idrespuesta = tablaResponse["answer_set"][3]["id"]
+      idpregunta = tablaResponse["answer_set"][3]["question"]
+
+
+      if correcta3 =="t" then
+        print("correcto")
+        composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
       else
        print("error")
        composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
     end
-
   end
-   print("categoriaPre:" .. myData.categoria )
+
+
    url = "https://colgate.herokuapp.com/api/v1/categories/" .. myData.categoria .. "/random_question/" 
 
         network.request( url, "GET", handleResponse, params )
 
-   timer.performWithDelay( 500, function() print("respuesta1: ".. respuesta1) print("respuesta2: ".. respuesta2) print("respuesta3: ".. respuesta3) print("correcta1: ".. correcta1) print("correcta2: ".. correcta2) print("correcta3: ".. correcta3) btnPrimera = widget.newButton({
-        id = "Primera",
-        label = respuesta1,
-        emboss = false,
-        defaultFile = "Image/espacio_texto.png",
-        overFile = "Image/espacio_texto.png",
-        fontSize=30,
-        labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
-        onPress = btnPresslog1     
-        })
+   timer.performWithDelay( 500, function() print("Opción de respuesta 1 para el usuario: ".. respuesta1)
+                                           print("Opción de respuesta 2 para el usuario: ".. respuesta2)
+                                           print("Opción de respuesta 3 para el usuario: ".. respuesta3)
+                                           print("Es correcta la respuesta 1?: ".. correcta1)
+                                           print("Es correcta la respuesta 2?: ".. correcta2)
+                                           print("Es correcta la respuesta 3?: ".. correcta3) 
+
+                                            btnPrimera = widget.newButton({
+                                            id = "Primera",
+                                            label = respuesta1,
+                                            emboss = false,
+                                            defaultFile = "Image/espacio_texto.png",
+                                            overFile = "Image/espacio_texto.png",
+                                            fontSize=30,
+                                            labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
+                                            onPress = btnPresslog1     
+                                            })
+
+    --print(tablaResponse)
+
     btnPrimera.x = display.contentCenterX
     btnPrimera.y = (_H/8)*3
     
@@ -297,27 +335,27 @@ function scene:create( event )
 
     local imageDiente=  display.newImage(group,"Image/diente.png")
     imageDiente:translate( centerX, centerY+((centerY/5)*3.7) )
-	imageDiente:scale( .4, .4 )
-	group:insert(imageDiente)
+  imageDiente:scale( .4, .4 )
+  group:insert(imageDiente)
 
   
 
 end
 
 function scene:show( event )
-	
-	
+  
+  
 end
 
 function scene:hide( event )
-	
-	composer.removeScene( composer.getSceneName( "current" ) )
   
-	
+  composer.removeScene( composer.getSceneName( "current" ) )
+  
+  
 end
 
 function scene:destroy( event )
-	print( "((destroying scene 1's view))" )
+  print( "((destroying scene 1's view))" )
 end
 
 ---------------------------------------------------------------------------------
