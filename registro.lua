@@ -6,7 +6,20 @@ local myData = require( "mydata" )
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
 
-local image, text1, text2, text3, memTimer
+local image, text1, text2, text3, memTimer, variableRegistro
+
+
+--  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
+local json = require( "json" )
+local function handleResponse( event )
+    if not event.isError then
+        local response = json.decode( event.response )
+        print( event.response )
+    else
+        print( "Error" )
+    end
+    return
+end
 
 -- Touch event listener for background image
 
@@ -17,7 +30,19 @@ end
 
 -- Called when the scene's view does not exist:
 function scene:create( event )
-	local sceneGroup = self.view
+    local sceneGroup = self.view
+
+        ------------  SE DEBEN INICIAR LOS VALORES PARA CREAR LA VARIABLE "REGISTRO"  --------------------------------------      
+
+    url_Consulta =  "https://colgate.herokuapp.com/api/v1/users/"
+    local params = {
+        body = "email=0&first_name=0&last_name=0&password=0&birthdate=0"
+    };
+
+    network.request( url_Consulta, "POST", handleResponse, params )
+
+    ---------------------------------------------------------------------------------------------
+
 	local background = display.newRect(0, 0, _W, _H)
     background.x = display.contentWidth / 2
     background.y = display.contentHeight / 2
@@ -250,17 +275,6 @@ function scene:create( event )
 
 local btnPresslog = function( event )
     
-    --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
-    local json = require( "json" )
-    local function handleResponse( event )
-        if not event.isError then
-            local response = json.decode( event.response )
-            print( event.response )
-        else
-            print( "Error" )
-        end
-        return
-    end
 
     --  OBTENER DATOS DEL FORMULARIO
     local nombre = frmNombre.text
