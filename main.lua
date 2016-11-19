@@ -12,7 +12,7 @@ local composer = require "composer"
 local widget = require "widget"
 --local loginScreen = require "login"
 -- load first scene
-composer.gotoScene( "registro", "fade", 400 )
+composer.gotoScene( "acceso_rapido", "fade", 400 )
 -- ----------------------------------------------------------------------------
 -- INCLUDE REQUIRED LIBRARIES
 -- ---------------------------------------------------------------------------- 
