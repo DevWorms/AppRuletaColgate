@@ -37,7 +37,6 @@ function scene:create( event )
                 local decoded = json.decode( event.response )
                  --arrayrespuesta = decoded
                for k,v in pairs (decoded) do
-                    print (k,v)
                    if k== "question" then
                       labelPreguntas.text=v
                    end 
@@ -48,29 +47,24 @@ function scene:create( event )
                     local partes= json.decode( parte1)
                                            
                       for i,j in pairs (partes) do
-                          print(i,j)
                           for n,m in pairs (j) do
-                            print(n,m)
                            
                             
                             if n=="answer" then
                               if contrespuesta==1 then
                                 respuesta1=m
                                 contrespuesta=2
-                                print("entro resp1")
+                                print("Valor de respuesta " .. respuesta1)
                               elseif contrespuesta==2 then
                                 respuesta2=m
-                                contrespuesta=3
-                                print("entro resp2")
+                                contrespuesta=3                                
+                                print("Valor de respuesta " .. respuesta2)
                               elseif contrespuesta==3 then
                                 respuesta3=m
                                 contrespuesta=1
-                                print("entro resp3")
+                                print("Valor de respuesta " .. respuesta3)
                               end
                             end
-
-                         
-
 
                           end
                           
@@ -80,21 +74,17 @@ function scene:create( event )
                end
 
                for k,v in pairs (decoded) do
-                    print (k,v)
                    if k== "question" then
                       labelPreguntas.text=v
                    end 
                    if k == "answer_set" then
 
                     local parte1= json.encode( v )
-                    print("extraer answer_set : " .. parte1)
                     local partes= json.decode( parte1)
                                            
                       for i,j in pairs (partes) do
-                          print(i,j)
                           for n,m in pairs (j) do
-                            print(n,m)
-                           
+                            
                            if n=="is_correct" then
                               if contcorrect==1 then
                                 if m== true then
@@ -103,7 +93,6 @@ function scene:create( event )
                                   correcta1="f"
                                 end
                                 contcorrect=2
-                                print("entro correcta1")
                               elseif contcorrect==2 then
                                 if m== true then
                                   correcta2="t"
@@ -111,7 +100,6 @@ function scene:create( event )
                                   correcta2="f"
                                 end
                                 contcorrect=3
-                                print("entro correcta2")
                               elseif contcorrect==3 then
                                 if m== true then
                                   correcta3="t"
@@ -119,7 +107,6 @@ function scene:create( event )
                                   correcta3="f"
                                 end
                                 contcorrect=1
-                                print("entro correcta3")
                               end
                             end
 

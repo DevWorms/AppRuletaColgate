@@ -9,6 +9,9 @@ local image, text1, text2, text3, memTimer
 
 -- Touch event listener for background image
 
+function linkTerminos( event )
+    system.openURL( "https://docs.google.com/presentation/d/18zUNxkfuyP5Zn3XxFSAx-2s0iGJaU_Ou8KT8QM_yHFg/edit#slide=id.g195ef51ea0_0_263" )
+end 
 
 
 -- Called when the scene's view does not exist:
@@ -210,13 +213,15 @@ function scene:create( event )
     local currentYear = values[3].value
 
 
-    local labelTerminos = display.newText(sceneGroup, "Acepto Términos y Condiciones", 0, 0, font, 25)
+    local labelTerminos = display.newText(sceneGroup, "Acepto Términos y Condiciones (link)", 0, 0, native.systemFontBold, 25)
+    labelTerminos.id = "terminos"
     labelTerminos:setTextColor(0, 0, 0)
     labelTerminos.anchorX=1
     labelTerminos.anchorX=0
-    labelTerminos.x = (_W/2) - 150
+    labelTerminos.x = _W/6.5
     labelTerminos.y = (_H/8)*6.6
     sceneGroup:insert(labelTerminos)
+    labelTerminos:addEventListener("tap", linkTerminos)
 
     -- El switch de Términos y Condiciones
     local function onSwitchPress( event )
@@ -232,8 +237,9 @@ function scene:create( event )
             onPress = onSwitchPress
         }
     )
+    sceneGroup:insert(checkboxButton)
 
-    checkboxButton.x= 120
+    checkboxButton.x= _W/9
     checkboxButton.y=(_H/8)*6.6
 
 -------------------------------------------
