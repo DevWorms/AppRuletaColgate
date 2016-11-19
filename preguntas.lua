@@ -251,9 +251,11 @@ function scene:create( event )
 
 
       if correcta1 =="t" then
+        myData.puntos = myData.puntos + 1
         print("correcto")
         composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
       else
+        myData.corazones = myData.corazones - 1
        print("error")
        composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
     end
@@ -292,9 +294,11 @@ function scene:create( event )
 
 
       if correcta2 =="t" then
+        myData.puntos = myData.puntos + 1
         print("correcto")
         composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
       else
+        myData.corazones = myData.corazones - 1
        print("error")
        composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
     end
@@ -333,9 +337,11 @@ function scene:create( event )
 
 
       if correcta3 =="t" then
+        myData.puntos = myData.puntos + 1
         print("correcto")
         composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
       else
+        myData.corazones = myData.corazones - 1
        print("error")
        composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
     end
