@@ -32,8 +32,25 @@ local myData = require( "mydata" )
     local completa
     local vidas
 
-  --  LLAMADA A WEB SERVICE
 
+  --  LLAMADA A WEB SERVICE
+function loadTable(filename)
+
+    local path = system.pathForFile( filename, system.DocumentsDirectory)
+    local file = io.open( path, "r" )
+
+    if file then
+         -- read all contents of file into a string
+         local contents = file:read( "*a" )
+         local myTable = contents
+         io.close( file )
+         print(" -- load success."..myTable)
+         return myTable 
+    end
+
+    print(" -- load fail, no pre-existing file.")
+    return nil
+end
   local json = require( "json" )
 
   local function handleResponse( event )
@@ -210,6 +227,11 @@ function scene:create( event )
       local params = {}
 
       local headers = {}
+
+      if myData.token== 0 then
+        myData.token= loadTable("login")
+      end
+
       headers["authorization"] = "Bearer " .. myData.token
       params.headers = headers
 
@@ -255,7 +277,7 @@ function scene:create( event )
      url = "https://colgate.herokuapp.com/api/v1/users/me/"
 
       
-      timer.performWithDelay( 500, function()  print("vidas:" .. myData.corazones)  
+      timer.performWithDelay( 1000, function()  print("vidas:" .. myData.corazones)  
       if myData.corazones == 3 then
       local corazon1= display.newImage(group,"Image/corazon.png")
       corazon1:translate( (_W/6)*4.5, centerY/6)
@@ -397,7 +419,7 @@ function scene:hide( event )
 		-- Called when the scene is now off screen
 	end	
         
-         composer.removeScene( composer.getSceneName( "current" ) )
+         
 	
 end
 
