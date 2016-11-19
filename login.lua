@@ -218,7 +218,7 @@ function scene:create( event )
              
             -- stop if fields are blank
             if(userid == '' or password == '') then
-               local alert = native.showAlert( "Error de validación", "Es necesario que ingrese un Usuario y una Clave de Acceso", { "OK" }, onComplete )
+               local alert = native.showAlert( "Error de validación", "Es necesario que ingrese un Usuario y una Clave de Acceso", { "OK" } )
                 return
 
 
@@ -242,8 +242,8 @@ function scene:create( event )
                 timer.performWithDelay( 500, function()  network.request( url, "POST", handleResponse, params )  
                -- print(variableRegistro["access_token"]) 
                 if variableRegistro["access_token"] == nil then
-
-                labelReturnStatus.text = 'No existe usurio.'
+                    local alert = native.showAlert( "Error de validación", "Usuario o Contraseña son incorrectos", { "OK" } )
+                
                 else
                      myData.token = variableRegistro["access_token"]
                      saveTable(myData.token,"login")
