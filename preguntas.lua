@@ -226,6 +226,29 @@ function scene:create( event )
       idrespuesta = tablaResponse["answer_set"][1]["id"]
       idpregunta = tablaResponse["answer_set"][1]["question"]
 
+      --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
+      local json = require( "json" )
+      local function handleResponse( event )
+          if not event.isError then
+              local response = json.decode( event.response )
+              print( event.response )
+          else
+              print( "Error" )
+          end
+          return
+      end
+
+        body="question=" .. idpregunta .. "&answer=" .. idrespuesta
+        headers["authorization"] = "Bearer " .. myData.token
+        params.headers = headers
+        params.body = body
+
+        url = "https://colgate.herokuapp.com/api/v1/attempts/"
+
+        network.request( url, "POST", handleResponse, params )
+
+        ----------------------------------------------------------------------------------
+
 
       if correcta1 =="t" then
         print("correcto")
@@ -244,6 +267,29 @@ function scene:create( event )
       idrespuesta = tablaResponse["answer_set"][2]["id"]
       idpregunta = tablaResponse["answer_set"][2]["question"]
 
+      --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
+      local json = require( "json" )
+      local function handleResponse( event )
+          if not event.isError then
+              local response = json.decode( event.response )
+              print( event.response )
+          else
+              print( "Error" )
+          end
+          return
+      end
+
+        body="question=" .. idpregunta .. "&answer=" .. idrespuesta
+        headers["authorization"] = "Bearer " .. myData.token
+        params.headers = headers
+        params.body = body
+
+        url = "https://colgate.herokuapp.com/api/v1/attempts/"
+
+        network.request( url, "POST", handleResponse, params )
+
+        ----------------------------------------------------------------------------------
+
 
       if correcta2 =="t" then
         print("correcto")
@@ -261,6 +307,29 @@ function scene:create( event )
       print ("Id Pregunta = " .. tablaResponse["answer_set"][3]["question"])
       idrespuesta = tablaResponse["answer_set"][3]["id"]
       idpregunta = tablaResponse["answer_set"][3]["question"]
+
+      --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
+      local json = require( "json" )
+      local function handleResponse( event )
+          if not event.isError then
+              local response = json.decode( event.response )
+              print( event.response )
+          else
+              print( "Error" )
+          end
+          return
+      end
+
+        body="question=" .. idpregunta .. "&answer=" .. idrespuesta
+        headers["authorization"] = "Bearer " .. myData.token
+        params.headers = headers
+        params.body = body
+
+        url = "https://colgate.herokuapp.com/api/v1/attempts/"
+
+        network.request( url, "POST", handleResponse, params )
+
+        ----------------------------------------------------------------------------------
 
 
       if correcta3 =="t" then
