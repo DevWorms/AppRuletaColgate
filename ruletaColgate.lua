@@ -125,17 +125,20 @@ function enciende( ... )
                   timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 )   end )
                   myData.id_categoria = "fe0c2d2b-6dfc-41f8-b818-c39400594921"
                   myData.categoria = 1
+                  print("categoria:" .. myData.categoria )
                 elseif aleatorio == 2 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
                   myData.id_categoria = "a5b200ba-8fa5-4898-beef-aee568045917"
                   myData.categoria = 2
+                   print("categoria:" .. myData.categoria )
                 elseif aleatorio == 3 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                   timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
                   myData.id_categoria = "be18cd66-c8a6-4820-81ff-c6a824af7552"
                   myData.categoria = 3
+                   print("categoria:" .. myData.categoria )
                 elseif aleatorio == 4 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
@@ -143,6 +146,7 @@ function enciende( ... )
                   timer.performWithDelay( 4500, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
                   myData.id_categoria = "7d37e404-e472-4bc1-a598-871ba0fcff96"
                   myData.categoria = 4
+                   print("categoria:" .. myData.categoria )
                 elseif aleatorio == 5 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
@@ -151,6 +155,7 @@ function enciende( ... )
                   timer.performWithDelay( 5000, function() composer.removeScene( "bloqueo" ) sound(2)  composer.gotoScene( "preguntas", "slideDown", 500 ) end )
                   myData.id_categoria = "fb153f89-2ab8-4cbd-b3ec-041ce397f639"
                   myData.categoria = 5
+                   print("categoria:" .. myData.categoria )
                 end
             end
         end

@@ -170,7 +170,7 @@ function scene:create( event )
            -- print(variableRegistro["access_token"]) 
             if variableRegistro["access_token"] == nil then
 
-
+            labelReturnStatus.text = 'No existe usurio.'
             else
                  myData.token = variableRegistro["access_token"]
 

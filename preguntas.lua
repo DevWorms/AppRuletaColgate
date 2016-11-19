@@ -68,6 +68,62 @@ function scene:create( event )
                                 print("entro resp3")
                               end
                             end
+
+                         
+
+
+                          end
+                          
+                      end
+                  end
+                  
+               end
+
+               for k,v in pairs (decoded) do
+                    print (k,v)
+                   if k== "question" then
+                      labelPreguntas.text=v
+                   end 
+                   if k == "answer_set" then
+
+                    local parte1= json.encode( v )
+                    print("extraer answer_set : " .. parte1)
+                    local partes= json.decode( parte1)
+                                           
+                      for i,j in pairs (partes) do
+                          print(i,j)
+                          for n,m in pairs (j) do
+                            print(n,m)
+                           
+                           if n=="is_correct" then
+                              if contcorrect==1 then
+                                if m== true then
+                                  correcta1="t"
+                                else
+                                  correcta1="f"
+                                end
+                                contcorrect=2
+                                print("entro correcta1")
+                              elseif contcorrect==2 then
+                                if m== true then
+                                  correcta2="t"
+                                   else
+                                  correcta2="f"
+                                end
+                                contcorrect=3
+                                print("entro correcta2")
+                              elseif contcorrect==3 then
+                                if m== true then
+                                  correcta3="t"
+                                   else
+                                  correcta3="f"
+                                end
+                                contcorrect=1
+                                print("entro correcta3")
+                              end
+                            end
+
+
                           end
                           
                       end
@@ -169,26 +225,44 @@ function scene:create( event )
     group:insert(labelPreguntas)
 
 	local btnPresslog1 = function( event )
-		print("1:"..respuesta1)
-	  composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 )  
+    if correcta1 =="t" then
+  		print("correcto")
 
+  	  composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+      else
+       print("error")
+       composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
+    end
 	end
 
   local btnPresslog2 = function( event )
-    print("2:"..respuesta2)
-    composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 )  
+       if correcta2 =="t" then
+      print("correcto")
+
+      composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+      else
+       print("error")
+       composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
+    end
 
   end
   local btnPresslog3 = function( event )
-    print("3:"..respuesta3)
-    composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 )  
+       if correcta3 =="t" then
+      print("correcto")
+
+      composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+      else
+       print("error")
+       composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
+    end
 
   end
+   print("categoriaPre:" .. myData.categoria )
    url = "https://colgate.herokuapp.com/api/v1/categories/" .. myData.categoria .. "/random_question/" 
 
         network.request( url, "GET", handleResponse, params )
 
-   timer.performWithDelay( 500, function() print("respuesta1: "..respuesta1) print("respuesta2: "..respuesta2) print("respuesta3: "..respuesta3) btnPrimera = widget.newButton({
+   timer.performWithDelay( 500, function() print("respuesta1: ".. respuesta1) print("respuesta2: ".. respuesta2) print("respuesta3: ".. respuesta3) print("correcta1: ".. correcta1) print("correcta2: ".. correcta2) print("correcta3: ".. correcta3) btnPrimera = widget.newButton({
         id = "Primera",
         label = respuesta1,
         emboss = false,
@@ -250,7 +324,8 @@ end
 
 function scene:hide( event )
 	
-	
+	composer.removeScene( composer.getSceneName( "current" ) )
+  
 	
 end
 
