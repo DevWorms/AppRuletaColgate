@@ -102,7 +102,7 @@ function scene:create( event )
 	 local group = self.view
 
     
-     local firts = loadTable("login")
+     local firts = loadTable("login1")
      print("Hay tabla "..firts)
      if firts == "no" then
 
@@ -218,12 +218,12 @@ function scene:create( event )
              
             -- stop if fields are blank
             if(userid == '' or password == '') then
-                labelReturnStatus.text = 'Favor de llenar los campos.'
+               local alert = native.showAlert( "Error de validación", "Es necesario que ingrese un Usuario y una Clave de Acceso", { "OK" }, onComplete )
                 return
 
 
             else
-                labelReturnStatus.text = 'Haciendo login.'
+               -- labelReturnStatus.text = 'Haciendo login.'
 
                  --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
 

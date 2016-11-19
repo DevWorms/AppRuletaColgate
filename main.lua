@@ -12,7 +12,7 @@ local composer = require "composer"
 local widget = require "widget"
 
 
-		composer.gotoScene( "acceso_rapido", "fade", 400 )
+		composer.gotoScene( "login", "fade", 400 )
 
 
 
