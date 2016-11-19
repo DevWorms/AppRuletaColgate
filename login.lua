@@ -17,18 +17,34 @@ local image, text1, text2, text3, memTimer, variableRegistro
     local function handleResponse( event )
         if not event.isError then
             local response = json.decode( event.response )
-           -- print("Registro"..response)
+           
             variableRegistro = response
+             print("Registro")
         else
             print( "Error" )
         end
         return
     end
-function wait()
-    for i=1,100 do
+    function wait()
+    for i=1,100000 do
      print("espera"..i)
     end
    
+end
+function espera( fnCallback )
+
+     onComplete= wait()
+
+            if fnCallback~=nil then
+                 fnCallback()
+         end
+    
+
+
+url = "https://colgate.herokuapp.com/o/token/"
+ network.request( url, "POST", handleResponse, params )
+
+    -- body
 end
 function reproducirSonido( sonido, bloqueo, fnCallback )
     print(sonido)
@@ -213,7 +229,8 @@ function scene:create( event )
 
     end
     local function btnRegistrar( event )
-        reproducirSonido("EjemploTablero",0,wait())
+        espera(wait())
+        --reproducirSonido("EjemploTablero",0,wait())
            -- frmUsername:removeSelf()
             --frmPassword:removeSelf()
             --composer.gotoScene( "registro", "slideRight", 500 )
