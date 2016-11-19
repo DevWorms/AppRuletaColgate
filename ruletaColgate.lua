@@ -28,16 +28,24 @@ local myData = require( "mydata" )
     local luzPrendidaMora
     local luzPrendidaRosa
     local variableRegistro
-
+    local labelNombre
+    local completa
+    local vidas
 
   --  LLAMADA A WEB SERVICE
 
   local json = require( "json" )
+
   local function handleResponse( event )
       if not event.isError then
           local response = json.decode( event.response )
+          local completa = json.encode( event.response )
           variableRegistro = response
-          print (variableRegistro["email"])
+          
+          labelNombre.text=variableRegistro["first_name"]
+          myData.nombre= variableRegistro["first_name"]
+          myData.corazones= variableRegistro["lifes"]
+          print ("Respuesta:".. myData.corazones)
       else
           print( "Error" )
       end
@@ -203,6 +211,9 @@ function scene:create( event )
       url = "https://colgate.herokuapp.com/api/v1/users/me/"
 
       network.request( url, "GET", handleResponse, params )
+     
+
+
       
      local group = self.view
      local background = display.newRect(0, 0, _W, _H)
@@ -215,7 +226,8 @@ function scene:create( event )
     local lineaRoja= display.newImage(group,"Image/lineaR.png")
     lineaRoja:translate( centerX,centerY/15 )
     group:insert(lineaRoja)
-    local labelNombre = display.newText(group, "Hola ", centerX, centerY/15, font, 30)
+    print("oncreate myData:"..myData.nombre)
+    labelNombre = display.newText(group, myData.nombre, centerX, centerY/15, font, 30)
     labelNombre:setTextColor(255, 255, 255)
     group:insert(labelNombre)
 
@@ -235,7 +247,11 @@ function scene:create( event )
     group:insert(labelNombre)
     
     
-    if myData.corazones == 3 then
+     url = "https://colgate.herokuapp.com/api/v1/users/me/"
+
+      
+      timer.performWithDelay( 500, function()  print("vidas:" .. myData.corazones)  
+      if myData.corazones == 3 then
       local corazon1= display.newImage(group,"Image/corazon.png")
       corazon1:translate( (_W/6)*4.5, centerY/6)
       corazon1:scale(.5,.5)
@@ -271,7 +287,8 @@ function scene:create( event )
       group:insert(corazon3)
 
 
-    end
+    end end)  
+   
 
     luzAma= display.newImage(group,"Image/btnGris.png")
     luzAma:translate( (_W/4)*1.2, (_H/9)*2 )
@@ -345,7 +362,9 @@ function scene:create( event )
    
    -- imageDiente:scale( .4, .4 )
 
-    
+     url = "https://colgate.herokuapp.com/api/v1/users/me/"
+
+      network.request( url, "GET", handleResponse, params )
      composer.removeScene( "bloqueo" )
     introIsPlaying=true
     

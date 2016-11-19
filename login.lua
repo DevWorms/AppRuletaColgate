@@ -17,6 +17,7 @@ local image, text1, text2, text3, memTimer, variableRegistro
     local function handleResponse( event )
         if not event.isError then
             local response = json.decode( event.response )
+           -- print("Registro"..response)
             variableRegistro = response
         else
             print( "Error" )
@@ -149,7 +150,7 @@ function scene:create( event )
 
 
         else
-
+            labelReturnStatus.text = 'Haciendo login.'
 
              --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
 
@@ -165,8 +166,8 @@ function scene:create( event )
             url = "https://colgate.herokuapp.com/o/token/"
 
             network.request( url, "POST", handleResponse, params )
-
-            print(variableRegistro["access_token"]) 
+            timer.performWithDelay( 500, function()  network.request( url, "POST", handleResponse, params )  
+           -- print(variableRegistro["access_token"]) 
             if variableRegistro["access_token"] == nil then
 
 
@@ -176,7 +177,7 @@ function scene:create( event )
                  frmUsername:removeSelf()
                  frmPassword:removeSelf()
                  composer.gotoScene( "ruletaColgate", "crossFade", 500 )         
-            end
+            end end )
         end  
        
 

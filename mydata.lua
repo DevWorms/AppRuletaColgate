@@ -1,7 +1,7 @@
 --my global space
 local myVariable = {
 	
-	nombre = 0,
+	nombre = "",
 	corazones = 0,
 	puntos = 0,
 	token = 0,
