@@ -1,6 +1,7 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require( "widget" )
+local myData = require( "mydata" )
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -291,6 +292,8 @@ local btnPresslog = function( event )
 
         network.request( url_Consulta, "POST", handleResponse, params )
 
+        myData.registro_mail = correo
+        myData.registro_pass = contrasena
         
          frmContrasena:removeSelf()
          frmCorreo:removeSelf()
