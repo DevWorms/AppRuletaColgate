@@ -406,7 +406,7 @@ function scene:show( event )
 end
 function scene:hide( event )
 	local group = self.view
-	
+	 composer.removeScene( composer.getSceneName( "current" ) )
 	local phase = event.phase
 	
 	if event.phase == "will" then
