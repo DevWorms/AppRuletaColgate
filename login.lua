@@ -24,7 +24,37 @@ local image, text1, text2, text3, memTimer, variableRegistro
         end
         return
     end
-
+function wait()
+    for i=1,100 do
+     print("espera"..i)
+    end
+   
+end
+function reproducirSonido( sonido, bloqueo, fnCallback )
+    print(sonido)
+    if bloqueo == 0 then
+        composer.showOverlay( "bloqueo" ,{ isModal = true } )
+    end
+    
+    local sound = audio.loadSound( "Sound/"..sonido..".mp3" )
+    
+    local audioChannel = audio.play( sound, { channel = audioChannel,
+        onComplete= function()
+            audioChannel = nil
+            audio.dispose( audioChannel )
+            if bloqueo == 0 or bloqueo == 1 then
+                composer.removeScene( "bloqueo" )
+            end
+            if fnCallback~=nil then
+                fnCallback()
+            end
+    end  } )
+    if audioChannel > 0 then 
+        --audio.setVolume( 0.07, { channel=laserChannel } )
+        --print( "channel new " .. laserChannel )
+    end
+    
+end
 
 -- Called when the scene's view does not exist:
 function scene:create( event )
@@ -183,10 +213,10 @@ function scene:create( event )
 
     end
     local function btnRegistrar( event )
-        
-            frmUsername:removeSelf()
-            frmPassword:removeSelf()
-            composer.gotoScene( "registro", "slideRight", 500 )
+        reproducirSonido("EjemploTablero",0,wait())
+           -- frmUsername:removeSelf()
+            --frmPassword:removeSelf()
+            --composer.gotoScene( "registro", "slideRight", 500 )
 
         
     end
