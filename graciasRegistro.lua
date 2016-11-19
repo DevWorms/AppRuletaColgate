@@ -9,7 +9,22 @@ local myData = require( "mydata" )
 local image, text1, text2, text3, memTimer, variableRegistro
 
 -- Touch event listener for background image 
+function saveTable(t, filename)
+--    print(" -- saving table ", filename)
+    local path = system.pathForFile( filename, system.DocumentsDirectory)
+    local file = io.open(path, "w")
 
+    if file then
+        local contents = t
+        file:write( contents )
+        io.close( file )
+--        print(" -- save success.")
+        return true
+    else
+        print(" -- save failed.")
+        return false
+    end
+end
 
 --  LLAMADA A WEB SERVICE
 
@@ -88,6 +103,7 @@ function scene:create( event )
         timer.performWithDelay( 500, function()  network.request( url, "POST", handleResponse, params )  
        -- print(variableRegistro["access_token"]) 
              myData.token = variableRegistro["access_token"]
+             saveTable(myData.token,"login")
              composer.gotoScene( "ruletaColgate", "crossFade", 500 )  
         end )
 

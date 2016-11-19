@@ -11,7 +11,7 @@ local image, text1, text2, text3, memTimer
 -- Touch event listener for background image
 
 function linkTerminos( event )
-    system.openURL( "https://docs.google.com/presentation/d/18zUNxkfuyP5Zn3XxFSAx-2s0iGJaU_Ou8KT8QM_yHFg/edit#slide=id.g195ef51ea0_0_263" )
+    system.openURL( "http://www.metricapromociones.com/bases" )
 end 
 
 
@@ -112,6 +112,7 @@ function scene:create( event )
     frmContrasena.inputType = "default"
     frmContrasena.font = native.newFont(font, 18)
     frmContrasena.isEditable = true
+    frmContrasena.isSecure = true
     frmContrasena.align = "center"
     frmContrasena.anchorX=1
     frmContrasena.anchorX=0
@@ -132,6 +133,7 @@ function scene:create( event )
     frmContrasenaN.inputType = "default"
     frmContrasenaN.font = native.newFont(font, 18)
     frmContrasenaN.isEditable = true
+    frmContrasenaN.isSecure = true
     frmContrasenaN.align = "center"
     frmContrasenaN.anchorX=1
     frmContrasenaN.anchorX=0
