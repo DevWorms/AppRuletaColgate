@@ -31,6 +31,7 @@ local myData = require( "mydata" )
     local labelNombre
     local completa
     local vidas
+    local labelmoneda
 
 
   --  LLAMADA A WEB SERVICE
@@ -62,6 +63,8 @@ end
           labelNombre.text=variableRegistro["first_name"]
           myData.nombre= variableRegistro["first_name"]
           myData.corazones= variableRegistro["lifes"]
+          myData.puntos= variableRegistro["points"]
+          labelmoneda.text =  myData.puntos
           print ("Respuesta:".. myData.corazones)
       else
           print( "Error" )
@@ -269,7 +272,7 @@ function scene:create( event )
     moneda:scale(.5,.5)
     group:insert(moneda)
 
-    local labelmoneda = display.newText(group, myData.puntos, (centerX/6)*1.8, centerY/6, font, 22)
+    labelmoneda = display.newText(group, myData.puntos, (centerX/6)*1.8, centerY/6, font, 22)
     labelmoneda:setTextColor(255, 255, 255)
     group:insert(labelNombre)
     
