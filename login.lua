@@ -239,7 +239,7 @@ function scene:create( event )
                 url = "https://colgate.herokuapp.com/o/token/"
 
                 network.request( url, "POST", handleResponse, params )
-                timer.performWithDelay( 500, function()  network.request( url, "POST", handleResponse, params )  
+                timer.performWithDelay( 1000, function()  network.request( url, "POST", handleResponse, params )  
                -- print(variableRegistro["access_token"]) 
                 if variableRegistro["access_token"] == nil then
                     local alert = native.showAlert( "Error de validación", "Usuario o Contraseña son incorrectos", { "OK" } )
