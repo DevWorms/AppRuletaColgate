@@ -107,7 +107,12 @@ function scene:create( event )
 
 
     local btnPresslog = function( event )
-	  composer.gotoScene( "puntosPregunta", "slideLeft", 500 )  
+
+    if myData.puntos==50 then
+      composer.gotoScene( "puntosPregunta", "slideLeft", 500 )
+    else 
+      composer.gotoScene( "ruletaColgate", "fade", 500 )
+    end   
 
 	end
 	

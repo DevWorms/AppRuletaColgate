@@ -31,7 +31,7 @@ function scene:create( event )
     local lineaRoja= display.newImage(group,"Image/lineaR.png")
     lineaRoja:translate( centerX,centerY/15 )
     group:insert(lineaRoja)
-    local labelNombre = display.newText(group, "Hola " .. myData.nombre, centerX, centerY/15, font, 30)
+    local labelNombre = display.newText(group, myData.nombre, centerX, centerY/15, font, 30)
     labelNombre:setTextColor(255, 255, 255)
     group:insert(labelNombre)
 

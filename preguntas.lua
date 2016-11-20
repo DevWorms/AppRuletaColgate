@@ -254,10 +254,12 @@ function scene:create( event )
       if correcta1 =="t" then
         myData.puntos = myData.puntos + 1
         print("correcto")
+        sound(1)
         composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
       else
         myData.corazones = myData.corazones - 1
        print("error")
+       sound(2)
        composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
     end
   end
@@ -298,10 +300,12 @@ function scene:create( event )
       if correcta2 =="t" then
         myData.puntos = myData.puntos + 1
         print("correcto")
+        sound(1)
         composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
       else
         myData.corazones = myData.corazones - 1
        print("error")
+       sound(2)
        composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
     end
 
@@ -342,10 +346,12 @@ function scene:create( event )
       if correcta3 =="t" then
         myData.puntos = myData.puntos + 1
         print("correcto")
+        sound(1)
         composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
       else
         myData.corazones = myData.corazones - 1
        print("error")
+       sound(2)
        composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
     end
   end
@@ -419,6 +425,27 @@ function scene:create( event )
   
 
 end
+
+
+
+function sound(chosen)
+  -- body
+
+  --  SELECCIONAR SONIDO DE LA RULETA
+  local correct = audio.loadSound( "Sound/Pregunta_Correct.mp3" )
+  local incorrect = audio.loadSound( "Sound/Pregunta_Incorrecta.mp3" )
+  --local laserChannel = audio.play( ruleta_Sound )
+  
+  if (chosen == 1) then
+    audio.play( correct )
+  elseif (chosen == 2) then
+      audio.play( incorrect )
+  end
+
+end
+
+
+
 
 function scene:show( event )
   
