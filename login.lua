@@ -2,6 +2,7 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require( "widget" )
 local myData = require( "mydata" )
+local json = require( "json" )
 --local settings = require("settings")
 --local introIsPlaying
 ---------------------------------------------------------------------------------
@@ -54,7 +55,7 @@ end
 
    --  LLAMADA A WEB SERVICE
 
-    local json = require( "json" )
+    
     local function handleResponse( event )
         if not event.isError then
             local response = json.decode( event.response )
@@ -110,6 +111,7 @@ function scene:create( event )
 
         local headers = {}
         headers["authorization"] = "Basic QU1Cc2JHMko4MGZONlMxYVVaaExjYW1PUzdxOUFEdFdsMW5Yemt3bjplSVFxcjNGRUVKS0VHa09TWkJVQkJWaElqZFB2OFZyYlFQQjlEVlloWXFXS1djSHVxNTBPZWVuYVh4YmZNUTQ3MFZFZXR6WlJhMXZpZTZNVnNxRDFuZVBFQlpiOTZWYVZnWmpLVXhibnNka0EwaFJvc1RHbGNMMXB5Q0xnWjZPcg=="
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
         local body = "grant_type=password&username=0&password=0"
 
         params.headers = headers
@@ -230,7 +232,9 @@ function scene:create( event )
                 local params = {}
                 
                 local headers = {}
+                
                 headers["authorization"] = "Basic QU1Cc2JHMko4MGZONlMxYVVaaExjYW1PUzdxOUFEdFdsMW5Yemt3bjplSVFxcjNGRUVKS0VHa09TWkJVQkJWaElqZFB2OFZyYlFQQjlEVlloWXFXS1djSHVxNTBPZWVuYVh4YmZNUTQ3MFZFZXR6WlJhMXZpZTZNVnNxRDFuZVBFQlpiOTZWYVZnWmpLVXhibnNka0EwaFJvc1RHbGNMMXB5Q0xnWjZPcg=="
+                headers["Content-Type"] = "application/x-www-form-urlencoded"
                 local body = "grant_type=password&username=" .. userid .. "&password=" .. password
 
                 params.headers = headers
@@ -246,7 +250,7 @@ function scene:create( event )
                 
                 else
                      myData.token = variableRegistro["access_token"]
-                     saveTable(myData.token,"login")
+                     saveTable(myData.token,"login1")
                      frmUsername:removeSelf()
                      frmPassword:removeSelf()
                      composer.gotoScene( "ruletaColgate", "crossFade", 500 )         
