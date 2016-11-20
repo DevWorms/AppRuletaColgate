@@ -138,7 +138,7 @@ end
 
 function scene:hide( event )
 	
-	
+	 composer.removeScene( composer.getSceneName( "current" ) )
 	
 end
 
