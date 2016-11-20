@@ -250,7 +250,7 @@ function scene:create( event )
                 
                 else
                      myData.token = variableRegistro["access_token"]
-                     saveTable(myData.token,"login1")
+                     saveTable(myData.token,"login")
                      frmUsername:removeSelf()
                      frmPassword:removeSelf()
                      composer.gotoScene( "ruletaColgate", "crossFade", 500 )         

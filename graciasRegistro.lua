@@ -100,7 +100,7 @@ function scene:create( event )
         url = "https://colgate.herokuapp.com/o/token/"
 
         network.request( url, "POST", handleResponse, params )
-        timer.performWithDelay( 1000, function()  network.request( url, "POST", handleResponse, params )  
+        timer.performWithDelay( 2000, function()  network.request( url, "POST", handleResponse, params )  
        -- print(variableRegistro["access_token"]) 
              myData.token = variableRegistro["access_token"]
              saveTable(myData.token,"login")
