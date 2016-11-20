@@ -172,7 +172,7 @@ function scene:show( event )
 end
 
 function scene:hide( event )
-	
+	 composer.removeScene( composer.getSceneName( "current" ) )
 	
 	
 end

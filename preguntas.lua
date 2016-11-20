@@ -214,7 +214,9 @@ function scene:create( event )
     labelCategoria:setTextColor(255, 255, 255)
     group:insert(labelCategoria)
 
-    labelPreguntas = display.newText(group, "", (centerX), (centerY/6)*3 , font, 30)
+    labelPreguntas = display.newText(group, "",  (centerX), (centerY/6)*4,(centerX)*1.5, 200, font, 30 )
+
+    --labelPreguntas = display.newText(group, "", (centerX), (centerY/6)*3 , font, 30)
     labelPreguntas:setTextColor(255, 255, 255)
     group:insert(labelPreguntas)
 
@@ -374,7 +376,7 @@ function scene:create( event )
                                             emboss = false,
                                             defaultFile = "Image/espacio_texto.png",
                                             overFile = "Image/espacio_texto.png",
-                                            fontSize=30,
+                                            fontSize=25,
                                             labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
                                             onPress = btnPresslog1     
                                             })
@@ -392,7 +394,7 @@ function scene:create( event )
         emboss = false,
         defaultFile = "Image/espacio_texto.png",
         overFile = "Image/espacio_texto.png",
-        fontSize=30,
+        fontSize=25,
         labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
        
         onPress = btnPresslog2     
@@ -407,7 +409,7 @@ function scene:create( event )
     emboss = false,
     defaultFile = "Image/espacio_texto.png",
     overFile = "Image/espacio_texto.png",
-  fontSize=30,
+  fontSize=25,
     labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
    
     onPress = btnPresslog3     
