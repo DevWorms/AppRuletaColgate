@@ -36,7 +36,8 @@ function scene:create( event )
 
     url_Consulta =  "https://colgate.herokuapp.com/api/v1/users/"
     local params = {
-        body = "email=0&first_name=0&last_name=0&password=0&birthdate=0"
+        body = "email=0&first_name=0&last_name=0&password=0&birthdate=0",
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
     };
 
     network.request( url_Consulta, "POST", handleResponse, params )
