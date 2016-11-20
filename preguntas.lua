@@ -240,6 +240,7 @@ function scene:create( event )
 
         body="question=" .. idpregunta .. "&answer=" .. idrespuesta
         headers["authorization"] = "Bearer " .. myData.token
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
         params.headers = headers
         params.body = body
 
@@ -283,6 +284,7 @@ function scene:create( event )
 
         body="question=" .. idpregunta .. "&answer=" .. idrespuesta
         headers["authorization"] = "Bearer " .. myData.token
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
         params.headers = headers
         params.body = body
 
@@ -326,6 +328,7 @@ function scene:create( event )
 
         body="question=" .. idpregunta .. "&answer=" .. idrespuesta
         headers["authorization"] = "Bearer " .. myData.token
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
         params.headers = headers
         params.body = body
 
