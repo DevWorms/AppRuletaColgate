@@ -2,6 +2,7 @@
 local myVariable = {
 	
 	nombre = "",
+	nombreCate = "", 
 	corazones = 0,
 	puntos = 0,
 	token = 0,
