@@ -199,9 +199,9 @@ function sound(chosen)
   --local laserChannel = audio.play( ruleta_Sound )
   
   if (chosen == 1) then
-    --audio.play( ruleta_Sound )
+    audio.play( ruleta_Sound )
   elseif (chosen == 2) then
-      --audio.play( select_Sound )
+      audio.play( select_Sound )
   end
 
 end
