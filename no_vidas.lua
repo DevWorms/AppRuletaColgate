@@ -6,6 +6,7 @@ local myData = require( "mydata" )
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
 
+
 local image, text1, text2, text3, memTimer
   local centerX= _W/2
   local centerY= _H/2
@@ -26,9 +27,10 @@ function scene:create( event )
     local lineaRoja= display.newImage(group,"Image/lineaR.png")
     lineaRoja:translate( centerX,centerY/15 )
     group:insert(lineaRoja)
-    local labelNombre = display.newText(group,  myData.nombre, centerX, centerY/15, font, 30)
+    local labelNombre = display.newText(group, myData.nombre, centerX, centerY/15, font, 30)
     labelNombre:setTextColor(255, 255, 255)
     group:insert(labelNombre)
+
 
     
     local lineaNegra= display.newImage(group,"Image/lineaN.png")
@@ -88,34 +90,128 @@ function scene:create( event )
 	local imageDiente= display.newImage("Image/dienteMal.png")
 	imageDiente.x= display.contentWidth / 2
 	imageDiente.y=(_H/6)*1.5
-	imageDiente:scale( 2, 2)
+	imageDiente:scale( 2,2 )
 	group:insert( imageDiente )
 
-    local labelRespuesta = display.newText(group, "Fallaste", (centerX),(_H/6)*2.2, font, 40)
+	local labelRespuesta = display.newText(group, "Alcanzaste: " .. myData.puntos .. " puntos", (centerX),(_H/6)*2.8, font, 30)
     labelRespuesta:setTextColor(236, 124, 38) 
     group:insert(labelRespuesta)
 
-    local labelTexto = display.newText(group, "Recuerda que el exceso \nde dulces y golosinas contribuye \na la formación de caries", (centerX),(_H/6)*2.8, font, 30)
-    labelTexto:setTextColor(255, 255, 255) 
-    group:insert(labelTexto)
+    local labelRespuesta = display.newText(group, "!Ya no tienes más vidas", (centerX),(_H/6)*2.2, font, 40)
+    labelRespuesta:setTextColor(236, 124, 38) 
+    group:insert(labelRespuesta)
 
-	local imagePaleta= display.newImage("Image/paleta.png")
-	imagePaleta.x= display.contentWidth / 2
-	imagePaleta.y= (_H/6)*3.8
-	imagePaleta:scale( 2, 2 )
-	group:insert( imagePaleta )
+  local labelRespuesta = display.newText(group, "Comparte tu puntaje", (centerX),(_H/6)*3.1, font, 30)
+    labelRespuesta:setTextColor(236, 124, 38) 
+    group:insert(labelRespuesta)
 
 
-    local btnPresslog = function( event )
 
-    if myData.corazones == 0 then
-      composer.gotoScene( "no_vidas", "slideRight", 500 )
-    else
-	     composer.gotoScene( "ruletaColgate", "slideRight", 500 )  
-    end
-	end
 	
 
+	local btnFace = function( event )
+      --composer.gotoScene( "puntosPregunta", "crossFade", 10 )
+      local serviceName = "facebook"
+
+      local isAvailable = native.canShowPopup( "social", serviceName )
+
+      if ( isAvailable ) then
+
+          local listener = {}
+
+          function listener:popup( event )
+              print( "name: " .. event.name )
+              print( "type: " .. event.type )
+              print( "action: " .. tostring( event.action ) )
+              print( "limitReached: " .. tostring( event.limitReached ) )
+          end
+
+          native.showPopup( "social",
+          {
+              service = serviceName,
+              message = "Hi there!",
+              listener = listener,
+              url = 
+              {
+                  "http://www.palindromo.com.mx/"
+              }
+          })
+
+      else
+
+          native.showAlert(
+              "Cannot send " .. serviceName .. " message.",
+              "Please setup your " .. serviceName .. " account or check your network connection.",
+              { "OK" } )
+      end
+    end
+
+    local btnTwi = function( event )
+      --composer.gotoScene( "puntosPregunta", "crossFade", 10 ) 
+      local serviceName = "twitter"
+      local texto = "Alcancé " .. myData.puntos .. " puntos"
+
+      local isAvailable = native.canShowPopup( "social", serviceName )
+
+      if ( isAvailable ) then
+
+          local listener = {}
+
+          function listener:popup( event )
+              print( "name: " .. event.name )
+              print( "type: " .. event.type )
+              print( "action: " .. tostring( event.action ) )
+              print( "limitReached: " .. tostring( event.limitReached ) )
+          end
+
+          native.showPopup( "social",
+          {
+              service = serviceName,
+              message = texto,
+              listener = listener,
+              url = 
+              {
+                  "http://www.palindromo.com.mx/"
+              }
+          })
+
+      else
+
+          native.showAlert(
+              "Cannot send " .. serviceName .. " message.",
+              "Please setup your " .. serviceName .. " account or check your network connection.",
+              { "OK" } )
+      end
+
+    end
+
+
+    local btnFace = widget.newButton({
+    width = 400,
+    height = 100,
+    defaultFile = "Image/btnFace.png",
+    overFile = "Image/btnFace.png",
+    onPress = btnFace   
+    })
+    btnFace.x = display.contentCenterX 
+    btnFace.y = (_H/6)*3.5
+    group:insert( btnFace )
+
+    local btnTwi = widget.newButton({
+    width = 400,
+    height = 100,
+    defaultFile = "Image/btnTwi.png",
+    overFile = "Image/btnTwi.png",
+    onPress = btnTwi     
+    })
+    btnTwi.x = display.contentCenterX 
+    btnTwi.y = (_H/6)*4
+    group:insert( btnTwi )
+
+	local btnPresslog = function( event )
+	  composer.gotoScene( "ruletaColgate", "fade", 500 )  
+
+	end
 	local btnLogin = widget.newButton({
         width = 200,
         height = 200,
@@ -141,8 +237,8 @@ function scene:show( event )
 end
 
 function scene:hide( event )
-	
 	 composer.removeScene( composer.getSceneName( "current" ) )
+	
 	
 end
 
