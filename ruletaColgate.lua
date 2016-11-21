@@ -143,14 +143,14 @@ function enciende( ... )
             elseif i==2 then
                 if aleatorio==1 then
                   timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 )   end )
-                  myData.id_categoria = "fe0c2d2b-6dfc-41f8-b818-c39400594921"
+                  myData.id_categoria = "fa01fd66-ac68-4d96-9e68-b9f890dd1939"
                   myData.categoria = 1
-                  myData.nombreCate = "Genérico"
+                  myData.nombreCate = "Genéricos"
                   print("categoria:" .. myData.categoria )
                 elseif aleatorio == 2 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
-                  myData.id_categoria = "a5b200ba-8fa5-4898-beef-aee568045917"
+                  myData.id_categoria = "ed90a627-8305-40d6-a687-7818174c16a4"
                   myData.categoria = 2
                   myData.nombreCate = "Enjuagues dentales"
                    print("categoria:" .. myData.categoria )
@@ -158,7 +158,7 @@ function enciende( ... )
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                   timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
-                  myData.id_categoria = "be18cd66-c8a6-4820-81ff-c6a824af7552"
+                  myData.id_categoria = "9983b45b-8d3a-4f87-abcf-af09a130b7cf"
                   myData.categoria = 3
                   myData.nombreCate = "Cremas Dentales"
                    print("categoria:" .. myData.categoria )
@@ -167,7 +167,7 @@ function enciende( ... )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                   timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
                   timer.performWithDelay( 4500, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
-                  myData.id_categoria = "7d37e404-e472-4bc1-a598-871ba0fcff96"
+                  myData.id_categoria = "d232307a-4ee1-4a56-bf83-fa504c77bafb"
                   myData.categoria = 4
                   myData.nombreCate = "Cepillos Dentales"
                    print("categoria:" .. myData.categoria )
@@ -177,7 +177,7 @@ function enciende( ... )
                   timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
                   timer.performWithDelay( 4500, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true sound(1) end )
                   timer.performWithDelay( 5000, function() composer.removeScene( "bloqueo" ) sound(2)  composer.gotoScene( "preguntas", "slideDown", 500 ) end )
-                  myData.id_categoria = "fb153f89-2ab8-4cbd-b3ec-041ce397f639"
+                  myData.id_categoria = "c5c418a7-dcb6-4e45-9411-354fd2abec3e"
                   myData.categoria = 5
                   myData.nombreCate = "Salud Bucal"
                    print("categoria:" .. myData.categoria )

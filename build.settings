@@ -27,6 +27,11 @@ settings =
         ["plugin.twitter"] = {
             publisherId = "com.jasonschroeder",
         },
+
+        ["CoronaProvider.native.popup.social"] =
+        {
+            publisherId = "com.coronalabs"
+        },
     },
     
 }

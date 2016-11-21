@@ -2,10 +2,6 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require( "widget" )
 local myData = require( "mydata" )
-local facebook = require( "plugin.facebook.v4" )
-local twitter = require("plugin.twitter")
-
-twitter.init("wECpX20X4EMfY59UPW8tyiTwQ", "n6DlH2OXzWRLWQ8JXNW5TOzDwDZTmwcGxq5xdeCagOldjjbxjY")
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -108,18 +104,80 @@ function scene:create( event )
 	
 
 	local btnFace = function( event )
-      --composer.gotoScene( "puntosPregunta", "crossFade", 10 )  
-      facebook.request( "me/feed", "POST", { message="Hello Facebook" } )
-    end
-    local btnTwi = function( event )
-      --composer.gotoScene( "puntosPregunta", "crossFade", 10 )  
-        local function tweetCallback(response)
-            print("TWEET TEXT: " .. response.text)
-            print("TWEET ID: " .. response.id)
-        end
+      --composer.gotoScene( "puntosPregunta", "crossFade", 10 )
+      local serviceName = "facebook"
 
-        twitter.tweet("I love the Twitter plugin for #CoronaSDK!", "image/diente.png", tweetCallback)
+      local isAvailable = native.canShowPopup( "social", serviceName )
+
+      if ( isAvailable ) then
+
+          local listener = {}
+
+          function listener:popup( event )
+              print( "name: " .. event.name )
+              print( "type: " .. event.type )
+              print( "action: " .. tostring( event.action ) )
+              print( "limitReached: " .. tostring( event.limitReached ) )
+          end
+
+          native.showPopup( "social",
+          {
+              service = serviceName,
+              message = "Hi there!",
+              listener = listener,
+              url = 
+              {
+                  "http://www.palindromo.com.mx/"
+              }
+          })
+
+      else
+
+          native.showAlert(
+              "Cannot send " .. serviceName .. " message.",
+              "Please setup your " .. serviceName .. " account or check your network connection.",
+              { "OK" } )
+      end
     end
+
+    local btnTwi = function( event )
+      --composer.gotoScene( "puntosPregunta", "crossFade", 10 ) 
+      local serviceName = "twitter"
+
+      local isAvailable = native.canShowPopup( "social", serviceName )
+
+      if ( isAvailable ) then
+
+          local listener = {}
+
+          function listener:popup( event )
+              print( "name: " .. event.name )
+              print( "type: " .. event.type )
+              print( "action: " .. tostring( event.action ) )
+              print( "limitReached: " .. tostring( event.limitReached ) )
+          end
+
+          native.showPopup( "social",
+          {
+              service = serviceName,
+              message = "He logrado 50 puntos!",
+              listener = listener,
+              url = 
+              {
+                  "http://www.palindromo.com.mx/"
+              }
+          })
+
+      else
+
+          native.showAlert(
+              "Cannot send " .. serviceName .. " message.",
+              "Please setup your " .. serviceName .. " account or check your network connection.",
+              { "OK" } )
+      end
+
+    end
+
 
     local btnFace = widget.newButton({
     width = 400,

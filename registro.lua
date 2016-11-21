@@ -35,10 +35,15 @@ function scene:create( event )
         ------------  SE DEBEN INICIAR LOS VALORES PARA CREAR LA VARIABLE "REGISTRO"  --------------------------------------      
 
     url_Consulta =  "https://colgate.herokuapp.com/api/v1/users/"
-    local params = {
-        body = "email=0&first_name=0&last_name=0&password=0&birthdate=0",
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-    };
+    local params = {}
+
+    local headers = {}
+        
+    local body = "email=0&first_name=0&last_name=0&password=0&birthdate=0"
+    headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+    params.headers = headers
+    params.body = body
 
     network.request( url_Consulta, "POST", handleResponse, params )
 
@@ -262,8 +267,7 @@ function scene:create( event )
     local checkboxButton = widget.newSwitch(
         {
             style = "checkbox",
-            id = "Checkbox",
-            onPress = onSwitchPress
+            id = "Checkbox"
         }
     )
     sceneGroup:insert(checkboxButton)
@@ -276,6 +280,8 @@ function scene:create( event )
 
 local btnPresslog = function( event )
     
+
+    local switch = checkboxButton
 
     --  OBTENER DATOS DEL FORMULARIO
     local nombre = frmNombre.text
@@ -299,6 +305,9 @@ local btnPresslog = function( event )
         local alert = native.showAlert( "Atención", "Ingresa tu contrasena", {"OK"})
     elseif contrasena ~= frmContrasenaN.text then
         local alert = native.showAlert( "Atención", "Las contraseñas no coinciden", {"OK"})
+    elseif tostring(switch.isOn) == "false" then
+        local alert = native.showAlert( "Atención", "Debes aceptar los términos y Condiciones", {"OK"})
+
 
     --  SI TODO ESTÁ BIEN, ENVIAR PARÁMETROS AL SERVIDOR Y CONTINUAR      
     else
@@ -312,12 +321,13 @@ local btnPresslog = function( event )
         myData.registro_mail = correo
         myData.registro_pass = contrasena
         
+        
          frmContrasena:removeSelf()
          frmCorreo:removeSelf()
          frmNombre:removeSelf()
          frmApellido:removeSelf()
          frmContrasenaN:removeSelf()   
-         composer.gotoScene( "graciasRegistro", "slideUp", 500 )        
+         composer.gotoScene( "graciasRegistro", "slideUp", 500 )  
     end
    
  end

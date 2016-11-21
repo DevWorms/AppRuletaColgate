@@ -253,7 +253,7 @@ function scene:create( event )
                      saveTable(myData.token,"login")
                      frmUsername:removeSelf()
                      frmPassword:removeSelf()
-                     composer.gotoScene( "ruletaColgate", "crossFade", 500 )         
+                     composer.gotoScene( "instrucciones", "crossFade", 500 )         
                 end end )
             end  
            
