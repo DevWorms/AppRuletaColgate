@@ -124,7 +124,7 @@ function saveTable(t, filename)
 end
 local function btnTapIntruc( event )
   print("intru")
-  composer.gotoScene( "instrucciones" ,"flip", 500  )
+  composer.gotoScene( "instrucciones" ,"zoomOutIn", 300  )
  
 end
 
