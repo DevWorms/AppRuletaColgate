@@ -124,7 +124,7 @@ function saveTable(t, filename)
 end
 local function btnTapIntruc( event )
   print("intru")
-  composer.showOverlay( "instrucciones" ,{ isModal = true } )
+  composer.gotoScene( "instrucciones" ,"flip", 500  )
  
 end
 
