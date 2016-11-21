@@ -233,8 +233,14 @@ function scene:create( event )
                -- labelReturnStatus.text = 'Haciendo login.'
 
                  --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
-
-                local params = {}
+                 local test = socket.tcp()
+                test:settimeout(1000)                   -- Set timeout to 1 second
+                            
+                local testResult = test:connect("www.google.com", 80)        -- Note that the test does not work if we put http:// in front
+                 
+                if not(testResult == nil) then
+                    print("Internet access is available")
+                     local params = {}
                 
                 local headers = {}
                 
@@ -260,6 +266,15 @@ function scene:create( event )
                      frmPassword:removeSelf()
                      composer.gotoScene( "instrucciones", "crossFade", 500 )         
                 end end )
+                   
+                else
+                    local alert = native.showAlert( "Error de validación", "Revisa tu conexión de internet", { "OK" } )
+                end
+                            
+                test:close()
+                test = nil
+
+               
             end  
            
 
