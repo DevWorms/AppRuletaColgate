@@ -3,6 +3,8 @@ local scene = composer.newScene()
 local widget = require( "widget" )
 local myData = require( "mydata" )
 local json = require( "json" )
+local socket = require("socket")
+local ltn12 = require("ltn12")
 --local settings = require("settings")
 --local introIsPlaying
 ---------------------------------------------------------------------------------
@@ -32,6 +34,9 @@ function saveTable(t, filename)
         return false
     end
 end
+
+
+
 
 -- loadTable(filename) loads in a table from filename in the DocumentsDirectory (filename)
 --        returns table structure (nil on error)
@@ -261,11 +266,28 @@ function scene:create( event )
         end
         local function btnRegistrar( event )
             --reproducirSonido("EjemploTablero",0,wait())
-                frmUsername:removeSelf()
-                frmPassword:removeSelf()
-                composer.gotoScene( "registro", "slideRight", 500 )
-
+               
+                local test = socket.tcp()
+                test:settimeout(1000)                   -- Set timeout to 1 second
+                            
+                local testResult = test:connect("www.google.com", 80)        -- Note that the test does not work if we put http:// in front
+                 
+                if not(testResult == nil) then
+                    print("Internet access is available")
+                    frmUsername:removeSelf()
+                    frmPassword:removeSelf()
+                    composer.gotoScene( "registro", "slideRight", 500 )
+                else
+                    local alert = native.showAlert( "Error de validación", "Revisa tu conexión de internet", { "OK" } )
+                end
+                            
+                test:close()
+                test = nil
+                
         end
+               
+
+  
 
 
     -- create button
@@ -310,7 +332,7 @@ function scene:show( event )
 end
 
 function scene:hide( event )
-	
+	    composer.removeScene( composer.getSceneName( "current" ) )
 	
 	
 end

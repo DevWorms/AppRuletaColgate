@@ -2,6 +2,8 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require( "widget" )
 local myData = require( "mydata" )
+
+local socket = require("socket")
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -280,55 +282,71 @@ function scene:create( event )
 
 local btnPresslog = function( event )
     
+                local test = socket.tcp()
+                test:settimeout(1000)                   -- Set timeout to 1 second
+                            
+                local testResult = test:connect("www.google.com", 80)        -- Note that the test does not work if we put http:// in front
+                 
+                if not(testResult == nil) then
+                    print("Internet access is available")
+                    local switch = checkboxButton
 
-    local switch = checkboxButton
-
-    --  OBTENER DATOS DEL FORMULARIO
-    local nombre = frmNombre.text
-    local apellido = frmApellido.text
-    local correo = frmCorreo.text
-    local contrasena = frmContrasena.text
-
-
-    birth = currentYear .. "-" .. currentMonth .. "-" .. currentDay
-
-    --  VALIDAR LLENADO DE CAMPOS
-    if nombre == "" then
-        local alert = native.showAlert( "Atención", "Ingresa tu nombre", {"OK"})
-    elseif apellido == "" then
-        local alert = native.showAlert( "Atención", "Ingresa tu apellido", {"OK"})
-    elseif correo == "" then
-        local alert = native.showAlert( "Atención", "Ingresa tu correo", {"OK"})
-    elseif contrasena == "" then
-        local alert = native.showAlert( "Atención", "Ingresa tu contrasena", {"OK"})
-    elseif contrasena == "" then
-        local alert = native.showAlert( "Atención", "Ingresa tu contrasena", {"OK"})
-    elseif contrasena ~= frmContrasenaN.text then
-        local alert = native.showAlert( "Atención", "Las contraseñas no coinciden", {"OK"})
-    elseif tostring(switch.isOn) == "false" then
-        local alert = native.showAlert( "Atención", "Debes aceptar los términos y Condiciones", {"OK"})
+                    --  OBTENER DATOS DEL FORMULARIO
+                    local nombre = frmNombre.text
+                    local apellido = frmApellido.text
+                    local correo = frmCorreo.text
+                    local contrasena = frmContrasena.text
 
 
-    --  SI TODO ESTÁ BIEN, ENVIAR PARÁMETROS AL SERVIDOR Y CONTINUAR      
-    else
-        url_Consulta =  "https://colgate.herokuapp.com/api/v1/users/"
-        local params = {
-            body = "email=" .. correo .. "&first_name=" .. nombre .. "&last_name=" .. apellido .. "&password=" .. contrasena .. "&birthdate=" .. birth
-        };
+                    birth = currentYear .. "-" .. currentMonth .. "-" .. currentDay
 
-        network.request( url_Consulta, "POST", handleResponse, params )
+                    --  VALIDAR LLENADO DE CAMPOS
+                    if nombre == "" then
+                        local alert = native.showAlert( "Atención", "Ingresa tu nombre", {"OK"})
+                    elseif apellido == "" then
+                        local alert = native.showAlert( "Atención", "Ingresa tu apellido", {"OK"})
+                    elseif correo == "" then
+                        local alert = native.showAlert( "Atención", "Ingresa tu correo", {"OK"})
+                    elseif contrasena == "" then
+                        local alert = native.showAlert( "Atención", "Ingresa tu contrasena", {"OK"})
+                    elseif contrasena == "" then
+                        local alert = native.showAlert( "Atención", "Ingresa tu contrasena", {"OK"})
+                    elseif contrasena ~= frmContrasenaN.text then
+                        local alert = native.showAlert( "Atención", "Las contraseñas no coinciden", {"OK"})
+                    elseif tostring(switch.isOn) == "false" then
+                        local alert = native.showAlert( "Atención", "Debes aceptar los términos y Condiciones", {"OK"})
 
-        myData.registro_mail = correo
-        myData.registro_pass = contrasena
-        
-        
-         frmContrasena:removeSelf()
-         frmCorreo:removeSelf()
-         frmNombre:removeSelf()
-         frmApellido:removeSelf()
-         frmContrasenaN:removeSelf()   
-         composer.gotoScene( "graciasRegistro", "slideUp", 500 )  
-    end
+
+                    --  SI TODO ESTÁ BIEN, ENVIAR PARÁMETROS AL SERVIDOR Y CONTINUAR      
+                    else
+                        url_Consulta =  "https://colgate.herokuapp.com/api/v1/users/"
+                        local params = {
+                            body = "email=" .. correo .. "&first_name=" .. nombre .. "&last_name=" .. apellido .. "&password=" .. contrasena .. "&birthdate=" .. birth
+                        };
+
+                        network.request( url_Consulta, "POST", handleResponse, params )
+
+                        myData.registro_mail = correo
+                        myData.registro_pass = contrasena
+                        
+                        
+                         frmContrasena:removeSelf()
+                         frmCorreo:removeSelf()
+                         frmNombre:removeSelf()
+                         frmApellido:removeSelf()
+                         frmContrasenaN:removeSelf()   
+                         composer.gotoScene( "graciasRegistro", "slideUp", 500 )  
+                    end
+                                    
+                else
+                    local alert = native.showAlert( "Error de validación", "Revisa tu conexión de internet", { "OK" } )
+                end
+                            
+                test:close()
+                test = nil
+                
+
+    
    
  end
 

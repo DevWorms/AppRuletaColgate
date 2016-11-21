@@ -2,6 +2,7 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require( "widget" )
 local myData = require( "mydata" )
+local socket = require("socket")
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
@@ -15,9 +16,9 @@ local myData = require( "mydata" )
    local btnPrimera
    local contrespuesta=1
    local contcorrect=1
-   local respuesta1
-   local respuesta2
-   local respuesta3
+   local respuesta1=""
+   local respuesta2=""
+   local respuesta3=""
    local correcta1
    local correcta2
    local correcta3
@@ -221,49 +222,62 @@ function scene:create( event )
     group:insert(labelPreguntas)
 
   local btnPresslog1 = function( event )
+       local test = socket.tcp()
+       test:settimeout(1000)                -- Set timeout to 1 second
+                  
+       local testResult = test:connect("www.google.com", 80)        -- Note that the test does not work if we put http:// in front
+       
+       if not(testResult == nil) then
+          print("Internet access is available")
+          print ("Id Respuesta = " .. tablaResponse["answer_set"][1]["id"] )
+          print ("Id Pregunta = " .. tablaResponse["answer_set"][1]["question"])
+          idrespuesta = tablaResponse["answer_set"][1]["id"]
+          idpregunta = tablaResponse["answer_set"][1]["question"]
 
-      --  OBTENER EL VALOR DE LA RESPUESTA DEL USUARIO Y ASIGNAR A VARIABLE GLOBAL
-      print ("Id Respuesta = " .. tablaResponse["answer_set"][1]["id"] )
-      print ("Id Pregunta = " .. tablaResponse["answer_set"][1]["question"])
-      idrespuesta = tablaResponse["answer_set"][1]["id"]
-      idpregunta = tablaResponse["answer_set"][1]["question"]
+          --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
+          local json = require( "json" )
+          local function handleResponse( event )
+              if not event.isError then
+                  local response = json.decode( event.response )
+                  print( event.response )
+              else
+                  print( "Error" )
+              end
+              return
+        end
 
-      --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
-      local json = require( "json" )
-      local function handleResponse( event )
-          if not event.isError then
-              local response = json.decode( event.response )
-              print( event.response )
-          else
-              print( "Error" )
-          end
-          return
+          body="question=" .. idpregunta .. "&answer=" .. idrespuesta
+          headers["authorization"] = "Bearer " .. myData.token
+          headers["Content-Type"] = "application/x-www-form-urlencoded"
+          params.headers = headers
+          params.body = body
+
+          url = "https://colgate.herokuapp.com/api/v1/attempts/"
+
+          network.request( url, "POST", handleResponse, params )
+
+          ----------------------------------------------------------------------------------
+
+
+        if correcta1 =="t" then
+          myData.puntos = myData.puntos + 1
+          print("correcto")
+          sound(1)
+          composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+        else
+          myData.corazones = myData.corazones - 1
+         print("error")
+         sound(2)
+         composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
       end
-
-        body="question=" .. idpregunta .. "&answer=" .. idrespuesta
-        headers["authorization"] = "Bearer " .. myData.token
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-        params.headers = headers
-        params.body = body
-
-        url = "https://colgate.herokuapp.com/api/v1/attempts/"
-
-        network.request( url, "POST", handleResponse, params )
-
-        ----------------------------------------------------------------------------------
-
-
-      if correcta1 =="t" then
-        myData.puntos = myData.puntos + 1
-        print("correcto")
-        sound(1)
-        composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
-      else
-        myData.corazones = myData.corazones - 1
-       print("error")
-       sound(2)
-       composer.gotoScene( "preguntaIncorrecta", "slideLeft", 500 ) 
-    end
+        else
+            local alert = native.showAlert( "Error de validación", "Revisa tu conexión de internet", { "OK" } )
+        end
+                  
+      test:close()
+      test = nil
+      --  OBTENER EL VALOR DE LA RESPUESTA DEL USUARIO Y ASIGNAR A VARIABLE GLOBAL
+     
   end
 
   local btnPresslog2 = function( event )
@@ -363,61 +377,62 @@ function scene:create( event )
 
         network.request( url, "GET", handleResponse, params )
 
-   timer.performWithDelay( 500, function() print("Opción de respuesta 1 para el usuario: ".. respuesta1)
-                                           print("Opción de respuesta 2 para el usuario: ".. respuesta2)
-                                           print("Opción de respuesta 3 para el usuario: ".. respuesta3)
-                                           print("Es correcta la respuesta 1?: ".. correcta1)
-                                           print("Es correcta la respuesta 2?: ".. correcta2)
-                                           print("Es correcta la respuesta 3?: ".. correcta3) 
+      timer.performWithDelay( 1000, function() 
+      if respuesta1==nil or respuesta1=="" then
+         local alert = native.showAlert( "Error de validación", "Revisa tu conexión a internet", { "OK" } )
+         composer.gotoScene( "ruletaColgate", "slideLeft", 500 ) 
+      else
+            btnPrimera = widget.newButton({
+            id = "Primera",
+            label = respuesta1,
+            emboss = false,
+            defaultFile = "Image/espacio_texto.png",
+            overFile = "Image/espacio_texto.png",
+            fontSize=20,
+            labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
+            onPress = btnPresslog1     
+            })
 
-                                            btnPrimera = widget.newButton({
-                                            id = "Primera",
-                                            label = respuesta1,
-                                            emboss = false,
-                                            defaultFile = "Image/espacio_texto.png",
-                                            overFile = "Image/espacio_texto.png",
-                                            fontSize=25,
-                                            labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
-                                            onPress = btnPresslog1     
-                                            })
+      --print(tablaResponse)
 
-    --print(tablaResponse)
+          btnPrimera.x = display.contentCenterX
+          btnPrimera.y = (_H/8)*3
+          
+          group:insert(btnPrimera)
 
-    btnPrimera.x = display.contentCenterX
-    btnPrimera.y = (_H/8)*3
-    
-    group:insert(btnPrimera)
+          local btnSegunda = widget.newButton({
+              id = "Segundo",
+              label = respuesta2,
+              emboss = false,
+              defaultFile = "Image/espacio_texto.png",
+              overFile = "Image/espacio_texto.png",
+              fontSize=20,
+              labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
+             
+              onPress = btnPresslog2     
+              })
+          btnSegunda.x = display.contentCenterX
+          btnSegunda.y = (_H/8)*4 
+          group:insert(btnSegunda)
 
-    local btnSegunda = widget.newButton({
-        id = "Segundo",
-        label = respuesta2,
-        emboss = false,
-        defaultFile = "Image/espacio_texto.png",
-        overFile = "Image/espacio_texto.png",
-        fontSize=25,
-        labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
-       
-        onPress = btnPresslog2     
-        })
-    btnSegunda.x = display.contentCenterX
-    btnSegunda.y = (_H/8)*4 
-    group:insert(btnSegunda)
-
-    local btnTercera = widget.newButton({
-    id = respuesta3,
-    label = respuesta3,
-    emboss = false,
-    defaultFile = "Image/espacio_texto.png",
-    overFile = "Image/espacio_texto.png",
-  fontSize=25,
-    labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
-   
-    onPress = btnPresslog3     
-    })
-    btnTercera.x = display.contentCenterX
-    btnTercera.y = (_H/8)*5
-    group:insert(btnTercera) end )
+          local btnTercera = widget.newButton({
+          id = respuesta3,
+          label = respuesta3,
+          emboss = false,
+          defaultFile = "Image/espacio_texto.png",
+          overFile = "Image/espacio_texto.png",
+          fontSize=20,
+          labelColor = { default={ 0, 0, 0 }, over={ 0, 0, 0, 0.5 } },
+         
+          onPress = btnPresslog3     
+          })
+          btnTercera.x = display.contentCenterX
+          btnTercera.y = (_H/8)*5
+          group:insert(btnTercera) end end )
      
+      
+
+      
 
     local imageDiente=  display.newImage(group,"Image/diente.png")
     imageDiente:translate( centerX, centerY+((centerY/5)*3.7) )

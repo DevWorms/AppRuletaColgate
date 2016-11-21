@@ -1,6 +1,7 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 local myData = require( "mydata" )
+local socket = require("socket")
 --local introIsPlaying
  
   local centerX= _W/2
@@ -76,11 +77,24 @@ end
     
 local function btnTapJugar(event)
     --esto es para quitar el bloqueo 
-    
-   composer.showOverlay( "bloqueo" ,{ isModal = true } )
-   pres=true
-    aleatorio=math.random(1, 5) --Escoge el objeto aleatorio que caera en la ruleta
-   enciende()
+      local test = socket.tcp()
+      test:settimeout(1000)                   -- Set timeout to 1 second
+                  
+      local testResult = test:connect("www.google.com", 80)        -- Note that the test does not work if we put http:// in front
+       
+      if not(testResult == nil) then
+          print("Internet access is available")
+          composer.showOverlay( "bloqueo" ,{ isModal = true } )
+          pres=true
+          aleatorio=math.random(1, 5) --Escoge el objeto aleatorio que caera en la ruleta
+          enciende()
+      else
+          local alert = native.showAlert( "Error de validación", "Revisa tu conexión de internet", { "OK" } )
+      end
+                  
+      test:close()
+      test = nil
+
   
    --contadordevueltas=0
    --velocidad=5
@@ -92,9 +106,32 @@ local function btnTapJugar(event)
     
 end
 
+function saveTable(t, filename)
+--    print(" -- saving table ", filename)
+    local path = system.pathForFile( filename, system.DocumentsDirectory)
+    local file = io.open(path, "w")
 
+    if file then
+        local contents = t
+        file:write( contents )
+        io.close( file )
+--        print(" -- save success.")
+        return true
+    else
+        print(" -- save failed.")
+        return false
+    end
+end
 local function btnTapIntruc( event )
+  print("intru")
   composer.showOverlay( "instrucciones" ,{ isModal = true } )
+ 
+end
+
+local function btnCerrarSE( event )
+  saveTable("no","login")
+  composer.gotoScene( "login", "crossFade", 500 )     
+  
  
 end
 
@@ -430,6 +467,22 @@ function scene:create( event )
     btnJugar: addEventListener("tap", btnTapJugar)
     btnJugar:scale(1.3,1.3)
     group:insert(btnJugar)
+
+    btnInfo=display.newImage(group,"Image/InfoBoton.png")
+    btnInfo:translate( (_W/8), (_H/9)*8.5 )
+    btnInfo: addEventListener("tap", btnTapIntruc)
+    btnInfo:scale(.6,.6)
+    group:insert(btnInfo)
+    
+    local btnCerrar = display.newText(group, "Cerrar Sesión", display.contentCenterX, (_H/9)*8.5, font, 30)
+
+        btnCerrar.anchorX=1
+        btnCerrar.anchorX=0
+        btnCerrar:setTextColor(255, 255, 255)
+        btnCerrar.x=display.contentCenterX- btnCerrar.width/2
+        btnCerrar:addEventListener("tap", btnCerrarSE)
+        
+        group:insert(btnCerrar)
 
     cepillo= display.newImage(group,"Image/cepillo.png")
     cepillo:translate( (_W/4)*3.5, (_H/9)*7.8 )
