@@ -108,15 +108,15 @@ function enciende( ... )
       
       for i= 0,2 do -- Resta la posicion anterior del objeto que cayo para que estos concuerden
             luzPrendidaAma.isVisible=true
-            timer.performWithDelay( 200, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
+            timer.performWithDelay( 200, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound_no_repeat(i,1) end )
 
-            timer.performWithDelay( 400, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
+            timer.performWithDelay( 400, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound_no_repeat(i,2) end )
             
-            timer.performWithDelay( 600, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
+            timer.performWithDelay( 600, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound_no_repeat(i,3) end )
 
-            timer.performWithDelay( 800, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true sound(1) end )
+            timer.performWithDelay( 800, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true sound_no_repeat(i,4) end )
 
-            timer.performWithDelay( 1000, function() luzPrendidaRosa.isVisible=false luzPrendidaAma.isVisible=true sound(1) end )
+            timer.performWithDelay( 1000, function() luzPrendidaRosa.isVisible=false luzPrendidaAma.isVisible=true sound_no_repeat(i,5) end )
             
             if i==1 then
             if aleatorio == 1 then
@@ -194,6 +194,7 @@ function enciende( ... )
   
 end
 
+  --  FUNCIONES DE SONIDO
 
 function sound(chosen)
   -- body
@@ -208,6 +209,49 @@ function sound(chosen)
   elseif (chosen == 2) then
       audio.play( select_Sound )
   end
+
+end
+
+
+function sound_no_repeat(counter, color)
+  -- body
+
+  --  SELECCIONAR SONIDO DE LA RULETA
+  local ruleta_Sound = audio.loadSound( "Sound/Tablero.mp3" )
+
+  
+    if color == 1 then
+      myData.sonido_ama = myData.sonido_ama + counter
+        if  myData.sonido_ama == 3 then
+          audio.play( ruleta_Sound )
+        end
+
+    elseif color == 2 then 
+      myData.sonido_ver = myData.sonido_ver + counter
+        if  myData.sonido_ver == 3 then
+          audio.play( ruleta_Sound )
+        end
+
+    elseif color == 3 then 
+      myData.sonido_azu = myData.sonido_azu + counter
+        if  myData.sonido_azu == 3 then
+          audio.play( ruleta_Sound )
+        end
+
+    elseif color == 4 then 
+      myData.sonido_mora = myData.sonido_mora + counter
+        if  myData.sonido_mora == 3 then
+          audio.play( ruleta_Sound )
+        end
+
+    elseif color == 5 then 
+      myData.sonido_rosa = myData.sonido_rosa + counter
+        if  myData.sonido_rosa == 3 then
+          audio.play( ruleta_Sound )
+        end
+
+    end
+
 
 end
 
