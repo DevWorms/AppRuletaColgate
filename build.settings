@@ -17,17 +17,6 @@ settings =
 
     plugins = {
 
-        ["plugin.facebook.v4"] =
-        {
-            publisherId = "com.coronalabs",
-            supportedPlatforms = { iphone=true, android=true, ["android-kindle"]=true }
-        },
-
-         -- @schroederapps' Twitter plugin:
-        ["plugin.twitter"] = {
-            publisherId = "com.jasonschroeder",
-        },
-
         ["CoronaProvider.native.popup.social"] =
         {
             publisherId = "com.coronalabs"

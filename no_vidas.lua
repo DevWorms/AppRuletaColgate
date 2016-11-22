@@ -97,7 +97,7 @@ function scene:create( event )
     labelRespuesta:setTextColor(236, 124, 38) 
     group:insert(labelRespuesta)
 
-    local labelRespuesta = display.newText(group, "!Ya no tienes más vidas", (centerX),(_H/6)*2.2, font, 40)
+    local labelRespuesta = display.newText(group, "¡Ya no tienes más vidas!", (centerX),(_H/6)*2.2, font, 40)
     labelRespuesta:setTextColor(236, 124, 38) 
     group:insert(labelRespuesta)
 
@@ -133,7 +133,7 @@ function scene:create( event )
               listener = listener,
               url = 
               {
-                  "http://www.palindromo.com.mx/"
+                  "http://apptrespasitos.com/"
               }
           })
 
@@ -171,7 +171,7 @@ function scene:create( event )
               listener = listener,
               url = 
               {
-                  "http://www.palindromo.com.mx/"
+                  "http://apptrespasitos.com/"
               }
           })
 

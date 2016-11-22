@@ -28,11 +28,9 @@ function scene:create( event )
     labelRespuesta:setTextColor(236, 124, 38) 
     group:insert(labelRespuesta)
 
-    local labelTexto = display.newText(group, "Aqui va el texto de las instrucciones", (centerX),(_H/6)*2.8, font, 30)
+    local labelTexto = display.newText(group, "Contesta correctamente las preguntas \nque tenemos preparadas para ti. \nCada pregunta te sumará un punto. \nLlega a 50 puntos, compártelo en \nredes sociales y gana premios.", (centerX) + 20,(_H/6)*2.8, font, 30)
     labelTexto:setTextColor(255, 255, 255) 
     group:insert(labelTexto)
-
-	
 
 
     local btnPresslog = function( event )

@@ -26,7 +26,7 @@ end
 -- Touch event listener for background image
 
 function linkTerminos( event )
-    system.openURL( "http://www.metricapromociones.com/bases" )
+    system.openURL( "http://apptrespasitos.com/" )
 end 
 
 

@@ -97,7 +97,7 @@ function scene:create( event )
     labelRespuesta:setTextColor(236, 124, 38) 
     group:insert(labelRespuesta)
 
-    local labelRespuesta = display.newText(group, "!Felicidades¡", (centerX),(_H/6)*2.2, font, 40)
+    local labelRespuesta = display.newText(group, "¡Felicidades!", (centerX),(_H/6)*2.2, font, 40)
     labelRespuesta:setTextColor(236, 124, 38) 
     group:insert(labelRespuesta)
 
@@ -127,7 +127,7 @@ function scene:create( event )
               listener = listener,
               url = 
               {
-                  "http://www.palindromo.com.mx/"
+                  "http://apptrespasitos.com/"
               }
           })
 
@@ -160,11 +160,11 @@ function scene:create( event )
           native.showPopup( "social",
           {
               service = serviceName,
-              message = "He logrado 50 puntos!",
+              message = "¡He logrado 50 puntos!",
               listener = listener,
               url = 
               {
-                  "http://www.palindromo.com.mx/"
+                  "http://apptrespasitos.com/"
               }
           })
 
