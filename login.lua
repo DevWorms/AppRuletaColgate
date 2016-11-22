@@ -108,7 +108,7 @@ function scene:create( event )
 	 local group = self.view
 
     
-     local firts = loadTable("login")
+     local firts = loadTable("login1")
      print("Hay tabla "..firts)
      if firts == "no" then
 
@@ -320,15 +320,37 @@ function scene:create( event )
 
         
 
-         local btnRegistro = display.newText(group, "Si aun no estas registrado, registrate AQUI", display.contentCenterX, display.contentCenterY+ 240, font, 18)
+         local btnRegistro = display.newText(group, "Si aun no estas registrado,", display.contentCenterX, display.contentCenterY+ 240, font, 18)
+
+         local btnComenzar = widget.newButton({
+                id = "registrar button",
+                --label = "REGISTRAR",
+                emboss = false,
+                defaultFile = "Image/btnRegistrarme.png",
+                overFile = "Image/btnRegistrarme.png",
+
+                -- Properties for a rounded rectangle button
+                --shape = "roundedRect",
+                --width = 200,
+                --height = 40,
+                --cornerRadius = 2,
+                --fillColor = { default={1,1,1,1}, over={1,0.1,0.7,0.4} },
+                --strokeColor = { default={2,1,4,1}, over={0.8,0.8,1,1} },
+                --strokeWidth = 4,
+                onPress = btnRegistrar     
+        })
+        
+        btnComenzar.x = display.contentCenterX
+        btnComenzar.y = (_H/8)*6.3
+        -- add button to login screen
 
         btnRegistro.anchorX=1
         btnRegistro.anchorX=0
         btnRegistro:setTextColor(0, 0, 0)
         btnRegistro.x=display.contentCenterX- btnRegistro.width/2
-        btnRegistro:addEventListener("tap", btnRegistrar)
         
         group:insert(btnRegistro)
+        group:insert(btnComenzar)
    
      else
          composer.gotoScene( "ruletaColgate", "crossFade", 500 ) 
