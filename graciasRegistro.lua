@@ -2,6 +2,7 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local widget = require( "widget" )
 local myData = require( "mydata" )
+local socket = require("socket")
 ---------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
