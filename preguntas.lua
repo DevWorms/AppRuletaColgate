@@ -143,6 +143,7 @@ function scene:create( event )
   
 
       print("Toda esta mierda comienza a crearse aquí")
+      print("Id Categoria" .. myData.id_categoria)
 
   local background = display.newRect(0, 0, _W, _H)
       background.x = display.contentWidth / 2
@@ -373,7 +374,7 @@ function scene:create( event )
   end
 
 
-   url = "https://colgate.herokuapp.com/api/v1/categories/" .. myData.categoria .. "/random_question/" 
+   url = "https://colgate.herokuapp.com/api/v1/categories/" .. myData.id_categoria .. "/random_question/" 
 
         network.request( url, "GET", handleResponse, params )
 
