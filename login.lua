@@ -108,7 +108,7 @@ function scene:create( event )
 	 local group = self.view
 
     
-     local firts = loadTable("login1")
+     local firts = loadTable("login")
      print("Hay tabla "..firts)
      if firts == "no" then
 
