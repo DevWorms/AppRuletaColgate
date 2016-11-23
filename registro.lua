@@ -9,6 +9,60 @@ local socket = require("socket")
 ---------------------------------------------------------------------------------
 
 local image, text1, text2, text3, memTimer, variableRegistro
+local frmNombre, frmApellido, frmCorreo, frmContrasena, frmContrasenaN
+
+local function onNombre( event )
+    if ( "began" == event.phase ) then
+        -- This is the "keyboard appearing" event.
+        -- In some cases you may want to adjust the interface while the keyboard is open.
+
+    elseif ( "submitted" == event.phase ) then
+        -- Automatically tab to password field if user clicks "Return" on virtual keyboard.
+        native.setKeyboardFocus( frmApellido )
+    end
+end
+
+
+local function onApellido( event )
+    if ( "began" == event.phase ) then
+        -- This is the "keyboard appearing" event.
+        -- In some cases you may want to adjust the interface while the keyboard is open.
+
+    elseif ( "submitted" == event.phase ) then
+        -- Automatically tab to password field if user clicks "Return" on virtual keyboard.
+        native.setKeyboardFocus( frmCorreo )
+    end
+end
+
+local function onCorreo( event )
+    if ( "began" == event.phase ) then
+        -- This is the "keyboard appearing" event.
+        -- In some cases you may want to adjust the interface while the keyboard is open.
+
+    elseif ( "submitted" == event.phase ) then
+        -- Automatically tab to password field if user clicks "Return" on virtual keyboard.
+        native.setKeyboardFocus( frmContrasena )
+    end
+end
+
+local function onContrasena( event )
+    if ( "began" == event.phase ) then
+        -- This is the "keyboard appearing" event.
+        -- In some cases you may want to adjust the interface while the keyboard is open.
+
+    elseif ( "submitted" == event.phase ) then
+        -- Automatically tab to password field if user clicks "Return" on virtual keyboard.
+        native.setKeyboardFocus( frmContrasenaN )
+    end
+end
+
+local function onContrasenaN( event )
+    -- Hide keyboard when the user clicks "Return" in this field
+    if ( "submitted" == event.phase ) then
+        native.setKeyboardFocus( nil )
+    end
+end
+
 
 
 --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
@@ -81,7 +135,7 @@ function scene:create( event )
     labelNombre.y = (_H/8)-50
     sceneGroup:insert(labelNombre)
 
-    local frmNombre = native.newTextField(0, 0, _W /2, 40)
+    frmNombre = native.newTextField(0, 0, _W /2, 40)
     frmNombre.inputType = "default"
     frmNombre.font = native.newFont(font, 18)
     frmNombre.isEditable = true
@@ -91,6 +145,7 @@ function scene:create( event )
     frmNombre.x = _W * 0.5 - (frmNombre.width/2)
     frmNombre.y = (_H/8)
     frmNombre.text = ''
+    frmNombre:addEventListener( "userInput", onNombre )
     sceneGroup:insert(frmNombre)
 
     local labelApellido = display.newText(sceneGroup, "Apellido", 0, 0, font, 25)
@@ -101,7 +156,7 @@ function scene:create( event )
     labelApellido.y = (_H/8)*1.4
     sceneGroup:insert(labelApellido)
 
-    local frmApellido = native.newTextField(0, 0, _W /2, 40)
+    frmApellido = native.newTextField(0, 0, _W /2, 40)
     frmApellido.inputType = "default"
     frmApellido.font = native.newFont(font, 18)
     frmApellido.isEditable = true
@@ -111,6 +166,8 @@ function scene:create( event )
     frmApellido.x = _W * 0.5 - (frmApellido.width/2)
     frmApellido.y = (_H/8)*1.8
     frmApellido.text = ''
+    frmApellido:addEventListener( "userInput", onApellido )
+    
     sceneGroup:insert(frmApellido)
 
     local labelCorreo = display.newText(sceneGroup, "Email", 0, 0, font, 25)
@@ -121,7 +178,7 @@ function scene:create( event )
     labelCorreo.y = (_H/8)*2.2
     sceneGroup:insert(labelCorreo)
 
-    local frmCorreo = native.newTextField(0, 0, _W /2, 40)
+    frmCorreo = native.newTextField(0, 0, _W /2, 40)
     frmCorreo.inputType = "default"
     frmCorreo.font = native.newFont(font, 18)
     frmCorreo.isEditable = true
@@ -131,6 +188,8 @@ function scene:create( event )
     frmCorreo.x = _W * 0.5 - (frmCorreo.width/2)
     frmCorreo.y = (_H/8)*2.6
     frmCorreo.text = ''
+    frmCorreo:addEventListener( "userInput", onCorreo )
+    
     sceneGroup:insert(frmCorreo)
 
     local labelContrasena = display.newText(sceneGroup, "Contraseña", 0, 0, font, 25)
@@ -141,7 +200,7 @@ function scene:create( event )
     labelContrasena.y = (_H/8)*3
     sceneGroup:insert(labelContrasena)
 
-    local frmContrasena = native.newTextField(0, 0, _W /2, 40)
+    frmContrasena = native.newTextField(0, 0, _W /2, 40)
     frmContrasena.inputType = "default"
     frmContrasena.font = native.newFont(font, 18)
     frmContrasena.isEditable = true
@@ -152,6 +211,8 @@ function scene:create( event )
     frmContrasena.x = _W * 0.5 - (frmContrasena.width/2)
     frmContrasena.y = (_H/8)*3.4
     frmContrasena.text = ''
+    frmContrasena:addEventListener( "userInput", onContrasena )
+    
     sceneGroup:insert(frmContrasena)
 
     local labelContrasenaN = display.newText(sceneGroup, "Confirma Contraseña", 0, 0, font, 25)
@@ -162,7 +223,7 @@ function scene:create( event )
     labelContrasenaN.y = (_H/8)*3.8
     sceneGroup:insert(labelContrasenaN)
 
-    local frmContrasenaN = native.newTextField(0, 0, _W /2, 40)
+    frmContrasenaN = native.newTextField(0, 0, _W /2, 40)
     frmContrasenaN.inputType = "default"
     frmContrasenaN.font = native.newFont(font, 18)
     frmContrasenaN.isEditable = true
@@ -173,6 +234,8 @@ function scene:create( event )
     frmContrasenaN.x = _W * 0.5 - (frmContrasenaN.width/2)
     frmContrasenaN.y = (_H/8)*4.2
     frmContrasenaN.text = ''
+    frmContrasenaN:addEventListener( "userInput", onContrasenaN )
+    
     sceneGroup:insert(frmContrasenaN)
 
     local labelFechaNac = display.newText(sceneGroup, "Fecha de Nacimiento", 0, 0, font, 25)

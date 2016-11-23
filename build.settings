@@ -1,5 +1,9 @@
 settings =
 {
+    splashScreen = 
+    {
+        enable = false
+    },
     orientation = {
 	default = "portrait",
 	supported = { "portrait", }

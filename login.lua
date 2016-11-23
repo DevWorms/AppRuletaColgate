@@ -12,6 +12,7 @@ local ltn12 = require("ltn12")
 ---------------------------------------------------------------------------------
 
 local image, text1, text2, text3, memTimer, variableRegistro
+local frmUsername, frmPassword
 
 -- Touch event listener for background image
 --require the file with the save/load functions
@@ -36,6 +37,24 @@ function saveTable(t, filename)
 end
 
 
+
+local function onUsername( event )
+    if ( "began" == event.phase ) then
+        -- This is the "keyboard appearing" event.
+        -- In some cases you may want to adjust the interface while the keyboard is open.
+
+    elseif ( "submitted" == event.phase ) then
+        -- Automatically tab to password field if user clicks "Return" on virtual keyboard.
+        native.setKeyboardFocus( frmPassword )
+    end
+end
+
+local function onPassword( event )
+    -- Hide keyboard when the user clicks "Return" in this field
+    if ( "submitted" == event.phase ) then
+        native.setKeyboardFocus( nil )
+    end
+end
 
 
 -- loadTable(filename) loads in a table from filename in the DocumentsDirectory (filename)
@@ -177,7 +196,7 @@ function scene:create( event )
         imageLogo:scale( .5, 0.5 )
         group:insert(imageLogo)
 
-        local frmUsername = native.newTextField(0, 0, _W/2, 40)
+        frmUsername = native.newTextField(0, 0, _W/2, 40)
         frmUsername.inputType = "default"
         frmUsername.font = native.newFont(font, 18)
       
@@ -191,6 +210,7 @@ function scene:create( event )
         frmUsername.y = (_H/2)-180
         frmUsername.text = ''
 
+        frmUsername:addEventListener( "userInput", onUsername )
     -- add login form field to login screen
         group:insert(frmUsername)
 
@@ -198,7 +218,7 @@ function scene:create( event )
        
 
 
-        local frmPassword = native.newTextField(0, 0, _W /2, 40)
+            frmPassword = native.newTextField(0, 0, _W /2, 40)
             frmPassword.inputType = "default"
             frmPassword.font = native.newFont(font, 18)
 
@@ -210,7 +230,7 @@ function scene:create( event )
             frmPassword.x = _W * 0.5 - 140
             frmPassword.y = (_H/2)-100
             frmPassword.text = ''
-
+            frmPassword:addEventListener( "userInput", onPassword )
         -- add login form field to login screen
         group:insert(frmPassword)
 
