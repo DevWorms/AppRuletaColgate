@@ -12,7 +12,13 @@ local ltn12 = require("ltn12")
 ---------------------------------------------------------------------------------
 
 local image, text1, text2, text3, memTimer, variableRegistro
-local frmUsername, frmPassword
+local frmUsername, frmPassword, orientation
+
+if ( string.sub( system.getInfo("model"), 1, 4 ) == "iPad" ) then
+    orientation = 2
+else
+    orientation = 1
+end
 
 -- Touch event listener for background image
 --require the file with the save/load functions
@@ -127,7 +133,7 @@ function scene:create( event )
 	 local group = self.view
 
     
-     local firts = loadTable("login")
+     local firts = loadTable("login1")
      print("Hay tabla "..firts)
      if firts == "no" then
 
@@ -158,70 +164,52 @@ function scene:create( event )
         local fondoPunteado= display.newImage("Image/fondoCel.png")
         fondoPunteado.x= display.contentWidth / 2
         fondoPunteado.y=display.contentHeight/2
-      
         group:insert( fondoPunteado )
 
 
-
         local labelUsername = display.newText(group, "Correo Electrónico", 0, 0, font, 25)
-        labelUsername:setTextColor(0, 0, 0)
-        labelUsername.anchorX=1
-        labelUsername.anchorX=0
-        labelUsername.x = _W * 0.5 - (labelUsername.width/2)
-        labelUsername.y = (_H/2)-220
-        group:insert(labelUsername)
-
         local labelPassword = display.newText(group, "Contraseña", 0, 0, font, 25)
-
-        labelPassword.anchorX=1
-        labelPassword.anchorX=0
-        labelPassword:setTextColor(0, 0, 0)
-        labelPassword.x = _W * 0.5 - (labelPassword.width/2)
-
-        labelPassword.y = (_H/2)-140
-        group:insert(labelPassword)
-
         local labelReturnStatus = display.newText(group, "", 0, 0, font, 18)
-
-        labelReturnStatus.anchorX=1
-        labelReturnStatus.anchorX=0
-        labelReturnStatus:setTextColor(0, 0, 0)
-        labelReturnStatus.x = _W * 0.5 - 140
-        labelReturnStatus.y = (_H/2)-40
-        group:insert(labelReturnStatus)
-
         local imageLogo= display.newImage("Image/logoColgate.png")
-        imageLogo.x=display.contentCenterX
-        imageLogo.y=_H -100
-        imageLogo:scale( .5, 0.5 )
-        group:insert(imageLogo)
 
         frmUsername = native.newTextField(0, 0, _W/2, 40)
-        frmUsername.inputType = "default"
-        frmUsername.font = native.newFont(font, 18)
-      
-        frmUsername.isEditable = true
-        frmUsername.align = "center"
-        
-        frmUsername.anchorX=1
-        frmUsername.anchorX=0
-
-        frmUsername.x = _W * 0.5 - 140
-        frmUsername.y = (_H/2)-180
-        frmUsername.text = ''
-
-        frmUsername:addEventListener( "userInput", onUsername )
-    -- add login form field to login screen
-        group:insert(frmUsername)
-
-    -- handle field events
-       
+        frmPassword = native.newTextField(0, 0, _W /2, 40)
 
 
-            frmPassword = native.newTextField(0, 0, _W /2, 40)
+        if orientation == 1 then
+
+            labelUsername:setTextColor(0, 0, 0)
+            labelUsername.anchorX=1
+            labelUsername.anchorX=0
+            labelUsername.x = _W * 0.5 - (labelUsername.width/2)
+            labelUsername.y = (_H/2)-220
+
+            labelPassword.anchorX=1
+            labelPassword.anchorX=0
+            labelPassword:setTextColor(0, 0, 0)
+            labelPassword.x = _W * 0.5 - (labelPassword.width/2)
+            labelPassword.y = (_H/2)-140
+
+            labelReturnStatus.anchorX=1
+            labelReturnStatus.anchorX=0
+            labelReturnStatus:setTextColor(0, 0, 0)
+            labelReturnStatus.x = _W * 0.5 - 140
+            labelReturnStatus.y = (_H/2)-40
+            imageLogo.x=display.contentCenterX
+            imageLogo.y=_H -100
+
+            frmUsername.inputType = "default"
+            frmUsername.font = native.newFont(font, 18)      
+            frmUsername.isEditable = true
+            frmUsername.align = "center"        
+            frmUsername.anchorX=1
+            frmUsername.anchorX=0
+            frmUsername.x = _W * 0.5 - 140
+            frmUsername.y = (_H/2)-180
+            frmUsername.text = ''
+
             frmPassword.inputType = "default"
             frmPassword.font = native.newFont(font, 18)
-
             frmPassword.isEditable = true
             frmPassword.isSecure = true
             frmPassword.align = "center"
@@ -230,14 +218,75 @@ function scene:create( event )
             frmPassword.x = _W * 0.5 - 140
             frmPassword.y = (_H/2)-100
             frmPassword.text = ''
-            frmPassword:addEventListener( "userInput", onPassword )
-        -- add login form field to login screen
+
+        else
+
+            labelUsername:setTextColor(0, 0, 0)
+            labelUsername.anchorX=1
+            labelUsername.anchorX=0
+            labelUsername.x = (_H/2) + 50
+            labelUsername.y = (_W * .5) + (labelUsername.width/2) - 40
+            labelUsername.rotation = 90
+
+            labelPassword.anchorX=1
+            labelPassword.anchorX=0
+            labelPassword:setTextColor(0, 0, 0)
+            labelPassword.x = (_H/2) - 50
+            labelPassword.y = (_W * .5) + (labelUsername.width/2)
+            labelPassword.rotation = 90
+
+            labelReturnStatus.anchorX=1
+            labelReturnStatus.anchorX=0
+            labelReturnStatus:setTextColor(0, 0, 0)
+            labelReturnStatus.x = _W * 0.5 - 140
+            labelReturnStatus.y = (_H/2)-40
+            labelReturnStatus.rotation = 90
+
+            frmUsername.inputType = "default"
+            frmUsername.font = native.newFont(font, 18)      
+            frmUsername.isEditable = true
+            frmUsername.align = "center"        
+            frmUsername.anchorX=1
+            frmUsername.anchorX=0
+            frmUsername.x = (_W - 130)
+            frmUsername.y = (_H/2) - 200
+            frmUsername.text = ''
+            frmUsername.rotation = 90
+
+            frmPassword.inputType = "default"
+            frmPassword.font = native.newFont(font, 18)
+            frmPassword.isEditable = true
+            frmPassword.isSecure = true
+            frmPassword.align = "center"
+            frmPassword.anchorX=1
+            frmPassword.anchorX=0
+            frmPassword.x = (_W - 230)
+            frmPassword.y = (_H/2) - 200
+            frmPassword.text = ''
+            frmPassword.rotation = 90
+
+            imageLogo.x= (_H/9.5)
+            imageLogo.y= _H/2
+            imageLogo:scale( .5, 0.5 )
+            imageLogo.rotation = 90
+            imageLogo:scale( .6, 0.6 )
+
+        end
+
+        group:insert(labelUsername)
+        group:insert(labelPassword)
+        group:insert(labelReturnStatus)
+        group:insert(imageLogo)
+        
+        frmUsername:addEventListener( "userInput", onUsername )
+        group:insert(frmUsername)
+
+        frmPassword:addEventListener( "userInput", onPassword )
         group:insert(frmPassword)
 
-
-        frmPassword:addEventListener("userInput",frmPassword)
-
-        local btnPresslog = function( event )
+        
+        -- add login form field to login screen
+       local btnPresslog = function( event )
 
             local userid = frmUsername.text
             local password = frmPassword.text 
@@ -322,55 +371,109 @@ function scene:create( event )
         end
                
 
-  
+        if orientation == 1 then  
+
+            local btnLogin = widget.newButton({
+                    width = 200,
+                    height = 200,
+                    defaultFile = "Image/btnComenzar.png",
+                    overFile = "Image/btnComenzar.png",
+                    onPress = btnPresslog     
+                    })
+                btnLogin.x = display.contentCenterX 
+                btnLogin.y = display.contentCenterY + 100
+            -- add button to login screen
+            group:insert(btnLogin)
+
+        else
+
+            local btnLogin = widget.newButton({
+                    width = 150,
+                    height = 150,
+                    defaultFile = "Image/btnComenzar.png",
+                    overFile = "Image/btnComenzar.png",
+                    onPress = btnPresslog     
+                    })
+                btnLogin.x = (_W/2) - 20 
+                btnLogin.y = (_H/2)
+            -- add button to login screen
+            btnLogin.rotation = 90
+            group:insert(btnLogin)
 
 
-    -- create button
-        local btnLogin = widget.newButton({
-                width = 200,
-                height = 200,
-                defaultFile = "Image/btnComenzar.png",
-                overFile = "Image/btnComenzar.png",
-                onPress = btnPresslog     
-                })
-            btnLogin.x = display.contentCenterX 
-            btnLogin.y = display.contentCenterY + 100
-        -- add button to login screen
-        group:insert(btnLogin)
-
+        end
         
 
-         local btnRegistro = display.newText(group, "Si aun no estas registrado,", display.contentCenterX, display.contentCenterY+ 240, font, 18)
+        if orientation == 1 then
 
-         local btnComenzar = widget.newButton({
-                id = "registrar button",
-                --label = "REGISTRAR",
-                emboss = false,
-                defaultFile = "Image/btnRegistrarme.png",
-                overFile = "Image/btnRegistrarme.png",
+             local btnRegistro = display.newText(group, "Si aun no estas registrado,", display.contentCenterX, display.contentCenterY+ 240, font, 18)
 
-                -- Properties for a rounded rectangle button
-                --shape = "roundedRect",
-                --width = 200,
-                --height = 40,
-                --cornerRadius = 2,
-                --fillColor = { default={1,1,1,1}, over={1,0.1,0.7,0.4} },
-                --strokeColor = { default={2,1,4,1}, over={0.8,0.8,1,1} },
-                --strokeWidth = 4,
-                onPress = btnRegistrar     
-        })
+             local btnComenzar = widget.newButton({
+                    id = "registrar button",
+                    --label = "REGISTRAR",
+                    emboss = false,
+                    defaultFile = "Image/btnRegistrarme.png",
+                    overFile = "Image/btnRegistrarme.png",
+
+                    -- Properties for a rounded rectangle button
+                    --shape = "roundedRect",
+                    --width = 200,
+                    --height = 40,
+                    --cornerRadius = 2,
+                    --fillColor = { default={1,1,1,1}, over={1,0.1,0.7,0.4} },
+                    --strokeColor = { default={2,1,4,1}, over={0.8,0.8,1,1} },
+                    --strokeWidth = 4,
+                    onPress = btnRegistrar     
+            })
         
-        btnComenzar.x = display.contentCenterX
-        btnComenzar.y = (_H/8)*6.3
-        -- add button to login screen
+            btnComenzar.x = display.contentCenterX
+            btnComenzar.y = (_H/8)*6.3
+            -- add button to login screen
 
-        btnRegistro.anchorX=1
-        btnRegistro.anchorX=0
-        btnRegistro:setTextColor(0, 0, 0)
-        btnRegistro.x=display.contentCenterX- btnRegistro.width/2
+            btnRegistro.anchorX=1
+            btnRegistro.anchorX=0
+            btnRegistro:setTextColor(0, 0, 0)
+            btnRegistro.x=display.contentCenterX- btnRegistro.width/2
+            
+            group:insert(btnRegistro)
+            group:insert(btnComenzar)
+        else
+
+            local btnRegistro = display.newText(group, "Si aun no estas registrado,", (_W/4), (_H/2.5), font, 18)
+            btnRegistro.rotation = 90
+
+             local btnComenzar = widget.newButton({
+                    id = "registrar button",
+                    --label = "REGISTRAR",
+                    emboss = false,
+                    defaultFile = "Image/btnRegistrarme.png",
+                    overFile = "Image/btnRegistrarme.png",
+
+                    -- Properties for a rounded rectangle button
+                    --shape = "roundedRect",
+                    --width = 200,
+                    --height = 40,
+                    --cornerRadius = 2,
+                    --fillColor = { default={1,1,1,1}, over={1,0.1,0.7,0.4} },
+                    --strokeColor = { default={2,1,4,1}, over={0.8,0.8,1,1} },
+                    --strokeWidth = 4,
+                    onPress = btnRegistrar     
+            })
         
-        group:insert(btnRegistro)
-        group:insert(btnComenzar)
+            btnComenzar.x = (_W/3.8)
+            btnComenzar.y = (_H/8)*4
+            btnComenzar.rotation = 90
+            -- add button to login screen
+
+            btnRegistro.anchorX=1
+            btnRegistro.anchorX=0
+            btnRegistro:setTextColor(0, 0, 0)
+            btnRegistro.x=display.contentCenterX- btnRegistro.width/2
+            
+            group:insert(btnRegistro)
+            group:insert(btnComenzar)
+             
+        end
    
      else
          composer.gotoScene( "ruletaColgate", "crossFade", 500 ) 
