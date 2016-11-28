@@ -11,6 +11,8 @@ local image, text1, text2, text3, memTimer
   local centerY= _H/2
 -- Touch event listener for background image
 
+
+
 -- Called when the scene's view does not exist:
 function scene:create( event )
 	local group = self.view
@@ -22,88 +24,104 @@ function scene:create( event )
 	group:insert( background )
 
     local lineaRoja= display.newImage(group,"Image/lineaR.png")
-    lineaRoja:translate( centerX,centerY/15 )
+    lineaRoja:translate( _W - 33, centerY )
     group:insert(lineaRoja)
-    local labelNombre = display.newText(group,  myData.nombre, centerX, centerY/15, font, 30)
+    lineaRoja.rotation = 90
+
+    local labelNombre = display.newText(group, myData.nombre, _W - 33, centerY , font, 30)
     labelNombre:setTextColor(255, 255, 255)
     group:insert(labelNombre)
-
+    labelNombre.rotation = 90
     
     local lineaNegra= display.newImage(group,"Image/lineaN.png")
-    lineaNegra:translate( centerX, centerY/6)
+    lineaNegra:translate( _W - 33, centerY )
     lineaNegra:scale(1,.6)
     group:insert(lineaNegra)
+    lineaNegra.rotation = 90
 
     local moneda= display.newImage(group,"Image/moneda.png")
-    moneda:translate( centerX/6, centerY/6)
+    moneda:translate( _W - 33, centerY/6)
     moneda:scale(.5,.5)
     group:insert(moneda)
+    moneda.rotation = 90
 
-    local labelmoneda = display.newText(group, myData.puntos, (centerX/6)*1.8, centerY/6, font, 22)
+    local labelmoneda = display.newText(group, myData.puntos, _W - 33, centerY/6 + 50, font, 22)
     labelmoneda:setTextColor(255, 255, 255)
     group:insert(labelNombre)
+    labelmoneda.rotation = 90
     
     
     if myData.corazones == 3 then
       local corazon1= display.newImage(group,"Image/corazon.png")
-      corazon1:translate( (_W/6)*4.5, centerY/6)
+      corazon1:translate( _W - 33, _H - 60)
       corazon1:scale(.5,.5)
       group:insert(corazon1)
+      corazon1.rotation = 90
 
       local corazon2= display.newImage(group,"Image/corazon.png")
-      corazon2:translate( (_W/6)*5, centerY/6)
+      corazon2:translate( _W - 33, _H - 120)
       corazon2:scale(.5,.5)
       group:insert(corazon2)
+      corazon2.rotation = 90
 
       local corazon3= display.newImage(group,"Image/corazon.png")
-      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:translate( _W - 33, _H - 180)
       corazon3:scale(.5,.5)
       group:insert(corazon3)
+      corazon3.rotation = 90
+
 
     elseif myData.corazones == 2 then
 
       local corazon2= display.newImage(group,"Image/corazon.png")
-      corazon2:translate( (_W/6)*5, centerY/6)
+      corazon2:translate( _W - 33, _H - 120)
       corazon2:scale(.5,.5)
       group:insert(corazon2)
+      corazon2.rotation = 90
 
       local corazon3= display.newImage(group,"Image/corazon.png")
-      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:translate( _W - 33, _H - 180)
       corazon3:scale(.5,.5)
       group:insert(corazon3)
+      corazon3.rotation = 90
+
 
     elseif myData.corazones == 1 then
 
       local corazon3= display.newImage(group,"Image/corazon.png")
-      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:translate( _W - 33, _H - 180)
       corazon3:scale(.5,.5)
       group:insert(corazon3)
-
+      corazon3.rotation = 90
 
     end
 
 
-	local imageDiente= display.newImage("Image/dienteMal.png")
-	imageDiente.x= display.contentWidth / 2
-	imageDiente.y=(_H/6)*1.5
-	imageDiente:scale( 2, 2)
-	group:insert( imageDiente )
+	local imageDiente=  display.newImage(group,"Image/diente.png")
+    imageDiente:translate( 150, centerY+((centerY/5)*3.7) )
+  imageDiente:scale( .4, .4 )
+  group:insert(imageDiente)
+  imageDiente.rotation = 90
 
-    local labelRespuesta = display.newText(group, "Fallaste", (centerX),(_H/6)*2.2, font, 40)
+    local labelRespuesta = display.newText(group, "Muy Bien", _W - 150,centerY, font, 40)
     labelRespuesta:setTextColor(236, 124, 38) 
     group:insert(labelRespuesta)
+    labelRespuesta.rotation = 90
 
-    local labelTexto = display.newText(group, myData.tip, (centerX), centerY + 100,(centerX)*1.5, 150, font, 30 )
+    local labelTexto = display.newText(group, myData.tip, (centerX),(_H/6)*2.8,(centerX)*1.5, 150, font, 30 )
     labelTexto:setTextColor(255, 255, 255) 
     group:insert(labelTexto)
+    labelTexto.rotation = 90
+
 
     local btnPresslog = function( event )
 
-    if myData.corazones == 0 then
-      composer.gotoScene( "no_vidas", "slideRight", 500 )
-    else
-	     composer.gotoScene( "ruletaColgate", "slideRight", 500 )  
-    end
+    if myData.puntos==50 then
+      composer.gotoScene( "puntosPregunta_Land", "slideLeft", 500 )
+    else 
+      composer.gotoScene( "ruletaColgate_Land", "fade", 500 )
+    end   
+
 	end
 	
 
@@ -114,10 +132,11 @@ function scene:create( event )
         overFile = "Image/btnConti.png",
         onPress = btnPresslog     
         })
-    btnLogin.x = display.contentCenterX 
-    btnLogin.y = (_H/6)*5
+    btnLogin.x = 150
+    btnLogin.y = centerY
 
     group:insert( btnLogin )
+    btnLogin.rotation = 90
 
 	
 

@@ -12,13 +12,7 @@ local ltn12 = require("ltn12")
 ---------------------------------------------------------------------------------
 
 local image, text1, text2, text3, memTimer, variableRegistro
-local frmUsername, frmPassword, orientation
-
-if ( string.sub( system.getInfo("model"), 1, 4 ) == "iPad" ) then
-    orientation = 2
-else
-    orientation = 1
-end
+local frmUsername, frmPassword
 
 -- Touch event listener for background image
 --require the file with the save/load functions
@@ -133,7 +127,7 @@ function scene:create( event )
 	 local group = self.view
 
     
-     local firts = loadTable("login1")
+     local firts = loadTable("login")
      print("Hay tabla "..firts)
      if firts == "no" then
 
@@ -175,103 +169,47 @@ function scene:create( event )
         frmUsername = native.newTextField(0, 0, _W/2, 40)
         frmPassword = native.newTextField(0, 0, _W /2, 40)
 
+        labelUsername:setTextColor(0, 0, 0)
+        labelUsername.anchorX=1
+        labelUsername.anchorX=0
+        labelUsername.x = _W * 0.5 - (labelUsername.width/2)
+        labelUsername.y = (_H/2)-220
 
-        if orientation == 1 then
+        labelPassword.anchorX=1
+        labelPassword.anchorX=0
+        labelPassword:setTextColor(0, 0, 0)
+        labelPassword.x = _W * 0.5 - (labelPassword.width/2)
+        labelPassword.y = (_H/2)-140
 
-            labelUsername:setTextColor(0, 0, 0)
-            labelUsername.anchorX=1
-            labelUsername.anchorX=0
-            labelUsername.x = _W * 0.5 - (labelUsername.width/2)
-            labelUsername.y = (_H/2)-220
+        labelReturnStatus.anchorX=1
+        labelReturnStatus.anchorX=0
+        labelReturnStatus:setTextColor(0, 0, 0)
+        labelReturnStatus.x = _W * 0.5 - 140
+        labelReturnStatus.y = (_H/2)-40
+        imageLogo.x=display.contentCenterX
+        imageLogo.y=_H -100
+        imageLogo:scale( .5, 0.5 )
 
-            labelPassword.anchorX=1
-            labelPassword.anchorX=0
-            labelPassword:setTextColor(0, 0, 0)
-            labelPassword.x = _W * 0.5 - (labelPassword.width/2)
-            labelPassword.y = (_H/2)-140
+        frmUsername.inputType = "default"
+        frmUsername.font = native.newFont(font, 18)      
+        frmUsername.isEditable = true
+        frmUsername.align = "center"        
+        frmUsername.anchorX=1
+        frmUsername.anchorX=0
+        frmUsername.x = _W * 0.5 - 140
+        frmUsername.y = (_H/2)-180
+        frmUsername.text = ''
 
-            labelReturnStatus.anchorX=1
-            labelReturnStatus.anchorX=0
-            labelReturnStatus:setTextColor(0, 0, 0)
-            labelReturnStatus.x = _W * 0.5 - 140
-            labelReturnStatus.y = (_H/2)-40
-            imageLogo.x=display.contentCenterX
-            imageLogo.y=_H -100
-
-            frmUsername.inputType = "default"
-            frmUsername.font = native.newFont(font, 18)      
-            frmUsername.isEditable = true
-            frmUsername.align = "center"        
-            frmUsername.anchorX=1
-            frmUsername.anchorX=0
-            frmUsername.x = _W * 0.5 - 140
-            frmUsername.y = (_H/2)-180
-            frmUsername.text = ''
-
-            frmPassword.inputType = "default"
-            frmPassword.font = native.newFont(font, 18)
-            frmPassword.isEditable = true
-            frmPassword.isSecure = true
-            frmPassword.align = "center"
-            frmPassword.anchorX=1
-            frmPassword.anchorX=0
-            frmPassword.x = _W * 0.5 - 140
-            frmPassword.y = (_H/2)-100
-            frmPassword.text = ''
-
-        else
-
-            labelUsername:setTextColor(0, 0, 0)
-            labelUsername.anchorX=1
-            labelUsername.anchorX=0
-            labelUsername.x = (_H/2) + 50
-            labelUsername.y = (_W * .5) + (labelUsername.width/2) - 40
-            labelUsername.rotation = 90
-
-            labelPassword.anchorX=1
-            labelPassword.anchorX=0
-            labelPassword:setTextColor(0, 0, 0)
-            labelPassword.x = (_H/2) - 50
-            labelPassword.y = (_W * .5) + (labelUsername.width/2)
-            labelPassword.rotation = 90
-
-            labelReturnStatus.anchorX=1
-            labelReturnStatus.anchorX=0
-            labelReturnStatus:setTextColor(0, 0, 0)
-            labelReturnStatus.x = _W * 0.5 - 140
-            labelReturnStatus.y = (_H/2)-40
-            labelReturnStatus.rotation = 90
-
-            frmUsername.inputType = "default"
-            frmUsername.font = native.newFont(font, 18)      
-            frmUsername.isEditable = true
-            frmUsername.align = "center"        
-            frmUsername.anchorX=1
-            frmUsername.anchorX=0
-            frmUsername.x = (_W - 130)
-            frmUsername.y = (_H/2) - 200
-            frmUsername.text = ''
-            frmUsername.rotation = 90
-
-            frmPassword.inputType = "default"
-            frmPassword.font = native.newFont(font, 18)
-            frmPassword.isEditable = true
-            frmPassword.isSecure = true
-            frmPassword.align = "center"
-            frmPassword.anchorX=1
-            frmPassword.anchorX=0
-            frmPassword.x = (_W - 230)
-            frmPassword.y = (_H/2) - 200
-            frmPassword.text = ''
-            frmPassword.rotation = 90
-
-            imageLogo.x= (_H/9.5)
-            imageLogo.y= _H/2
-            imageLogo:scale( .5, 0.5 )
-            imageLogo.rotation = 90
-            imageLogo:scale( .6, 0.6 )
-
-        end
+        frmPassword.inputType = "default"
+        frmPassword.font = native.newFont(font, 18)
+        frmPassword.isEditable = true
+        frmPassword.isSecure = true
+        frmPassword.align = "center"
+        frmPassword.anchorX=1
+        frmPassword.anchorX=0
+        frmPassword.x = _W * 0.5 - 140
+        frmPassword.y = (_H/2)-100
+        frmPassword.text = ''
 
         group:insert(labelUsername)
         group:insert(labelPassword)
@@ -371,8 +309,6 @@ function scene:create( event )
         end
                
 
-        if orientation == 1 then  
-
             local btnLogin = widget.newButton({
                     width = 200,
                     height = 200,
@@ -384,27 +320,7 @@ function scene:create( event )
                 btnLogin.y = display.contentCenterY + 100
             -- add button to login screen
             group:insert(btnLogin)
-
-        else
-
-            local btnLogin = widget.newButton({
-                    width = 150,
-                    height = 150,
-                    defaultFile = "Image/btnComenzar.png",
-                    overFile = "Image/btnComenzar.png",
-                    onPress = btnPresslog     
-                    })
-                btnLogin.x = (_W/2) - 20 
-                btnLogin.y = (_H/2)
-            -- add button to login screen
-            btnLogin.rotation = 90
-            group:insert(btnLogin)
-
-
-        end
         
-
-        if orientation == 1 then
 
              local btnRegistro = display.newText(group, "Si aun no estas registrado,", display.contentCenterX, display.contentCenterY+ 240, font, 18)
 
@@ -437,46 +353,18 @@ function scene:create( event )
             
             group:insert(btnRegistro)
             group:insert(btnComenzar)
-        else
-
-            local btnRegistro = display.newText(group, "Si aun no estas registrado,", (_W/4), (_H/2.5), font, 18)
-            btnRegistro.rotation = 90
-
-             local btnComenzar = widget.newButton({
-                    id = "registrar button",
-                    --label = "REGISTRAR",
-                    emboss = false,
-                    defaultFile = "Image/btnRegistrarme.png",
-                    overFile = "Image/btnRegistrarme.png",
-
-                    -- Properties for a rounded rectangle button
-                    --shape = "roundedRect",
-                    --width = 200,
-                    --height = 40,
-                    --cornerRadius = 2,
-                    --fillColor = { default={1,1,1,1}, over={1,0.1,0.7,0.4} },
-                    --strokeColor = { default={2,1,4,1}, over={0.8,0.8,1,1} },
-                    --strokeWidth = 4,
-                    onPress = btnRegistrar     
-            })
-        
-            btnComenzar.x = (_W/3.8)
-            btnComenzar.y = (_H/8)*4
-            btnComenzar.rotation = 90
-            -- add button to login screen
-
-            btnRegistro.anchorX=1
-            btnRegistro.anchorX=0
-            btnRegistro:setTextColor(0, 0, 0)
-            btnRegistro.x=display.contentCenterX- btnRegistro.width/2
-            
-            group:insert(btnRegistro)
-            group:insert(btnComenzar)
-             
-        end
    
      else
-         composer.gotoScene( "ruletaColgate", "crossFade", 500 ) 
+
+        print(platform) 
+        print (display.pixelHeight)
+
+        if string.sub( system.getInfo("model"), 1, 4 ) == "iPad" or display.pixelHeight > 2000 then
+            composer.gotoScene( "ruletaColgate_Land", "crossFade", 500 ) 
+        else            
+            composer.gotoScene( "ruletaColgate", "crossFade", 500 ) 
+        end
+
      end   
 
     ------------  SE DEBEN INICIAR LOS VALORES PARA CREAR LA VARIABLE "REGISTRO"  --------------------------------------      

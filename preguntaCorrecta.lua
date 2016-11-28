@@ -95,15 +95,9 @@ function scene:create( event )
     labelRespuesta:setTextColor(236, 124, 38) 
     group:insert(labelRespuesta)
 
-    local labelTexto = display.newText(group, "Recuerda que el exceso \nde dulces y golosinas contribuye \na la formación de caries", (centerX),(_H/6)*2.8, font, 30)
+    local labelTexto = display.newText(group, myData.tip, (centerX),centerY + 100,(centerX)*1.5, 150, font, 30 )
     labelTexto:setTextColor(255, 255, 255) 
     group:insert(labelTexto)
-
-	local imagePaleta= display.newImage("Image/paleta.png")
-	imagePaleta.x= display.contentWidth / 2
-	imagePaleta.y= (_H/6)*3.8
-	imagePaleta:scale( 2, 2 )
-	group:insert( imagePaleta )
 
 
     local btnPresslog = function( event )

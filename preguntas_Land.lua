@@ -161,75 +161,88 @@ function scene:create( event )
       group:insert(background)
       
     local lineaRoja= display.newImage(group,"Image/lineaR.png")
-    lineaRoja:translate( centerX,centerY/15 )
+    lineaRoja:translate( _W - 33, centerY )
     group:insert(lineaRoja)
-    labelNombre = display.newText(group, myData.nombre, centerX, centerY/15, font, 30)
+    lineaRoja.rotation = 90
+
+    labelNombre = display.newText(group, myData.nombre, _W - 33, centerY , font, 30)
     labelNombre:setTextColor(255, 255, 255)
     group:insert(labelNombre)
+    labelNombre.rotation = 90
 
     
     local lineaNegra= display.newImage(group,"Image/lineaN.png")
-    lineaNegra:translate( centerX, centerY/6)
+    lineaNegra:translate( _W - 33, centerY )
     lineaNegra:scale(1,.6)
     group:insert(lineaNegra)
+    lineaNegra.rotation = 90
+
 
     local moneda= display.newImage(group,"Image/moneda.png")
-    moneda:translate( centerX/6, centerY/6)
+    moneda:translate( _W - 33, centerY/6)
     moneda:scale(.5,.5)
     group:insert(moneda)
+    moneda.rotation = 90
 
-    local labelmoneda = display.newText(group, myData.puntos, (centerX/6)*1.8, centerY/6, font, 22)
+    local labelmoneda = display.newText(group, myData.puntos, _W - 33, centerY/6 + 50, font, 22)
     labelmoneda:setTextColor(255, 255, 255)
     group:insert(labelNombre)
+    labelmoneda.rotation = 90
     
     
     if myData.corazones == 3 then
       local corazon1= display.newImage(group,"Image/corazon.png")
-      corazon1:translate( (_W/6)*4.5, centerY/6)
+      corazon1:translate( _W - 33, _H - 60)
       corazon1:scale(.5,.5)
       group:insert(corazon1)
+      corazon1.rotation = 90
 
       local corazon2= display.newImage(group,"Image/corazon.png")
-      corazon2:translate( (_W/6)*5, centerY/6)
+      corazon2:translate( _W - 33, _H - 120)
       corazon2:scale(.5,.5)
       group:insert(corazon2)
+      corazon2.rotation = 90
 
       local corazon3= display.newImage(group,"Image/corazon.png")
-      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:translate( _W - 33, _H - 180)
       corazon3:scale(.5,.5)
       group:insert(corazon3)
+      corazon3.rotation = 90
 
     elseif myData.corazones == 2 then
 
       local corazon2= display.newImage(group,"Image/corazon.png")
-      corazon2:translate( (_W/6)*5, centerY/6)
+      corazon2:translate( _W - 33, _H - 120)
       corazon2:scale(.5,.5)
       group:insert(corazon2)
+      corazon2.rotation = 90
 
       local corazon3= display.newImage(group,"Image/corazon.png")
-      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:translate( _W - 33, _H - 180)
       corazon3:scale(.5,.5)
       group:insert(corazon3)
+      corazon3.rotation = 90
 
     elseif myData.corazones == 1 then
 
       local corazon3= display.newImage(group,"Image/corazon.png")
-      corazon3:translate( (_W/6)*5.5, centerY/6)
+      corazon3:translate( _W - 33, _H - 180)
       corazon3:scale(.5,.5)
       group:insert(corazon3)
+      corazon3.rotation = 90
 
 
     end
 
-  local labelCategoria = display.newText(group, "Categoria " .. myData.nombreCate, (centerX), (centerY/6)*2 , font, 30)
+  local labelCategoria = display.newText(group, "Categoria " .. myData.nombreCate, _W -100, centerY, font, 30)
     labelCategoria:setTextColor(255, 255, 255)
     group:insert(labelCategoria)
+    labelCategoria.rotation = 90
 
-    labelPreguntas = display.newText(group, "",  (centerX), (centerY/6)*4,(centerX)*1.5, 200, font, 30 )
-
-    --labelPreguntas = display.newText(group, "", (centerX), (centerY/6)*3 , font, 30)
+    labelPreguntas = display.newText(group, "",  centerX + 50, centerY, 500, 200, font, 30 )
     labelPreguntas:setTextColor(255, 255, 255)
     group:insert(labelPreguntas)
+    labelPreguntas.rotation = 90
 
   local btnPresslog1 = function( event )
        local test = socket.tcp()
@@ -274,13 +287,13 @@ function scene:create( event )
           myData.puntos = myData.puntos + 1
           print("correcto")
           sound(1)
-          composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+          composer.gotoScene( "preguntaCorrecta_Land", "slideLeft", 500 ) 
         else
           myData.corazones = myData.corazones - 1
          print("error")
          sound(2)
          myData.elegida = 1
-         composer.gotoScene( "respuesta_mal", "slideLeft", 500 ) 
+         composer.gotoScene( "respuesta_mal_Land", "slideLeft", 500 ) 
       end
         else
             local alert = native.showAlert( "Error de validación", "Revisa tu conexión de internet", { "OK" } )
@@ -330,13 +343,13 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
         myData.puntos = myData.puntos + 1
         print("correcto")
         sound(1)
-        composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+        composer.gotoScene( "preguntaCorrecta_Land", "slideLeft", 500 ) 
       else
         myData.corazones = myData.corazones - 1
        print("error")
        sound(2)
        myData.elegida = 2
-       composer.gotoScene( "respuesta_mal", "slideLeft", 500 ) 
+       composer.gotoScene( "respuesta_mal_Land", "slideLeft", 500 ) 
     end
 
   end
@@ -378,13 +391,13 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
         myData.puntos = myData.puntos + 1
         print("correcto")
         sound(1)
-        composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+        composer.gotoScene( "preguntaCorrecta_Land", "slideLeft", 500 ) 
       else
         myData.corazones = myData.corazones - 1
        print("error")
        sound(2)
        myData.elegida = 3
-       composer.gotoScene( "respuesta_mal", "slideLeft", 500 ) 
+       composer.gotoScene( "respuesta_mal_Land", "slideLeft", 500 ) 
     end
   end
 
@@ -412,9 +425,9 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
       --print(tablaResponse)
 
           btnPrimera.x = display.contentCenterX
-          btnPrimera.y = (_H/8)*3
-          
+          btnPrimera.y = centerY       
           group:insert(btnPrimera)
+          btnPrimera.rotation = 90
 
           local btnSegunda = widget.newButton({
               id = "Segundo",
@@ -427,9 +440,10 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
              
               onPress = btnPresslog2     
               })
-          btnSegunda.x = display.contentCenterX
-          btnSegunda.y = (_H/8)*4 
+          btnSegunda.x = display.contentCenterX - 100
+          btnSegunda.y = centerY
           group:insert(btnSegunda)
+          btnSegunda.rotation = 90
 
           local btnTercera = widget.newButton({
           id = respuesta3,
@@ -442,18 +456,21 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
          
           onPress = btnPresslog3     
           })
-          btnTercera.x = display.contentCenterX
-          btnTercera.y = (_H/8)*5
-          group:insert(btnTercera) end end )
+          btnTercera.x = display.contentCenterX - 200
+          btnTercera.y = centerY
+          group:insert(btnTercera)
+          btnTercera.rotation = 90
+           end end )
      
       
 
       
 
     local imageDiente=  display.newImage(group,"Image/diente.png")
-    imageDiente:translate( centerX, centerY+((centerY/5)*3.7) )
+    imageDiente:translate( 150, centerY+((centerY/5)*3.7) )
   imageDiente:scale( .4, .4 )
   group:insert(imageDiente)
+  imageDiente.rotation = 90
 
   
 

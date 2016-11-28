@@ -238,7 +238,7 @@ function scene:create( event )
     
     sceneGroup:insert(frmContrasenaN)
 
-    --[[
+    
     local labelFechaNac = display.newText(sceneGroup, "Fecha de Nacimiento", 0, 0, font, 25)
     labelFechaNac:setTextColor(0, 0, 0)
     labelFechaNac.anchorX=1
@@ -247,7 +247,7 @@ function scene:create( event )
     labelFechaNac.y = (_H/8)*4.6
     sceneGroup:insert(labelFechaNac)
 
-
+    --[[
     -----------------------------------------------------
     -- Create two tables to hold data for days and years      
     local days = {}
@@ -311,8 +311,8 @@ function scene:create( event )
     local currentMonth = values[1].value
     local currentDay = values[2].value
     local currentYear = values[3].value
+    
     ]]
-
     local currentMonth = "04"
     local currentDay = "05"
     local currentYear = "1994"
