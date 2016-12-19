@@ -20,17 +20,17 @@ function scene:create( event )
 	local background = display.newRect(0, 0, _W, _H)
     background.x = display.contentWidth / 2
     background.y = display.contentHeight / 2
-    background:setFillColor( .24)
+    background:setFillColor( .93)
 	group:insert( background )
 	
 
     local labelRespuesta = display.newText(group, "Instrucciones", _W - 100,centerY, font, 50)
-    labelRespuesta:setTextColor(236, 124, 38) 
+    labelRespuesta:setTextColor(255,0,0) 
     group:insert(labelRespuesta)
     labelRespuesta.rotation = 90
 
-    local labelTexto = display.newText(group, "Contesta correctamente las preguntas \nque tenemos preparadas para ti. \nCada pregunta te sumará un punto. \nLlega a 50 puntos, compártelo en \nredes sociales y gana premios.", centerX + 50,(_H/6)*3, font, 30)
-    labelTexto:setTextColor(255, 255, 255) 
+    local labelTexto = display.newText(group, "Contesta correctamente las preguntas \nque tenemos preparadas para ti. \n\nCada pregunta te sumará un punto. \n\nLlega a 50 puntos, compártelo en \nredes sociales y gana premios.", centerX + 50,(_H/6)*3, font, 30)
+    labelTexto:setTextColor(128, 128, 128) 
     group:insert(labelTexto)
     labelTexto.rotation = 90
 

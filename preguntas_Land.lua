@@ -157,7 +157,7 @@ function scene:create( event )
   local background = display.newRect(0, 0, _W, _H)
       background.x = display.contentWidth / 2
       background.y = display.contentHeight / 2
-      background:setFillColor( .24)
+      background:setFillColor( .93)
       group:insert(background)
       
     local lineaRoja= display.newImage(group,"Image/lineaR.png")
@@ -466,7 +466,7 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
 
       
 
-    local imageDiente=  display.newImage(group,"Image/diente.png")
+    local imageDiente=  display.newImage(group,"Image/ProductosColgate.png")
     imageDiente:translate( 150, centerY+((centerY/5)*3.7) )
   imageDiente:scale( .4, .4 )
   group:insert(imageDiente)

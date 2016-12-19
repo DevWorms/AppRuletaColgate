@@ -18,13 +18,13 @@ function scene:create( event )
 	local background = display.newRect(0, 0, _W, _H)
     background.x = display.contentWidth / 2
     background.y = display.contentHeight / 2
-    background:setFillColor( .24)
+    background:setFillColor( .93)
 	group:insert( background )
 
     local lineaRoja= display.newImage(group,"Image/lineaR.png")
     lineaRoja:translate( centerX,centerY/15 )
     group:insert(lineaRoja)
-    local labelNombre = display.newText(group,  myData.nombre, centerX, centerY/15, font, 30)
+    local labelNombre = display.newText(group,  myData.nombre, centerX/5, centerY/15, font, 30)
     labelNombre:setTextColor(255, 255, 255)
     group:insert(labelNombre)
 
@@ -41,7 +41,7 @@ function scene:create( event )
 
     local labelmoneda = display.newText(group, myData.puntos, (centerX/6)*1.8, centerY/6, font, 22)
     labelmoneda:setTextColor(255, 255, 255)
-    group:insert(labelNombre)
+    group:insert(labelmoneda)
     
     
     if myData.corazones == 3 then
@@ -86,7 +86,7 @@ function scene:create( event )
 	local imageDiente= display.newImage("Image/dienteMal.png")
 	imageDiente.x= display.contentWidth / 2
 	imageDiente.y=(_H/6)*1.5
-	imageDiente:scale( 2, 2)
+	imageDiente:scale( .5, 0.5 )
 	group:insert( imageDiente )
 
     local labelRespuesta = display.newText(group, "Fallaste", (centerX),(_H/6)*2.2, font, 40)

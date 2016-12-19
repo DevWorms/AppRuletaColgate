@@ -341,7 +341,8 @@ function scene:create( event )
                     --strokeWidth = 4,
                     onPress = btnRegistrar     
             })
-        
+
+            btnComenzar:scale(.75,.75)
             btnComenzar.x = display.contentCenterX
             btnComenzar.y = (_H/8)*6.3
             -- add button to login screen

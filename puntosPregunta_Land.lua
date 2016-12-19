@@ -22,7 +22,7 @@ function scene:create( event )
   local background = display.newRect(0, 0, _W, _H)
         background.x = display.contentWidth / 2
         background.y = display.contentHeight / 2
-        background:setFillColor( .24)
+        background:setFillColor( .93)
         group:insert(background)
       
   local lineaRoja = display.newImage(group,"Image/lineaR.png")
@@ -99,7 +99,7 @@ function scene:create( event )
     end
 
 
-	local imageDiente= display.newImage("Image/dienteBien.png")
+	local imageDiente= display.newImage("Image/Felicidades.png")
     imageDiente:translate( 150, centerY+((centerY/5)*3.7) )
   imageDiente:scale( 0.5, 0.5 )
   group:insert(imageDiente)

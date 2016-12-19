@@ -67,15 +67,15 @@ function scene:create( event )
 	local background = display.newRect(0, 0, _W, _H)
     background.x = display.contentWidth / 2
     background.y = display.contentHeight / 2
-	background:setFillColor( .24)
+	background:setFillColor( .93)
     
 	
 	sceneGroup:insert( background )
 
 	local imageDiente= display.newImage("Image/diente.png")
 	imageDiente.x= display.contentWidth / 2
-	imageDiente.y=display.contentWidth/4
-	imageDiente:scale( .5, 0.5 )
+	imageDiente.y= (display.contentWidth/4) + 30
+	imageDiente:scale( .55, 0.55 )
 	sceneGroup:insert( imageDiente )
 
 	local imageTexto= display.newImage("Image/textGracias.png")
