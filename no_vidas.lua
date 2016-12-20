@@ -87,22 +87,22 @@ function scene:create( event )
     end
 
 
-	local imageDiente= display.newImage("Image/dienteMal.png")
+	local imageDiente= display.newImage("Image/SinVidas.png")
 	imageDiente.x= display.contentWidth / 2
 	imageDiente.y=(_H/6)*1.5
-	imageDiente:scale( 2,2 )
+	imageDiente:scale( .6,.6 )
 	group:insert( imageDiente )
 
 	local labelRespuesta = display.newText(group, "Alcanzaste: " .. myData.puntos .. " puntos", (centerX),(_H/6)*2.8, font, 30)
-    labelRespuesta:setTextColor(236, 124, 38) 
+    labelRespuesta:setTextColor(0, 0, 0) 
     group:insert(labelRespuesta)
 
     local labelRespuesta = display.newText(group, "¡Ya no tienes más vidas!", (centerX),(_H/6)*2.2, font, 40)
-    labelRespuesta:setTextColor(236, 124, 38) 
+    labelRespuesta:setTextColor(0, 0, 0) 
     group:insert(labelRespuesta)
 
   local labelRespuesta = display.newText(group, "Comparte tu puntaje", (centerX),(_H/6)*3.1, font, 30)
-    labelRespuesta:setTextColor(236, 124, 38) 
+    labelRespuesta:setTextColor(0, 0, 0) 
     group:insert(labelRespuesta)
 
 

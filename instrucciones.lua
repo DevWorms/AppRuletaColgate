@@ -24,12 +24,12 @@ function scene:create( event )
 	group:insert( background )
 	
 
-    local labelRespuesta = display.newText(group, "Instrucciones", (centerX),(_H/6)*2, font, 50)
+    local labelRespuesta = display.newText(group, "INSTRUCCIONES", (centerX),(_H/6)*2, font, 50)
     labelRespuesta:setTextColor(255,0,0)
     group:insert(labelRespuesta)
 
-    local labelTexto = display.newText(group, "Contesta correctamente las preguntas \nque tenemos preparadas para ti. \n\nCada pregunta te sumará un punto. \n\nLlega a 50 puntos, compártelo en \nredes sociales y gana premios.", (centerX) + 20,(_H/6)*2.8, font, 30)
-    labelTexto:setTextColor(128, 128, 128) 
+    local labelTexto = display.newText(group, "\n\nContesta correctamente las preguntas \nque tenemos preparadas para ti. \n\nCada pregunta te sumará un punto. \n\nLlega a 50 puntos, compártelo en \nredes sociales y gana premios.", (centerX) + 20,(_H/6)*2.8, font, 30)
+    labelTexto:setTextColor(0, 0, 0) 
     group:insert(labelTexto)
 
 

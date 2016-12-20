@@ -91,12 +91,12 @@ function scene:create( event )
 
 
   local labelCategoria = display.newText(group, "Categoria " .. myData.nombreCate, (centerX), (centerY/6)*2 , font, 30)
-        labelCategoria:setTextColor(255, 255, 255)
+        labelCategoria:setTextColor(0, 0, 0)
         group:insert(labelCategoria)
   
   local labelPreguntas = display.newText(group, "",  (centerX), (centerY/6)*4,(centerX)*1.5, 200, font, 30 )
         labelPreguntas.text = myData.pregunta
-        labelPreguntas:setTextColor(255, 255, 255)
+        labelPreguntas:setTextColor(0, 0, 0)
         group:insert(labelPreguntas)
 
 

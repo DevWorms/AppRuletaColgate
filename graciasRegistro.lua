@@ -81,7 +81,7 @@ function scene:create( event )
 	local imageTexto= display.newImage("Image/textGracias.png")
 	imageTexto.x= display.contentWidth / 2
 	imageTexto.y= display.contentCenterY/2 +100
-	imageTexto:scale( .7, 0.7 )
+	--imageTexto:scale( .7, 0.7 )
 	sceneGroup:insert( imageTexto )
 
 	local btnPresslog = function( event )

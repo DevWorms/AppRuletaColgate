@@ -421,7 +421,7 @@ function scene:create( event )
     end end)  
    
 
-    luzAma= display.newImage(group,"Image/btnGris.png")
+    luzAma= display.newImage(group,"Image/btnGrisAm.png")
     luzAma:translate( (_W/4)*2.8, (_H/9)*2.5 )
     luzAma:scale(1.3,1.3)
     group:insert(luzAma)
@@ -434,7 +434,7 @@ function scene:create( event )
     group:insert(luzPrendidaAma)
     luzPrendidaAma.rotation = 90
 
-    luzVer= display.newImage(group,"Image/btnGris.png")
+    luzVer= display.newImage(group,"Image/btnGrisVe.png")
     luzVer:translate ( (_W/4)*2.8, (_H/9)*4.5 )
     luzVer:scale(1.3,1.3)
     group:insert(luzVer)
@@ -447,7 +447,7 @@ function scene:create( event )
     group:insert(luzPrendidaVer)
     luzPrendidaVer.rotation = 90
 
-    luzMora= display.newImage(group,"Image/btnGris.png")
+    luzMora= display.newImage(group,"Image/btnGrisMo.png")
     luzMora:translate( (_W/4)*1.2, (_H/9)*2.5 )
     luzMora:scale(1.3,1.3)
     group:insert(luzMora)
@@ -460,7 +460,7 @@ function scene:create( event )
     group:insert(luzPrendidaMora)
     luzPrendidaMora.rotation = 90
 
-    luzAzu= display.newImage(group,"Image/btnGris.png")
+    luzAzu= display.newImage(group,"Image/btnGrisAz.png")
     luzAzu:translate( (_W/4)*2.8, (_H/9)*6.5 )
     luzAzu:scale(1.3,1.3)
     group:insert(luzAzu)
@@ -473,7 +473,7 @@ function scene:create( event )
     group:insert(luzPrendidaAzu)
     luzPrendidaAzu.rotation = 90
 
-    luzRosa= display.newImage(group,"Image/btnGris.png")
+    luzRosa= display.newImage(group,"Image/btnGrisRo.png")
     luzRosa:translate( (_W/4)*1.2, (_H/9)*4.5 )
     luzRosa:scale(1.3,1.3)
     group:insert(luzRosa)

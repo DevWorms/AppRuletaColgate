@@ -94,11 +94,11 @@ function scene:create( event )
 	group:insert( imageDiente )
 
 	local labelRespuesta = display.newText(group, "Has llegado a 50 puntos", (centerX),(_H/6)*2.8, font, 30)
-    labelRespuesta:setTextColor(236, 124, 38) 
+    labelRespuesta:setTextColor(0, 0, 0) 
     group:insert(labelRespuesta)
 
     local labelRespuesta = display.newText(group, "¡Felicidades!", (centerX),(_H/6)*2.2, font, 40)
-    labelRespuesta:setTextColor(236, 124, 38) 
+    labelRespuesta:setTextColor(0, 0, 0) 
     group:insert(labelRespuesta)
 
 	

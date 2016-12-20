@@ -90,11 +90,11 @@ function scene:create( event )
 	group:insert( imageDiente )
 
     local labelRespuesta = display.newText(group, "Fallaste", (centerX),(_H/6)*2.2, font, 40)
-    labelRespuesta:setTextColor(236, 124, 38) 
+    labelRespuesta:setTextColor(0, 0, 0) 
     group:insert(labelRespuesta)
 
     local labelTexto = display.newText(group, myData.tip, (centerX), centerY + 100,(centerX)*1.5, 150, font, 30 )
-    labelTexto:setTextColor(255, 255, 255) 
+    labelTexto:setTextColor(0, 0, 0) 
     group:insert(labelTexto)
 
     local btnPresslog = function( event )

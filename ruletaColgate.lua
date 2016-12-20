@@ -406,9 +406,9 @@ function scene:create( event )
     end end)  
    
 
-    luzAma= display.newImage(group,"Image/btnGris.png")
+    luzAma= display.newImage(group,"Image/btnGrisAm.png")
     luzAma:translate( (_W/4)*1.2, (_H/9)*2 )
-    luzAma:scale(1.3,1.3)
+    luzAma:scale(.55,.55)
     group:insert(luzAma)
 
     luzPrendidaAma= display.newImage("Image/btnAma.png")
@@ -417,9 +417,9 @@ function scene:create( event )
     luzPrendidaAma.isVisible=false
     group:insert(luzPrendidaAma)
 
-    luzVer= display.newImage(group,"Image/btnGris.png")
+    luzVer= display.newImage(group,"Image/btnGrisVe.png")
     luzVer:translate( (_W/4)*2.8, (_H/9)*2 )
-    luzVer:scale(1.3,1.3)
+    luzVer:scale(.55,.55)
     group:insert(luzVer)
 
     luzPrendidaVer= display.newImage(group,"Image/btnVer.png")
@@ -428,9 +428,9 @@ function scene:create( event )
     luzPrendidaVer.isVisible=false
     group:insert(luzPrendidaVer)
 
-    luzAzu= display.newImage(group,"Image/btnGris.png")
+    luzAzu= display.newImage(group,"Image/btnGrisAz.png")
     luzAzu:translate( (_W/4)*1.2, (_H/9)*4 )
-    luzAzu:scale(1.3,1.3)
+    luzAzu:scale(.55,.55)
     group:insert(luzAzu)
 
     luzPrendidaAzu= display.newImage(group,"Image/btnAzu.png")
@@ -439,9 +439,9 @@ function scene:create( event )
     luzPrendidaAzu:scale(1.3,1.3)
     group:insert(luzPrendidaAzu)
 
-    luzMora= display.newImage(group,"Image/btnGris.png")
+    luzMora= display.newImage(group,"Image/btnGrisMo.png")
     luzMora:translate( (_W/4)*2.8, (_H/9)*4 )
-    luzMora:scale(1.3,1.3)
+    luzMora:scale(.55,.55)
     group:insert(luzMora)
 
     luzPrendidaMora= display.newImage(group,"Image/btnMora.png")
@@ -450,9 +450,9 @@ function scene:create( event )
     luzPrendidaMora:scale(1.3,1.3)
     group:insert(luzPrendidaMora)
 
-    luzRosa= display.newImage(group,"Image/btnGris.png")
+    luzRosa= display.newImage(group,"Image/btnGrisRo.png")
     luzRosa:translate( (_W/4)*1.2, (_H/9)*6 )
-    luzRosa:scale(1.3,1.3)
+    luzRosa:scale(.55,.55)
     group:insert(luzRosa)
 
     luzPrendidaRosa= display.newImage(group,"Image/btnRosa.png")
@@ -478,15 +478,15 @@ function scene:create( event )
 
         btnCerrar.anchorX=1
         btnCerrar.anchorX=0
-        btnCerrar:setTextColor(255, 255, 255)
+        btnCerrar:setTextColor(0, 0, 0)
         btnCerrar.x=display.contentCenterX- btnCerrar.width/2
         btnCerrar:addEventListener("tap", btnCerrarSE)
         
         group:insert(btnCerrar)
 
     cepillo= display.newImage(group,"Image/cepillo.png")
-    cepillo:translate( (_W/4)*3.5, (_H/9)*7.8 )
-    cepillo:scale(.4,.4)
+    cepillo:translate( (_W/4)*3.7, (_H/9)*6.5 )
+    cepillo:scale(.9,.9)
     group:insert(cepillo)
     
    -- local imageDiente=  display.newImage(group,"Image/diente.png")
