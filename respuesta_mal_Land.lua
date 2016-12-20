@@ -100,13 +100,13 @@ function scene:create( event )
 
 
   local labelCategoria = display.newText(group, "Categoria " .. myData.nombreCate, _W -100, centerY, font, 30)
-        labelCategoria:setTextColor(255, 255, 255)
+        labelCategoria:setTextColor(0, 0, 0)
         group:insert(labelCategoria)
         labelCategoria.rotation = 90
   
   local labelPreguntas = display.newText(group, "",  centerX + 50, centerY, 500, 200, font, 30 )
         labelPreguntas.text = myData.pregunta
-        labelPreguntas:setTextColor(255, 255, 255)
+        labelPreguntas:setTextColor(0, 0, 0)
         group:insert(labelPreguntas)
         labelPreguntas.rotation = 90
 

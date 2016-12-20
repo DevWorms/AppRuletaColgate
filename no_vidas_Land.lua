@@ -99,24 +99,24 @@ function scene:create( event )
     end
 
 
-	local imageDiente= display.newImage("Image/dienteMal.png")
-    imageDiente:translate( 150, centerY+((centerY/5)*3.7) )
-  imageDiente:scale( 2, 2 )
+	local imageDiente= display.newImage("Image/SinVidas.png")
+  imageDiente:translate( 150, centerY+((centerY/5)*3.7) )
+  imageDiente:scale( .4, .4 )
   group:insert(imageDiente)
   imageDiente.rotation = 90
 
 	local labelRespuesta = display.newText(group, "Alcanzaste: " .. myData.puntos .. " puntos", _W - 120,centerY, font, 40)
-    labelRespuesta:setTextColor(236, 124, 38) 
+    labelRespuesta:setTextColor(0, 0, 0) 
     group:insert(labelRespuesta)
     labelRespuesta.rotation = 90
 
     local labelRespuesta1 = display.newText(group, "¡Ya no tienes más vidas!", _W - 170,centerY, font, 30)
-    labelRespuesta1:setTextColor(236, 124, 38) 
+    labelRespuesta1:setTextColor(0, 0, 0) 
     group:insert(labelRespuesta1)
     labelRespuesta1.rotation = 90
 
   local labelRespuesta = display.newText(group, "Comparte tu puntaje", _W - 220,centerY, font, 30)
-    labelRespuesta:setTextColor(236, 124, 38) 
+    labelRespuesta:setTextColor(0, 0, 0) 
     group:insert(labelRespuesta)
     labelRespuesta.rotation = 90
 
@@ -241,7 +241,7 @@ function scene:create( event )
 
     group:insert( btnLogin )
     btnLogin.rotation = 90
-
+    btnLogin:scale(.9,.8)
 	
 
 

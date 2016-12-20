@@ -235,12 +235,12 @@ function scene:create( event )
     end
 
   local labelCategoria = display.newText(group, "Categoria " .. myData.nombreCate, _W -100, centerY, font, 30)
-    labelCategoria:setTextColor(255, 255, 255)
+    labelCategoria:setTextColor(0, 0, 0)
     group:insert(labelCategoria)
     labelCategoria.rotation = 90
 
     labelPreguntas = display.newText(group, "",  centerX + 50, centerY, 500, 200, font, 30 )
-    labelPreguntas:setTextColor(255, 255, 255)
+    labelPreguntas:setTextColor(0, 0, 0)
     group:insert(labelPreguntas)
     labelPreguntas.rotation = 90
 
@@ -467,10 +467,10 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
       
 
     local imageDiente=  display.newImage(group,"Image/ProductosColgate.png")
-    imageDiente:translate( 150, centerY+((centerY/5)*3.7) )
-  imageDiente:scale( .4, .4 )
-  group:insert(imageDiente)
-  imageDiente.rotation = 90
+    imageDiente:translate( 270, centerY+((centerY/5)*3.7) )
+    imageDiente:scale( .6, .6 )
+    group:insert(imageDiente)
+    imageDiente.rotation = 90
 
   
 

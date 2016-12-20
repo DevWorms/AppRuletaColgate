@@ -103,12 +103,12 @@ function scene:create( event )
   imageDiente.rotation = 90
 
     local labelRespuesta = display.newText(group, "Fallaste", _W - 150,centerY, font, 40)
-    labelRespuesta:setTextColor(236, 124, 38) 
+    labelRespuesta:setTextColor(0, 0, 0) 
     group:insert(labelRespuesta)
     labelRespuesta.rotation = 90
 
     local labelTexto = display.newText(group, myData.tip, (centerX),(_H/6)*2.8,(centerX)*1.5, 150, font, 30 )
-    labelTexto:setTextColor(255, 255, 255) 
+    labelTexto:setTextColor(0, 0, 0) 
     group:insert(labelTexto)
     labelTexto.rotation = 90
 
@@ -135,7 +135,7 @@ function scene:create( event )
 
     group:insert( btnLogin )
     btnLogin.rotation = 90
-
+    btnLogin:scale(.9,.8)
 	
 
 

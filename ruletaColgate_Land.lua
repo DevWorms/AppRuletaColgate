@@ -423,7 +423,7 @@ function scene:create( event )
 
     luzAma= display.newImage(group,"Image/btnGrisAm.png")
     luzAma:translate( (_W/4)*2.8, (_H/9)*2.5 )
-    luzAma:scale(1.3,1.3)
+    luzAma:scale(.55,.55)
     group:insert(luzAma)
     luzAma.rotation = 90
 
@@ -436,7 +436,7 @@ function scene:create( event )
 
     luzVer= display.newImage(group,"Image/btnGrisVe.png")
     luzVer:translate ( (_W/4)*2.8, (_H/9)*4.5 )
-    luzVer:scale(1.3,1.3)
+    luzVer:scale(.55,.55)
     group:insert(luzVer)
     luzVer.rotation = 90
 
@@ -449,7 +449,7 @@ function scene:create( event )
 
     luzMora= display.newImage(group,"Image/btnGrisMo.png")
     luzMora:translate( (_W/4)*1.2, (_H/9)*2.5 )
-    luzMora:scale(1.3,1.3)
+    luzMora:scale(.55,.55)
     group:insert(luzMora)
     luzMora.rotation = 90
 
@@ -462,7 +462,7 @@ function scene:create( event )
 
     luzAzu= display.newImage(group,"Image/btnGrisAz.png")
     luzAzu:translate( (_W/4)*2.8, (_H/9)*6.5 )
-    luzAzu:scale(1.3,1.3)
+    luzAzu:scale(.55,.55)
     group:insert(luzAzu)
     luzAzu.rotation = 90
 
@@ -475,7 +475,7 @@ function scene:create( event )
 
     luzRosa= display.newImage(group,"Image/btnGrisRo.png")
     luzRosa:translate( (_W/4)*1.2, (_H/9)*4.5 )
-    luzRosa:scale(1.3,1.3)
+    luzRosa:scale(.55,.55)
     group:insert(luzRosa)
     luzRosa.rotation = 90
 
@@ -505,15 +505,15 @@ function scene:create( event )
 
         btnCerrar.anchorX=1
         btnCerrar.anchorX=0
-        btnCerrar:setTextColor(255, 255, 255)
+        btnCerrar:setTextColor(0, 0, 0)
         btnCerrar.x= 50
         btnCerrar:addEventListener("tap", btnCerrarSE)
         
         group:insert(btnCerrar)
 
     cepillo= display.newImage(group,"Image/cepillo.png")
-    cepillo:translate( 150, (_H/9)*8.3 )
-    cepillo:scale(.4,.4)
+    cepillo:translate( 290, (_H/9)*8.3 )
+    cepillo:scale(.9,.9)
     group:insert(cepillo)
     cepillo.rotation = 90
 

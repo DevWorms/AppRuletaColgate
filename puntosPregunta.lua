@@ -93,7 +93,7 @@ function scene:create( event )
 	imageDiente:scale( .5, 0.5 )
 	group:insert( imageDiente )
 
-	local labelRespuesta = display.newText(group, "Has llegado a 50 puntos", (centerX),(_H/6)*2.8, font, 30)
+	local labelRespuesta = display.newText(group, "Haz llegado a "..myData.puntos.." puntos", (centerX),(_H/6)*2.8, font, 30)
     labelRespuesta:setTextColor(0, 0, 0) 
     group:insert(labelRespuesta)
 
