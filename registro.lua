@@ -247,7 +247,7 @@ function scene:create( event )
     labelFechaNac.y = (_H/8)*4.6
     sceneGroup:insert(labelFechaNac)
 
-    --[[
+    
     -----------------------------------------------------
     -- Create two tables to hold data for days and years      
     local days = {}
@@ -312,7 +312,7 @@ function scene:create( event )
     local currentDay = values[2].value
     local currentYear = values[3].value
     
-    ]]
+    
     local currentMonth = "04"
     local currentDay = "05"
     local currentYear = "1994"
