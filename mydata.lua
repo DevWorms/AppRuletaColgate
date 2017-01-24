@@ -21,7 +21,8 @@ local myVariable = {
 	respuesta_2 = "",
 	respuesta_3 = "",
 	elegida = "",
-	tip = ""
+	tip = "",
+	tokenFacebook = "No"
 }
 
 return myVariable;

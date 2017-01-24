@@ -10,7 +10,7 @@ settings =
     },
 
     android = {
-        facebookAppId = "1210208022395704",
+        facebookAppId = "403415610017313",
 
         usesPermissions =  {
             "android.permission.INTERNET",
@@ -50,11 +50,14 @@ settings =
     },
 
     plugins = {
-
+        ["plugin.facebook.v4"] =
+            {
+                publisherId = "com.coronalabs"
+            },
         ["CoronaProvider.native.popup.social"] =
-        {
-            publisherId = "com.coronalabs"
-        },
+            {
+                publisherId = "com.coronalabs"
+            },
     },
     
 }

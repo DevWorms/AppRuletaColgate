@@ -5,6 +5,7 @@ local myData = require( "mydata" )
 local json = require( "json" )
 local socket = require("socket")
 local ltn12 = require("ltn12")
+local facebook = require( "plugin.facebook.v4" )
 --local settings = require("settings")
 --local introIsPlaying
 ---------------------------------------------------------------------------------
@@ -13,12 +14,69 @@ local ltn12 = require("ltn12")
 
 local image, text1, text2, text3, memTimer, variableRegistro
 local frmUsername, frmPassword
+local tokenFace
 
 -- Touch event listener for background image
 --require the file with the save/load functions
 
 -- saveTable(t,filename) saves the table t to a file in the DocumentsDirectory (named as filename)
 --     returns true if success, false on failure
+----------------------
+---------------------Facebook Login
+
+local function enforceFacebookLogin( )
+	if facebook.isActive then
+		local accessToken = facebook.getCurrentAccessToken()
+		if accessToken == nil then
+
+			print( "Need to log in" )
+			facebook.login( facebookListener )
+
+
+
+		else
+			local alert = native.showAlert( "LoginFacebook", "TokenFacebook: ".. accessToken, { "OK" } )
+
+		end
+
+	else
+		print( "Please wait for facebook to finish initializing before checking the current access token" );
+	end
+end
+ 
+local function facebookListener( event )
+ 
+    print( "event.name:" .. event.name )  -- "fbconnect"
+    print( "isError: " .. tostring( event.isError ) )
+    print( "didComplete: " .. tostring( event.didComplete ) )
+    print( "event.type:" .. event.type )  -- "session", "request", or "dialog"
+ 
+    -- event.type of "session" covers various login/logout events
+    if ( "session" == event.type ) then
+        -- event.phase may be "login", "loginFailed", "loginCancelled", or "logout"
+        if ( "login" == event.phase ) then
+            local access_token = event.token
+            print("token: ".. access_token)
+            myData.tokenFacebook = access_token
+               
+            -- Code for tasks following a successful login
+        end
+ 
+    -- event.type of "request" handles calls to various Graph API functionalities
+    elseif ( "request" == event.type ) then
+        if not event.isError then
+            local response = json.decode( event.response )
+            -- Process response data here
+        end
+ 
+    -- event.type of "dialog" indicates standard popup boxes that can be displayed
+    elseif ( "dialog" == event.type ) then
+        print( "dialog", event.response )
+        -- Handle dialog results here
+    end
+end
+-------------------------------
+-------------------------------
 function saveTable(t, filename)
 --    print(" -- saving table ", filename)
     local path = system.pathForFile( filename, system.DocumentsDirectory)
@@ -288,8 +346,8 @@ function scene:create( event )
         end
         local function btnRegistrar( event )
             --reproducirSonido("EjemploTablero",0,wait())
-               
-                local test = socket.tcp()
+               enforceFacebookLogin( )
+               --[[ local test = socket.tcp()
                 test:settimeout(1000)                   -- Set timeout to 1 second
                             
                 local testResult = test:connect("www.google.com", 80)        -- Note that the test does not work if we put http:// in front
@@ -304,8 +362,16 @@ function scene:create( event )
                 end
                             
                 test:close()
-                test = nil
+                test = nil]]--
                 
+        end
+        local function mostrar( ... )
+        	local accessToken = facebook.getCurrentAccessToken()
+        		if accessToken == nil then
+        			local alert = native.showAlert( "LoginFacebook", "TokenFacebook: No hay nada" , { "OK" } )
+        		else
+        			local alert = native.showAlert( "LoginFacebook", "TokenFacebook: ".. accessToken , { "OK" } )
+       			end
         end
                
 
@@ -314,7 +380,7 @@ function scene:create( event )
                     height = 200,
                     defaultFile = "Image/btnComenzar.png",
                     overFile = "Image/btnComenzar.png",
-                    onPress = btnPresslog     
+                    onPress = mostrar     
                     })
                 btnLogin.x = display.contentCenterX 
                 btnLogin.y = display.contentCenterY + 100
