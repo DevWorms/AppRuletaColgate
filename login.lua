@@ -24,25 +24,7 @@ local tokenFace
 ----------------------
 ---------------------Facebook Login
 
-local function enforceFacebookLogin( )
-	if facebook.isActive then
-		local accessToken = facebook.getCurrentAccessToken()
-		if accessToken == nil then
 
-			print( "Need to log in" )
-			facebook.login( facebookListener )
-
-
-
-		else
-			local alert = native.showAlert( "LoginFacebook", "TokenFacebook: ".. accessToken, { "OK" } )
-
-		end
-
-	else
-		print( "Please wait for facebook to finish initializing before checking the current access token" );
-	end
-end
  
 local function facebookListener( event )
  
@@ -55,11 +37,15 @@ local function facebookListener( event )
     if ( "session" == event.type ) then
         -- event.phase may be "login", "loginFailed", "loginCancelled", or "logout"
         if ( "login" == event.phase ) then
-            local access_token = event.token
-            print("token: ".. access_token)
-            myData.tokenFacebook = access_token
-               
+           
+             tokenFace = event.token
+            local response = event.response
+            native.showAlert("My Response Correcto", tokenFace)
             -- Code for tasks following a successful login
+        elseif (event.type == "request") then
+            local response = event.response
+            native.showAlert("My Response error", response)
+        
         end
  
     -- event.type of "request" handles calls to various Graph API functionalities
@@ -94,7 +80,25 @@ function saveTable(t, filename)
     end
 end
 
+local function enforceFacebookLogin( )
+	if facebook.isActive then
+		local accessToken = facebook.getCurrentAccessToken()
+		if accessToken == nil then
 
+			print( "Need to log in" )
+			facebook.login( "403415610017313",facebookListener )
+
+
+
+		else
+			local alert = native.showAlert( "LoginFacebook", "TokenFacebook: ".. accessToken, { "OK" } )
+
+		end
+
+	else
+		print( "Please wait for facebook to finish initializing before checking the current access token" );
+	end
+end
 
 local function onUsername( event )
     if ( "began" == event.phase ) then
