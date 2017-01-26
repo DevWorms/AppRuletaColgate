@@ -77,6 +77,18 @@ end
     
 local function btnTapJugar(event)
     --esto es para quitar el bloqueo 
+
+    if myData.corazones == 0 and myData.corazones == nil then
+
+      saveTable("no","login")
+      composer.gotoScene( "login", "crossFade", 500 )     
+      if tokenFacebook == "No" then
+      else
+        facebook.logout()
+
+      end
+
+    else  
       local test = socket.tcp()
       test:settimeout(1000)                   -- Set timeout to 1 second
                   
@@ -95,7 +107,7 @@ local function btnTapJugar(event)
       test:close()
       test = nil
 
-  
+    end
    --contadordevueltas=0
    --velocidad=5
    --posanterior= ruleta.rotation
@@ -129,6 +141,12 @@ local function btnTapIntruc( event )
 end
 
 local function btnCerrarSE( event )
+  if tokenFacebook == "No" then
+
+  else
+     facebook.logout()
+
+  end
   saveTable("no","login")
   composer.gotoScene( "login", "crossFade", 500 )     
   
