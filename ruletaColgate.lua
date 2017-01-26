@@ -2,6 +2,7 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 local myData = require( "mydata" )
 local socket = require("socket")
+local facebook = require( "plugin.facebook.v4" )
 --local introIsPlaying
  
   local centerX= _W/2

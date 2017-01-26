@@ -14,8 +14,9 @@ local facebook = require( "plugin.facebook.v4" )
 
 local image, text1, text2, text3, memTimer, variableRegistro
 local frmUsername, frmPassword
-local tokenFace
-
+local tokenFace = "EAAFu54QhxiEBAK38r3GkKwf7ZABcLG5GLFGTggU4M1vHgZAAcJIB8ncZACZANTELUEY7v5wKPGsr2kPV0YFCDQIbAwZC8oByZCUPoT2IQxVaqOcxWZBORukykAnFSBZBrMasf2txyoOHXOAesFWIMHJy53QMou13rckaIONLbntVuOpY4t9mmeFz"
+local client_id ="AMBsbG2J80fN6S1aUZhLcamOS7q9ADtWl1nXzkwn"
+local client_secret = "eIQqr3FEEJKEGkOSZBUBBVhIjdPv8VrbQPB9DVYhYqWKWcHuq50OeenaXxbfMQ470VEetzZRa1vie6MVsqD1nePEBZb96VaVgZjKUxbnsdkA0hRosTGlcL1pyCLgZ6Or"
 -- Touch event listener for background image
 --require the file with the save/load functions
 
@@ -23,9 +24,18 @@ local tokenFace
 --     returns true if success, false on failure
 ----------------------
 ---------------------Facebook Login
+  local function handleResponse( event )
+        if not event.isError then
+            local response = json.decode( event.response )
+           print("Registro"..event.response)
+           --local alert = native.showAlert( "Error de validación", "Este usuario ya fue registrado".. event.response, { "OK" } )
+            variableRegistro = response
+        else
+            print( "Error" )
+        end
+        return
+    end
 
-
- 
 local function facebookListener( event )
  
     print( "event.name:" .. event.name )  -- "fbconnect"
@@ -38,10 +48,10 @@ local function facebookListener( event )
         -- event.phase may be "login", "loginFailed", "loginCancelled", or "logout"
         if ( "login" == event.phase ) then
            
-             tokenFace = event.token
+             myData.tokenFacebook = event.token
             local response = event.response
-            native.showAlert("My Response Correcto", tokenFace)
-            print(tokenFace)
+           -- native.showAlert("My Response Correcto", myData.tokenFacebook)
+            print(myData.tokenFacebook)
 
                 --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
                 local test = socket.tcp()
@@ -55,9 +65,9 @@ local function facebookListener( event )
                 
                 local headers = {}
                 
-                headers["authorization"] = "Basic QU1Cc2JHMko4MGZONlMxYVVaaExjYW1PUzdxOUFEdFdsMW5Yemt3bjplSVFxcjNGRUVKS0VHa09TWkJVQkJWaElqZFB2OFZyYlFQQjlEVlloWXFXS1djSHVxNTBPZWVuYVh4YmZNUTQ3MFZFZXR6WlJhMXZpZTZNVnNxRDFuZVBFQlpiOTZWYVZnWmpLVXhibnNka0EwaFJvc1RHbGNMMXB5Q0xnWjZPcg=="
+                --headers["authorization"] = "Basic QU1Cc2JHMko4MGZONlMxYVVaaExjYW1PUzdxOUFEdFdsMW5Yemt3bjplSVFxcjNGRUVKS0VHa09TWkJVQkJWaElqZFB2OFZyYlFQQjlEVlloWXFXS1djSHVxNTBPZWVuYVh4YmZNUTQ3MFZFZXR6WlJhMXZpZTZNVnNxRDFuZVBFQlpiOTZWYVZnWmpLVXhibnNka0EwaFJvc1RHbGNMMXB5Q0xnWjZPcg=="
                 headers["Content-Type"] = "application/x-www-form-urlencoded"
-                local body = "grant_type=convert_token&backend=facebook&token=" .. tokenFace
+                local body = "grant_type=convert_token&client_id="..client_id.."&client_secret="..client_secret.."&backend=facebook&token=" .. myData.tokenFacebook
 
                 params.headers = headers
                 params.body = body
@@ -66,13 +76,15 @@ local function facebookListener( event )
 
                 network.request( url, "POST", handleResponse, params )
                 timer.performWithDelay( 1000, function()  network.request( url, "POST", handleResponse, params )  
-                print(variableRegistro) 
+				
                 if variableRegistro["access_token"] == nil then
-                    local alert = native.showAlert( "Error de validación", "Este usuario ya fue registrado", { "OK" } )
+                  local alert = native.showAlert( "Error de validación", "Hay algun error con el servicio intente de nuevo", { "OK" } )
                 
                 else
                      myData.token = variableRegistro["access_token"]
                      saveTable(myData.token,"login")
+                      frmUsername:removeSelf()
+                     frmPassword:removeSelf()
                      composer.gotoScene( "instrucciones", "crossFade", 500 ) 
 
 --[[
@@ -91,8 +103,6 @@ if string.sub( system.getInfo("model"), 1, 4 ) == "iPad" or display.pixelHeight 
                             
                 test:close()
                 test = nil
-
-               
 
             -- Code for tasks following a successful login
         elseif (event.type == "request") then
@@ -144,7 +154,7 @@ local function enforceFacebookLogin( )
 
 
 		else
-			local alert = native.showAlert( "LoginFacebook", "TokenFacebook: ".. accessToken, { "OK" } )
+			facebook.logout()
 
 		end
 
@@ -195,16 +205,7 @@ end
    --  LLAMADA A WEB SERVICE
 
     
-    local function handleResponse( event )
-        if not event.isError then
-            local response = json.decode( event.response )
-           -- print("Registro"..response)
-            variableRegistro = response
-        else
-            print( "Error" )
-        end
-        return
-    end
+  
 function wait()
     for i=1,100 do
      print("espera"..i)
@@ -288,13 +289,13 @@ function scene:create( event )
         labelUsername.anchorX=1
         labelUsername.anchorX=0
         labelUsername.x = _W * 0.5 - (labelUsername.width/2)
-        labelUsername.y = (_H/2)-220
+        labelUsername.y = (_H/2)-320
 
         labelPassword.anchorX=1
         labelPassword.anchorX=0
         labelPassword:setTextColor(0, 0, 0)
         labelPassword.x = _W * 0.5 - (labelPassword.width/2)
-        labelPassword.y = (_H/2)-140
+        labelPassword.y = (_H/2)-240
 
         labelReturnStatus.anchorX=1
         labelReturnStatus.anchorX=0
@@ -312,7 +313,7 @@ function scene:create( event )
         frmUsername.anchorX=1
         frmUsername.anchorX=0
         frmUsername.x = _W * 0.5 - 140
-        frmUsername.y = (_H/2)-180
+        frmUsername.y = (_H/2)-280
         frmUsername.text = ''
 
         frmPassword.inputType = "default"
@@ -323,7 +324,7 @@ function scene:create( event )
         frmPassword.anchorX=1
         frmPassword.anchorX=0
         frmPassword.x = _W * 0.5 - 140
-        frmPassword.y = (_H/2)-100
+        frmPassword.y = (_H/2)-200
         frmPassword.text = ''
 
         group:insert(labelUsername)
@@ -403,8 +404,9 @@ function scene:create( event )
         end
         local function btnRegistrar( event )
             --reproducirSonido("EjemploTablero",0,wait())
-               enforceFacebookLogin( )
-               --[[ local test = socket.tcp()
+               
+              
+               local test = socket.tcp()
                 test:settimeout(1000)                   -- Set timeout to 1 second
                             
                 local testResult = test:connect("www.google.com", 80)        -- Note that the test does not work if we put http:// in front
@@ -419,16 +421,11 @@ function scene:create( event )
                 end
                             
                 test:close()
-                test = nil]]--
+                test = nil
                 
         end
         local function mostrar( ... )
-        	local accessToken = facebook.getCurrentAccessToken()
-        		if accessToken == nil then
-        			local alert = native.showAlert( "LoginFacebook", "TokenFacebook: No hay nada" , { "OK" } )
-        		else
-        			local alert = native.showAlert( "LoginFacebook", "TokenFacebook: ".. accessToken , { "OK" } )
-       			end
+        	facebook.logout()
         end
                
 
@@ -437,15 +434,15 @@ function scene:create( event )
                     height = 200,
                     defaultFile = "Image/btnComenzar.png",
                     overFile = "Image/btnComenzar.png",
-                    onPress = mostrar     
+                    onPress = btnPresslog     
                     })
                 btnLogin.x = display.contentCenterX 
-                btnLogin.y = display.contentCenterY + 100
+                btnLogin.y = display.contentCenterY - 50
             -- add button to login screen
             group:insert(btnLogin)
         
 
-             local btnRegistro = display.newText(group, "Si aun no estas registrado,", display.contentCenterX, display.contentCenterY+ 240, font, 18)
+             local btnRegistro = display.newText(group, "Si aun no estas registrado,", display.contentCenterX, display.contentCenterY+ 100, font, 18)
 
              local btnComenzar = widget.newButton({
                     id = "registrar button",
@@ -467,9 +464,11 @@ function scene:create( event )
 
             btnComenzar:scale(.75,.75)
             btnComenzar.x = display.contentCenterX
-            btnComenzar.y = (_H/8)*6.3
+            btnComenzar.y = (_H/8)*5.3
             -- add button to login screen
 
+           
+           
             btnRegistro.anchorX=1
             btnRegistro.anchorX=0
             btnRegistro:setTextColor(0, 0, 0)
@@ -477,7 +476,15 @@ function scene:create( event )
             
             group:insert(btnRegistro)
             group:insert(btnComenzar)
-   
+
+            local labelFace = display.newText(group, "\n                   O \n\nRegistrate con Facebook", display.contentCenterX, display.contentCenterY+ 230, font, 18)
+   			labelFace:setTextColor(0, 0, 0)
+
+   			local btnFacebook=display.newImage(group,"Image/btnfb.png")
+   			btnFacebook:translate( display.contentCenterX, display.contentCenterY+ 330)
+    		btnFacebook: addEventListener("tap", enforceFacebookLogin)
+    		btnFacebook:scale(.6,.6)
+    		group:insert(btnFacebook)
      else
 
         print(platform) 
