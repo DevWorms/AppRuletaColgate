@@ -41,6 +41,59 @@ local function facebookListener( event )
              tokenFace = event.token
             local response = event.response
             native.showAlert("My Response Correcto", tokenFace)
+            print(tokenFace)
+
+                --  INICIAR VARIABLES PARA CONVERTIR EL STRING EN JSON
+                local test = socket.tcp()
+                test:settimeout(1000)                   -- Set timeout to 1 second
+                            
+                local testResult = test:connect("www.google.com", 80)        -- Note that the test does not work if we put http:// in front
+                 
+                if not(testResult == nil) then
+                    print("Internet access is available")
+                     local params = {}
+                
+                local headers = {}
+                
+                headers["authorization"] = "Basic QU1Cc2JHMko4MGZONlMxYVVaaExjYW1PUzdxOUFEdFdsMW5Yemt3bjplSVFxcjNGRUVKS0VHa09TWkJVQkJWaElqZFB2OFZyYlFQQjlEVlloWXFXS1djSHVxNTBPZWVuYVh4YmZNUTQ3MFZFZXR6WlJhMXZpZTZNVnNxRDFuZVBFQlpiOTZWYVZnWmpLVXhibnNka0EwaFJvc1RHbGNMMXB5Q0xnWjZPcg=="
+                headers["Content-Type"] = "application/x-www-form-urlencoded"
+                local body = "grant_type=convert_token&backend=facebook&token=" .. tokenFace
+
+                params.headers = headers
+                params.body = body
+
+                url = "https://colgate.herokuapp.com/auth/convert-token"
+
+                network.request( url, "POST", handleResponse, params )
+                timer.performWithDelay( 1000, function()  network.request( url, "POST", handleResponse, params )  
+                print(variableRegistro) 
+                if variableRegistro["access_token"] == nil then
+                    local alert = native.showAlert( "Error de validación", "Este usuario ya fue registrado", { "OK" } )
+                
+                else
+                     myData.token = variableRegistro["access_token"]
+                     saveTable(myData.token,"login")
+                     composer.gotoScene( "instrucciones", "crossFade", 500 ) 
+
+--[[
+if string.sub( system.getInfo("model"), 1, 4 ) == "iPad" or display.pixelHeight > 2000 then
+            composer.gotoScene( "ruletaColgate_Land", "crossFade", 500 ) 
+        else            
+            composer.gotoScene( "ruletaColgate", "crossFade", 500 ) 
+        end
+]]
+
+                end end )
+                   
+                else
+                    local alert = native.showAlert( "Error de validación", "Revisa tu conexión de internet", { "OK" } )
+                end
+                            
+                test:close()
+                test = nil
+
+               
+
             -- Code for tasks following a successful login
         elseif (event.type == "request") then
             local response = event.response
