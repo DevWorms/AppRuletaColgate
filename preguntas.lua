@@ -40,6 +40,7 @@ function scene:create( event )
                 local response = json.encode( event.response ,{ indent = true })
                 local decoded = json.decode( event.response )
                 tablaResponse = decoded
+                
                  --arrayrespuesta = decoded
                for k,v in pairs (decoded) do
                    if k== "question" then
@@ -47,11 +48,11 @@ function scene:create( event )
                       myData.pregunta = v
                    end 
                    if k == "answer_set" then
-
+			
                     local parte1= json.encode( v )
-                    print("extraer answer_set : " .. parte1)
+            
                     local partes= json.decode( parte1)
-                                           
+                                      
                       for i,j in pairs (partes) do
                           for n,m in pairs (j) do
                            
@@ -365,6 +366,8 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
         headers["authorization"] = "Bearer " .. myData.token
         headers["Content-Type"] = "application/x-www-form-urlencoded"
         params.headers = headers
+
+
         params.body = body
 
         url = "https://colgate.herokuapp.com/api/v1/attempts/"
@@ -387,13 +390,15 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
        composer.gotoScene( "respuesta_mal", "slideLeft", 500 ) 
     end
   end
-
+                
 
    url = "https://colgate.herokuapp.com/api/v1/categories/" .. myData.id_categoria .. "/random_question/" 
+   print("url: ".. url)
 
-        network.request( url, "GET", handleResponse, params )
+       network.request( url, "GET", handleResponse, params )
 
       timer.performWithDelay( 1000, function() 
+      
       if respuesta1==nil or respuesta1=="" then
          local alert = native.showAlert( "Error de validación", "Revisa tu conexión a internet", { "OK" } )
          composer.gotoScene( "ruletaColgate", "slideLeft", 500 ) 
@@ -409,7 +414,7 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
             onPress = btnPresslog1     
             })
 
-      --print(tablaResponse)
+      
 
           btnPrimera.x = display.contentCenterX
           btnPrimera.y = (_H/8)*3
