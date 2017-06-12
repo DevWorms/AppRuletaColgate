@@ -13,6 +13,7 @@ local image, text1, text2, text3, memTimer
 
 -- Called when the scene's view does not exist:
 function scene:create( event )
+    print("que mal momo perro")
 	local group = self.view
 	
 	local background = display.newRect(0, 0, _W, _H)

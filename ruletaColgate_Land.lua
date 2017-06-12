@@ -37,6 +37,7 @@ local socket = require("socket")
 
   --  LLAMADA A WEB SERVICE
 function loadTable(filename)
+    
 
     local path = system.pathForFile( filename, system.DocumentsDirectory)
     local file = io.open( path, "r" )
@@ -47,6 +48,7 @@ function loadTable(filename)
          local myTable = contents
          io.close( file )
          print(" -- load success."..myTable)
+         print("hola men ")
          return myTable 
     end
 
@@ -77,6 +79,7 @@ end
     
 local function btnTapJugar(event)
     --esto es para quitar el bloqueo 
+    print("aqui men")
       local test = socket.tcp()
       test:settimeout(1000)                   -- Set timeout to 1 second
                   
@@ -322,9 +325,10 @@ function scene:create( event )
       end
 
       headers["authorization"] = "Bearer " .. myData.token
+      headers["Content-Type"] = "application/x-www-form-urlencoded"
       params.headers = headers
 
-      url = "https://colgate.herokuapp.com/api/v1/users/me/"
+      url = "https://colgate.herokuapp.com/api/v1/categories/"
 
       network.request( url, "GET", handleResponse, params )
      

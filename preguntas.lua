@@ -275,7 +275,8 @@ function scene:create( event )
           myData.puntos = myData.puntos + 1
           print("correcto")
           sound(1)
-          composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+          composer.gotoScene( "respuesta_bien", "slideLeft", 500 ) 
+          --composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
         else
           myData.corazones = myData.corazones - 1
          print("error")
@@ -331,7 +332,8 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
         myData.puntos = myData.puntos + 1
         print("correcto")
         sound(1)
-        composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+        composer.gotoScene( "respuesta_bien", "slideLeft", 500 ) 
+        --composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
       else
         myData.corazones = myData.corazones - 1
        print("error")
@@ -381,7 +383,8 @@ idpregunta = tablaResponse["answer_set"][2]["question"]
         myData.puntos = myData.puntos + 1
         print("correcto")
         sound(1)
-        composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
+        composer.gotoScene( "respuesta_bien", "slideLeft", 500 ) 
+        --composer.gotoScene( "preguntaCorrecta", "slideLeft", 500 ) 
       else
         myData.corazones = myData.corazones - 1
        print("error")

@@ -1,6 +1,7 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 local myData = require( "mydata" )
+local categoriasData = require("Categorias")
 local socket = require("socket")
 local facebook = require( "plugin.facebook.v4" )
 --local introIsPlaying
@@ -34,6 +35,7 @@ local facebook = require( "plugin.facebook.v4" )
     local completa
     local vidas
     local labelmoneda
+    local idCategoria;
 
 
   --  LLAMADA A WEB SERVICE
@@ -66,10 +68,29 @@ end
           myData.nombre= variableRegistro["first_name"]
           myData.corazones= variableRegistro["lifes"]
           myData.puntos= variableRegistro["points"]
+          myData.id_categoria =variableRegistro["id"]
           labelmoneda.text =  myData.puntos
           print ("Respuesta:".. myData.corazones)
+          print("aber "..myData.id_categoria)
       else
           print( "Error" )
+      end
+      return
+  end
+  local function handleResponse2( event )
+      if not event.isError then
+          local response = json.decode( event.response )
+          local completa = json.encode( event.response )
+          variableRegistro = response
+          categoriasData.id_categoria1= variableRegistro["id"]
+          categoriasData.nombre_categoria1= variableRegistro["name"]
+          categoriasData.id_categoria2= variableRegistro["id"]
+          categoriasData.nombre_categoria2= variableRegistro["name"]
+          categoriasData.id_categoria3= variableRegistro["id"]
+          categoriasData.nombre_categoria3= variableRegistro["name"]
+      else 
+          print("error de momos")
+      
       end
       return
   end
@@ -78,7 +99,7 @@ end
     
 local function btnTapJugar(event)
     --esto es para quitar el bloqueo 
-
+print("era aqui men")
     if myData.corazones == 0 and myData.corazones == nil then
 
       saveTable("no","login")
@@ -198,14 +219,15 @@ function enciende( ... )
             end
             elseif i==2 then
                 if aleatorio==1 then
-                  timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 )   end )
+                
+                  timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) timer.performWithDelay( 2000, function() composer.gotoScene( "preguntas", "slideDown", 500 )end)   end )
                   myData.id_categoria = "522d8888-f07d-4201-b63c-0c2d51b1760c"
                   myData.categoria = 1
                   myData.nombreCate = "Genéricos"
                   print("categoria:" .. myData.categoria )
                 elseif aleatorio == 2 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
-                  timer.performWithDelay( 3500, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  timer.performWithDelay( 3500, function() composer.removeScene( "bloqueo" ) sound(2) timer.performWithDelay( 2000, function() composer.gotoScene( "preguntas", "slideDown", 500 )end) end )
                   myData.id_categoria = "60242fdf-fb0c-4c0a-b425-4288911f53e9"
                   myData.categoria = 2
                   myData.nombreCate = "Enjuagues dentales"
@@ -213,7 +235,7 @@ function enciende( ... )
                 elseif aleatorio == 3 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
-                  timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) timer.performWithDelay( 2000, function() composer.gotoScene( "preguntas", "slideDown", 500 )end) end )
                   myData.id_categoria = "1d7ae5be-bd10-47b9-afa1-a556a22f9524"
                   myData.categoria = 3
                   myData.nombreCate = "Cremas Dentales"
@@ -222,7 +244,7 @@ function enciende( ... )
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                   timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
-                  timer.performWithDelay( 4500, function() composer.removeScene( "bloqueo" ) sound(2) composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  timer.performWithDelay( 4500, function() composer.removeScene( "bloqueo" ) sound(2) timer.performWithDelay( 2000, function() composer.gotoScene( "preguntas", "slideDown", 500 )end) end )
                   myData.id_categoria = "73c56c55-f631-4c1c-baec-93d338f1e419"
                   myData.categoria = 4
                   myData.nombreCate = "Cepillos Dentales"
@@ -232,7 +254,7 @@ function enciende( ... )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                   timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
                   timer.performWithDelay( 4500, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true sound(1) end )
-                  timer.performWithDelay( 5000, function() composer.removeScene( "bloqueo" ) sound(2)  composer.gotoScene( "preguntas", "slideDown", 500 ) end )
+                  timer.performWithDelay( 5000, function() composer.removeScene( "bloqueo" ) sound(2)  timer.performWithDelay( 2000, function() composer.gotoScene( "preguntas", "slideDown", 500 )end) end )
                   myData.id_categoria = "c89ad50c-2977-4261-b09c-fa37ba2fa5fc"
                   myData.categoria = 5
                   myData.nombreCate = "Salud Bucal"
@@ -333,6 +355,7 @@ end
 function scene:create( event )
     
       local params = {}
+      local categoria = {}
 
       local headers = {}
 
@@ -340,12 +363,21 @@ function scene:create( event )
         myData.token= loadTable("login")
       end
 
-      headers["authorization"] = "Bearer " .. myData.token
-      params.headers = headers
+     headers["authorization"] = "Bearer " .. myData.token
+     headers["Content-Type"] = "application/x-www-form-urlencoded"
+     params.headers = headers
 
-      url = "https://colgate.herokuapp.com/api/v1/users/me/"
+      url = "https://colgate.herokuapp.com/api/v1/categories/"
 
-      network.request( url, "GET", handleResponse, params )
+      network.request( url, "GET", handleResponse2, params )
+      print("este es el json")
+      print(categoriasData.id_categoria1)
+      print(categoriasData.nombre_categoria1)
+      print(categoriasData.id_categoria2)
+      print(categoriasData.nombre_categoria2)
+      print(categoriasData.id_categoria3)
+      print(categoriasData.nombre_categoria3)
+      
      
 
 
