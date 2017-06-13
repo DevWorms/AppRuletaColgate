@@ -43,6 +43,7 @@ function scene:create( event )
                 
                  --arrayrespuesta = decoded
                for k,v in pairs (decoded) do
+                   
                    if k== "question" then
                       labelPreguntas.text=v
                       myData.pregunta = v

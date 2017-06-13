@@ -79,15 +79,76 @@ end
   end
   local function handleResponse2( event )
       if not event.isError then
-          local response = json.decode( event.response )
-          local completa = json.encode( event.response )
-          variableRegistro = response
-          categoriasData.id_categoria1= variableRegistro["id"]
-          categoriasData.nombre_categoria1= variableRegistro["name"]
-          categoriasData.id_categoria2= variableRegistro["id"]
-          categoriasData.nombre_categoria2= variableRegistro["name"]
-          categoriasData.id_categoria3= variableRegistro["id"]
-          categoriasData.nombre_categoria3= variableRegistro["name"]
+           contador = 0
+           response1 = json.decode( event.response )
+           completa = json.encode( event.response )
+           print("hala")
+          variableRegistro = response1
+          --variableRegistro2 = json.decode(variableRegistro["results"])
+          print("busqueda")
+          print(json.encode(variableRegistro["results"]))
+          for dato,count in pairs (response1) do
+              print("es el dato")
+              print(dato)
+              print("es el count")
+              print(count)
+              if dato== "results" then
+                  local parte1= json.encode( count )
+                    local partes= json.decode( parte1)
+                    print("esta es parte1")
+                    print(parte1)
+                    print ("esta es partes")
+                    print(partes)
+                    for i,j in pairs (partes) do
+                        for n,m in pairs (j) do
+                              if n == "id" then
+                                  print(contador)
+                                  if contador == 0 then
+                                      categoriasData.id_categoria1=m
+                                      contador = 1
+                                      print("aqui estan los momos")
+                                            print(categoriasData.id_categoria1)
+                                      else if contador == 1 then 
+                                          categoriasData.id_categoria2=m
+                                            contador = 2
+                                            print("aqui estan los momos")
+                                            print(categoriasData.id_categoria2)
+                                          else if contador == 2 then
+                                              categoriasData.id_categoria3=m
+                                                    contador = 3
+                                                    print("aqui estan los momos")
+                                            print(categoriasData.id_categoria3)
+                                              else if contador == 3 then 
+                                                  categoriasData.id_categoria4=m
+                                                    contador = 4
+                                                    print("aqui estan los momos")
+                                            print(categoriasData.id_categoria4)
+                                                  else if contador == 4 then 
+                                                      categoriasData.id_categoria5=m
+                                                      contador = 0
+                                                      print("aqui estan los momos")
+                                            print(categoriasData.id_categoria5)
+                                                      
+                                                  end
+                                              end
+                                          end
+                                      end
+                                  end
+                                  --categoriasData.id_categoria1= 
+                                  
+                              
+                        end
+                    end
+                  
+                  
+                end
+              end
+              
+          end
+         
+          
+          
+         
       else 
           print("error de momos")
       
@@ -221,14 +282,14 @@ function enciende( ... )
                 if aleatorio==1 then
                 
                   timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) timer.performWithDelay( 2000, function() composer.gotoScene( "preguntas", "slideDown", 500 )end)   end )
-                  myData.id_categoria = "522d8888-f07d-4201-b63c-0c2d51b1760c"
+                  myData.id_categoria = categoriasData.id_categoria1
                   myData.categoria = 1
                   myData.nombreCate = "Genéricos"
                   print("categoria:" .. myData.categoria )
                 elseif aleatorio == 2 then
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() composer.removeScene( "bloqueo" ) sound(2) timer.performWithDelay( 2000, function() composer.gotoScene( "preguntas", "slideDown", 500 )end) end )
-                  myData.id_categoria = "60242fdf-fb0c-4c0a-b425-4288911f53e9"
+                  myData.id_categoria = categoriasData.id_categoria2
                   myData.categoria = 2
                   myData.nombreCate = "Enjuagues dentales"
                    print("categoria:" .. myData.categoria )
@@ -236,7 +297,7 @@ function enciende( ... )
                   timer.performWithDelay( 3000, function() luzPrendidaAma.isVisible=false luzPrendidaVer.isVisible=true sound(1) end )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                   timer.performWithDelay( 4000, function() composer.removeScene( "bloqueo" ) sound(2) timer.performWithDelay( 2000, function() composer.gotoScene( "preguntas", "slideDown", 500 )end) end )
-                  myData.id_categoria = "1d7ae5be-bd10-47b9-afa1-a556a22f9524"
+                  myData.id_categoria = categoriasData.id_categoria3
                   myData.categoria = 3
                   myData.nombreCate = "Cremas Dentales"
                    print("categoria:" .. myData.categoria )
@@ -245,7 +306,7 @@ function enciende( ... )
                   timer.performWithDelay( 3500, function() luzPrendidaVer.isVisible=false luzPrendidaAzu.isVisible=true sound(1) end )
                   timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
                   timer.performWithDelay( 4500, function() composer.removeScene( "bloqueo" ) sound(2) timer.performWithDelay( 2000, function() composer.gotoScene( "preguntas", "slideDown", 500 )end) end )
-                  myData.id_categoria = "73c56c55-f631-4c1c-baec-93d338f1e419"
+                  myData.id_categoria = categoriasData.id_categoria4
                   myData.categoria = 4
                   myData.nombreCate = "Cepillos Dentales"
                    print("categoria:" .. myData.categoria )
@@ -255,7 +316,7 @@ function enciende( ... )
                   timer.performWithDelay( 4000, function() luzPrendidaAzu.isVisible=false luzPrendidaMora.isVisible=true sound(1) end )
                   timer.performWithDelay( 4500, function() luzPrendidaMora.isVisible=false luzPrendidaRosa.isVisible=true sound(1) end )
                   timer.performWithDelay( 5000, function() composer.removeScene( "bloqueo" ) sound(2)  timer.performWithDelay( 2000, function() composer.gotoScene( "preguntas", "slideDown", 500 )end) end )
-                  myData.id_categoria = "c89ad50c-2977-4261-b09c-fa37ba2fa5fc"
+                  myData.id_categoria = categoriasData.id_categoria5
                   myData.categoria = 5
                   myData.nombreCate = "Salud Bucal"
                    print("categoria:" .. myData.categoria )

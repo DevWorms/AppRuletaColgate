@@ -5,7 +5,11 @@ local myVariable = {
         id_categoria2 ="",
         nombre_categoria2 ="",
         id_categoria3 ="",
-        nombre_categoria3 = ""
+        nombre_categoria3 = "",
+        id_categoria4 ="",
+        nombre_categoria4 = "",
+        id_categoria5 ="",
+        nombre_categoria5 = ""
         
 }
 
